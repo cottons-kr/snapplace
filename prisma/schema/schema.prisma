@@ -1,6 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["omitApi", "prismaSchemaFolder"]
+  seed            = "seed.ts"
 }
 
 datasource db {
