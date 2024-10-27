@@ -9,9 +9,9 @@ import RegisterAccountFriend from '@/components/page/register-account/friend'
 import RegisterAccountNickname from '@/components/page/register-account/nickname'
 import RegisterAccountPassword from '@/components/page/register-account/password'
 import Flex from '@/components/layout/Flex'
+import RegisterAccountComplete from '@/components/page/register-account/complete/page'
 
 import s from './style.module.scss'
-import RegisterAccountComplete from '@/components/page/register-account/complete/page'
 
 export default function RegisterAccountPage() {
   const [registerAccountData, setRegisterAccountData] = useReducer(registerAccountReducer, initialRegisterAccountContext)
@@ -20,8 +20,17 @@ export default function RegisterAccountPage() {
     setRegisterAccountData({ type: ActionType.SET_STEP, payload: registerAccountData.step + 1 })
   }, [registerAccountData.step])
 
-  const onClickNext = useCallback(() => {
-    next()
+  const submit = useCallback(async () => {
+    console.log('submit', registerAccountData)
+  }, [registerAccountData])
+
+  const onClickNext = useCallback(async () => {
+    if (registerAccountData.step === 4) {
+      await submit()
+      setRegisterAccountData({ type: ActionType.SET_STEP, payload: 5})
+    } else {
+      next()
+    }
   }, [registerAccountData])
   
   return <>
@@ -39,7 +48,9 @@ export default function RegisterAccountPage() {
           registerAccountData.step === 5 ? <RegisterAccountComplete /> :
           null
         }</Flex>
-        <button className={s.button} onClick={onClickNext}>다음</button>
+        <button className={s.button} onClick={onClickNext}>{
+          registerAccountData.step === 5 ? '완료' : '다음'
+        }</button>
       </VStack>
     </RegisterAccountContext.Provider>
   </>

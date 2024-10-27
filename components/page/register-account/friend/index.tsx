@@ -1,9 +1,13 @@
 import AnimatedPage from '@/components/ui/AnimatedPage'
 import { VStack } from '@/components/layout/Flex/Stack'
+import { useContext } from 'react'
+import { RegisterAccountActionType as ActionType, RegisterAccountContext } from '@/lib/contexts/register-account'
 
 import s from './style.module.scss'
 
 export default function RegisterAccountFriend() {
+  const { data, dispatch } = useContext(RegisterAccountContext)
+  
   return <>
     <AnimatedPage>
       <VStack className={s.page} gap={34}>
