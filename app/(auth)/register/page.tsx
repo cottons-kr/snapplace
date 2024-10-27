@@ -11,6 +11,7 @@ import RegisterAccountPassword from '@/components/page/register-account/password
 import Flex from '@/components/layout/Flex'
 
 import s from './style.module.scss'
+import RegisterAccountComplete from '@/components/page/register-account/complete/page'
 
 export default function RegisterAccountPage() {
   const [registerAccountData, setRegisterAccountData] = useReducer(registerAccountReducer, initialRegisterAccountContext)
@@ -35,6 +36,7 @@ export default function RegisterAccountPage() {
           registerAccountData.step === 2 ? <RegisterAccountNickname /> :
           registerAccountData.step === 3 ? <RegisterAccountPassword /> :
           registerAccountData.step === 4 ? <RegisterAccountFriend /> :
+          registerAccountData.step === 5 ? <RegisterAccountComplete /> :
           null
         }</Flex>
         <button className={s.button} onClick={onClickNext}>다음</button>
