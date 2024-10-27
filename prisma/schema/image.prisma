@@ -1,0 +1,9 @@
+model Image {
+  uuid String @id @default(uuid())
+
+  path String
+
+  histories History[]
+
+  createdAt DateTime @default(now())
+}

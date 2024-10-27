@@ -1,0 +1,28 @@
+model History {
+  uuid String @id @default(uuid())
+
+  title   String
+  content String
+  private Boolean @default(false)
+
+  locationName String
+  latitude     Float
+  longitude    Float
+
+  images  Image[]
+  friends Account[]
+  likes   Like[]
+
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  uuid        String @id @default(uuid())
+  historyUUID String @unique
+  accountUUID String
+
+  history History @relation(fields: [historyUUID], references: [uuid])
+  account Account @relation(fields: [accountUUID], references: [uuid])
+
+  createdAt DateTime @default(now())
+}

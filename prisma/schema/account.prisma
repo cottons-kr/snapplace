@@ -1,0 +1,15 @@
+model Account {
+  uuid String @id @default(uuid())
+
+  nickname String @unique
+  password String
+  email    String @unique
+
+  friends            Account[] @relation("Friendship")
+  symmetricalFriends Account[] @relation("Friendship")
+  histories          History[]
+  likes              Like[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
