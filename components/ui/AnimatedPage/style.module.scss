@@ -1,0 +1,17 @@
+.page {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  transition:
+    transform 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-enter {
+  opacity: 1;
+}
+
+.detector {
+  display: none;
+  visibility: hidden;
+}

@@ -3,6 +3,7 @@ import type { ILayoutProps } from '@/types/props'
 
 import '@/styles/app.scss'
 import '@/styles/color.scss'
+import '@/styles/component.scss'
 import s from './layout.module.scss'
 
 export default function RootLayout(props: ILayoutProps) {
