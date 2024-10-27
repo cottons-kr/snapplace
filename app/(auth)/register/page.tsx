@@ -10,6 +10,7 @@ import RegisterAccountNickname from '@/components/page/register-account/nickname
 import RegisterAccountPassword from '@/components/page/register-account/password'
 import Flex from '@/components/layout/Flex'
 import RegisterAccountComplete from '@/components/page/register-account/complete/page'
+import { registerAccount } from '@/lib/actions/account'
 
 import s from './style.module.scss'
 
@@ -21,13 +22,18 @@ export default function RegisterAccountPage() {
   }, [registerAccountData.step])
 
   const submit = useCallback(async () => {
-    console.log('submit', registerAccountData)
+    try {
+      await registerAccount(registerAccountData)
+      setRegisterAccountData({ type: ActionType.SET_STEP, payload: 5})
+    } catch (err) {
+      console.error(err)
+      alert('회원가입에 실패했습니다.')
+    }
   }, [registerAccountData])
 
   const onClickNext = useCallback(async () => {
     if (registerAccountData.step === 4) {
       await submit()
-      setRegisterAccountData({ type: ActionType.SET_STEP, payload: 5})
     } else {
       next()
     }
