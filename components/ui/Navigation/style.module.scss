@@ -1,0 +1,20 @@
+.navigation {
+  position: absolute;
+  padding: 12px 20px;
+  background: var(--Main-1);
+  left: 0;
+  bottom: 0;
+}
+
+.item {
+  width: 100%;
+  color: var(--Gray-7);
+  .label {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  &.current {
+    color: var(--Gray-1);
+  }
+}
