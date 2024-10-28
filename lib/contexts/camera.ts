@@ -13,6 +13,7 @@ export type CameraContextType = {
   isFlashOn: boolean
   isFrontCamera: boolean
   isRecording: boolean
+  mediaStream: MediaStream | null
 }
 
 export const initialCameraContext: CameraContextType = {
@@ -21,6 +22,7 @@ export const initialCameraContext: CameraContextType = {
   isFlashOn: false,
   isFrontCamera: false,
   isRecording: false,
+  mediaStream: null,
 }
 
 export enum CameraActionType {
@@ -29,6 +31,7 @@ export enum CameraActionType {
   SET_FLASH_ON = 'isFlashOn',
   SET_FRONT_CAMERA = 'isFrontCamera',
   SET_RECORDING = 'isRecording',
+  SET_MEDIA_STREAM = 'mediaStream',
 }
 
 type CameraPayload = {
@@ -37,6 +40,7 @@ type CameraPayload = {
   [CameraActionType.SET_FLASH_ON]: boolean
   [CameraActionType.SET_FRONT_CAMERA]: boolean
   [CameraActionType.SET_RECORDING]: boolean
+  [CameraActionType.SET_MEDIA_STREAM]: MediaStream | null
 }
 
 export type CameraReducerAction = ActionMap<CameraPayload>[keyof ActionMap<CameraPayload>]

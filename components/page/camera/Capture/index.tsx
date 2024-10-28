@@ -13,11 +13,15 @@ import s from './style.module.scss'
 export default function CameraCapture() {
   const { data, dispatch } = useContext(CameraContext)
 
-  const onClickCapture = useCallback(() => {
+  const onClickCapture = useCallback(async () => {
     switch (data.mode) {
-      case CameraMode.PHOTO:
-        console.log('Capture photo')
-        break
+      case CameraMode.PHOTO: {
+        if (!data.mediaStream) return
+        const track = data.mediaStream.getVideoTracks()[0]
+        const imageCapture = new ImageCapture(track)
+        const blob = await imageCapture.takePhoto()
+        console.log(blob)
+      } break
       case CameraMode.VIDEO:
         dispatch({ type: CameraActionType.SET_RECORDING, payload: !data.isRecording })
         break
