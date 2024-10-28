@@ -1,23 +1,40 @@
 'use client'
 
-import Flex from '@/components/layout/Flex'
 import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
 import { useContext } from 'react'
 import cn from 'classnames'
+import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 
 import s from './style.module.scss'
 
 export default function CameraCapture() {
   const { data, dispatch } = useContext(CameraContext)
 
+  const transition: Transition = {
+    ease: [0.4, 0, 0.2, 1],
+    duration: 0.3,
+  }
+  const variants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
+
   return <>
-    <HStack align='center' justify='space-between' width='272px'>
-      <Flex className={s.button} align='center' justify='center' width='46px' height='46px'>
-        <Icon icon={IconName.Image} fill />
-      </Flex>
+    <HStack align='center' justify='center' gap={60} width='272px'>
+      <AnimatePresence>{
+        !data.isRecording && (
+          <motion.div
+            className={s.button}
+            variants={variants} transition={transition}
+            initial='hidden' animate='visible' exit='hidden'
+          >
+            <Icon icon={IconName.Image} fill />
+          </motion.div>
+        )
+      }</AnimatePresence>
 
       <div
         className={cn(
@@ -28,9 +45,17 @@ export default function CameraCapture() {
         onClick={() => dispatch({ type: CameraActionType.SET_RECORDING, payload: !data.isRecording })}
       />
 
-      <Flex className={s.button} align='center' justify='center' width='46px' height='46px'>
-        <Icon icon={IconName.Cached} fill />
-      </Flex>
+      <AnimatePresence>{
+        !data.isRecording && (
+          <motion.div
+            className={s.button}
+            variants={variants} transition={transition}
+            initial='hidden' animate='visible' exit='hidden'
+          >
+            <Icon icon={IconName.Cached} fill />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </HStack>
   </>
 }

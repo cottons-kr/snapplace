@@ -1,7 +1,11 @@
 .button {
+  width: 46px;
+  height: 46px;
   background: rgba(170, 170, 170, 0.50);
   backdrop-filter: blur(2px);
   border-radius: 50%;
+  display: grid;
+  place-items: center;
 }
 
 .shutter {
