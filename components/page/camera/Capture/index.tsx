@@ -4,7 +4,7 @@ import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
-import { useContext } from 'react'
+import { useCallback, useContext } from 'react'
 import cn from 'classnames'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 
@@ -12,6 +12,19 @@ import s from './style.module.scss'
 
 export default function CameraCapture() {
   const { data, dispatch } = useContext(CameraContext)
+
+  const onClickCapture = useCallback(() => {
+    switch (data.mode) {
+      case CameraMode.PHOTO:
+        console.log('Capture photo')
+        break
+      case CameraMode.VIDEO:
+        dispatch({ type: CameraActionType.SET_RECORDING, payload: !data.isRecording })
+        break
+      default:
+        break
+    }
+  }, [data])
 
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
@@ -42,7 +55,7 @@ export default function CameraCapture() {
           data.mode === CameraMode.VIDEO ? s.video : s.photo,
           { [s.recording]: data.isRecording }
         )}
-        onClick={() => dispatch({ type: CameraActionType.SET_RECORDING, payload: !data.isRecording })}
+        onClick={onClickCapture}
       />
 
       <AnimatePresence>{
