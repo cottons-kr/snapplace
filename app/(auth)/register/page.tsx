@@ -10,7 +10,7 @@ import RegisterAccountNickname from '@/components/page/register-account/nickname
 import RegisterAccountPassword from '@/components/page/register-account/password'
 import Flex from '@/components/layout/Flex'
 import RegisterAccountComplete from '@/components/page/register-account/complete/page'
-import { registerAccount } from '@/lib/actions/account'
+import { isRegisteredEmail, registerAccount } from '@/lib/actions/account'
 
 import s from './style.module.scss'
 
@@ -32,6 +32,16 @@ export default function RegisterAccountPage() {
   }, [registerAccountData])
 
   const onClickNext = useCallback(async () => {
+    if (
+      registerAccountData.step === 1 &&
+      await isRegisteredEmail(registerAccountData.email)
+    ) {
+      // 이미 가입된 이메일인지 확인
+      // TODO: 로그인 페이지로 리다이렉트
+      alert('이미 가입된 이메일입니다.')
+      return
+    }
+
     if (registerAccountData.step === 4) {
       await submit()
     } else {

@@ -1,7 +1,14 @@
 import Navigation from '@/components/ui/Navigation'
+import { ILayoutProps } from '@/types/props'
+import { VStack } from '@/components/layout/Flex/Stack'
 
-export default function AppLayout() {
+import s from './layout.module.scss'
+
+export default function AppLayout(props: ILayoutProps) {
   return <>
-    <Navigation />
+    <VStack className={s.layout}>
+      <Navigation />
+      {props.children}
+    </VStack>
   </>
 }

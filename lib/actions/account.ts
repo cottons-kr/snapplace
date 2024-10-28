@@ -11,3 +11,7 @@ export async function registerAccount(data: RegisterAccountContextType) {
     email: data.email,
   } })
 }
+
+export async function isRegisteredEmail(email: string) {
+  return await prisma.account.count({ where: { email } }) > 0
+}
