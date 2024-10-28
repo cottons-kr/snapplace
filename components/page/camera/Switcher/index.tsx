@@ -21,10 +21,12 @@ export default function CameraSwitcher() {
     hidden: {
       opacity: 0,
       y: 20,
+      scale: 0.85,
     },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
     },
   }
 
