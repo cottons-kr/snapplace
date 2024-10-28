@@ -6,7 +6,6 @@ import '@/styles/color.scss'
 import '@/styles/component.scss'
 import '@/styles/icon.scss'
 import s from './layout.module.scss'
-import Script from 'next/script'
 
 export default function RootLayout(props: ILayoutProps) {
   return <>
