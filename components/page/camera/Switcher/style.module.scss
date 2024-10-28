@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+}
+
+.switcher {
+  position: absolute;
+  transition: left 0.3s;
+  &.photo {
+    left: 0px;
+  }
+  &.video {
+    left: -88px;
+  }
+  &.fourCut {
+    left: -164px;
+  }
+}
+
+.item {
+  color: var(--Gray-6);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 150%; /* 24px */
+  letter-spacing: -0.32px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+  &.active {
+    color: var(--Gray-1);
+    border-color: var(--Gray-1);
+  }
+}
