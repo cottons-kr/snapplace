@@ -8,6 +8,9 @@ export enum IconName {
   AccountCircle = 'account_circle',
   LocationOn = 'location_on',
   PhotoCamera = 'photo_camera',
-  CenterFocusWeak = 'center_focus_weak',}
+  CenterFocusWeak = 'center_focus_weak',
+  ChevronBackward = 'chevron_backward',
+  FlashlightOff = 'flashlight_off',
+  FlashlightOn = 'flashlight_on',}
 
 export type IconType = keyof typeof IconName
