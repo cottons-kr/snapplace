@@ -4,6 +4,7 @@ import { VStack } from '@/components/layout/Flex/Stack'
 import { useContext } from 'react'
 import { CameraContext } from '@/lib/contexts/camera'
 import CameraSwitcher from '../Switcher'
+import CameraCapture from '../Capture'
 
 import s from './style.module.scss'
 
@@ -16,6 +17,7 @@ export default function CameraControl() {
       align='center' justify='center'
       height='209px'
     >
+      <CameraCapture />
       <CameraSwitcher />
     </VStack>
   </>

@@ -1,5 +1,12 @@
+.viewport {
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .container {
-  position: relative;
+  position: absolute;
+  width: 52px;
+  height: 24px;
+  bottom: 40px;
 }
 
 .switcher {
@@ -23,7 +30,7 @@
   line-height: 150%; /* 24px */
   letter-spacing: -0.32px;
   border-bottom: 1px solid transparent;
-  transition: color 0.3s, border-color 0.3s;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   &.active {
     color: var(--Gray-1);
     border-color: var(--Gray-1);

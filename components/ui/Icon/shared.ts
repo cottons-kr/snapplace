@@ -11,6 +11,8 @@ export enum IconName {
   CenterFocusWeak = 'center_focus_weak',
   ChevronBackward = 'chevron_backward',
   FlashlightOff = 'flashlight_off',
-  FlashlightOn = 'flashlight_on',}
+  FlashlightOn = 'flashlight_on',
+  Image = 'image',
+  Cached = 'cached',}
 
 export type IconType = keyof typeof IconName

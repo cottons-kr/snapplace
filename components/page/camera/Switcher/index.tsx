@@ -2,19 +2,42 @@
 
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
 import { useContext } from 'react'
-import { motion } from 'framer-motion'
 import { HStack } from '@/components/layout/Flex/Stack'
 import CameraSwitcherItem from './Item'
 import Flex from '@/components/layout/Flex'
 import cn from 'classnames'
+import { motion, Transition, Variants } from 'framer-motion'
 
 import s from './style.module.scss'
 
 export default function CameraSwitcher() {
   const { data, dispatch } = useContext(CameraContext)
   
+  const transition: Transition = {
+    ease: [0.4, 0, 0.2, 1],
+    duration: 0.3,
+  }
+  const variants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  }
+
   return <>
-    <Flex className={s.container} width='52px' height='24px'>
+    <Flex
+      className={s.viewport} align='flex-end' justify='center'
+      width='100%' height={data.isRecording ? '0' : '65px'}
+    />
+    <motion.div
+      className={s.container}
+      variants={variants} transition={transition}
+      animate={data.isRecording ? 'hidden' : 'visible'}
+    >
       <HStack
         className={cn(s.switcher, s[data.mode])}
         align='center' justify='center' gap={36}
@@ -36,6 +59,6 @@ export default function CameraSwitcher() {
           isActive={data.mode === CameraMode.FOUR_CUT}
         />
       </HStack>
-    </Flex>
+    </motion.div>
   </>
 }
