@@ -1,0 +1,31 @@
+.container {
+  position: absolute;
+  bottom: 94px;
+  left: 0;
+  padding: 0 20px;
+}
+
+.button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--Gray-8);
+  display: grid;
+  place-items: center;
+  z-index: 10;
+}
+
+.options {
+  padding: 10px 0px;
+  .option {
+    height: 100px;
+    border-radius: 12px;
+    background: var(--Gray-8);
+    p {
+      color: var(--Gray-2, #EBEBEB);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 22px; /* 157.143% */
+    }
+  }
+}

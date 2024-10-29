@@ -13,6 +13,8 @@ export enum IconName {
   FlashlightOff = 'flashlight_off',
   FlashlightOn = 'flashlight_on',
   Image = 'image',
-  Cached = 'cached',}
+  Cached = 'cached',
+  LocationSearching = 'location_searching',
+  AddPhotoAlternate = 'add_photo_alternate',}
 
 export type IconType = keyof typeof IconName
