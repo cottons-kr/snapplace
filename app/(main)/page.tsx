@@ -3,9 +3,11 @@ import Viewport from '@/components/layout/Viewport'
 import HomeNewHistory from '@/components/page/home/New'
 import LocationHeader from '@/components/ui/Header/Location'
 
+import s from './page.module.scss'
+
 export default function IndexPage() {
   return <>
-    <VStack gap={36}>
+    <VStack className={s.page} gap={36}>
       <LocationHeader />
       <Viewport>
         <HomeNewHistory />

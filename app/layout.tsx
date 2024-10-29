@@ -11,7 +11,7 @@ export default function RootLayout(props: ILayoutProps) {
   return <>
     <html lang='ko'>
       <head>
-        <script src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_API_JAVASCRIPT_KEY}&libraries=services`} />
+        <script src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_API_JAVASCRIPT_KEY}&libraries=services,clusterer,drawing`} />
       </head>
       <body>
         <Viewport

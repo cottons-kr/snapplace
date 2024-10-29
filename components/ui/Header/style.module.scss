@@ -19,3 +19,17 @@
   backdrop-filter: blur(4px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
+
+.map {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 24px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.00) 6.24%, rgba(0, 0, 0, 0.70) 106.68%);
+  z-index: 10;
+  p {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px; /* 137.5% */
+  }
+}
