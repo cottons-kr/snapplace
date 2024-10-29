@@ -19,6 +19,7 @@ export default function CameraPage() {
         facingMode: 'environment',
         frameRate: { ideal: 30, max: 60 },
       },
+      audio: true,
     })
       .then(stream => {
         setCameraData({ type: CameraActionType.SET_MEDIA_STREAM, payload: stream })

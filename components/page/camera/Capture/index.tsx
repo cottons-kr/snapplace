@@ -4,14 +4,62 @@ import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
-import { useCallback, useContext } from 'react'
+import { useCallback, useContext, useRef } from 'react'
 import cn from 'classnames'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
+import { VideoChunkBuffer } from '@/lib/video'
 
 import s from './style.module.scss'
 
 export default function CameraCapture() {
   const { data, dispatch } = useContext(CameraContext)
+  const videoBufferRef = useRef(new VideoChunkBuffer())
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
+
+  const startRecording = () => {
+    if (!data.mediaStream) return
+
+    videoBufferRef.current.clear()
+
+    const options: MediaRecorderOptions = {
+      mimeType: 'video/webm;codecs=vp9,opus'
+    }
+
+    try {
+      mediaRecorderRef.current = new MediaRecorder(data.mediaStream, options)
+      mediaRecorderRef.current.ondataavailable = (event: BlobEvent) => {
+        if (event.data.size > 0) {
+          videoBufferRef.current.append(event.data)
+        }
+      }
+
+      mediaRecorderRef.current.start(1000)
+
+      dispatch({ type: CameraActionType.SET_RECORDING, payload: true })
+    } catch (err) {
+      console.error(err)
+      alert('녹화를 시작할 수 없습니다.')
+    }
+  }
+
+  const stopRecording = async () => {
+    if (mediaRecorderRef.current && data.isRecording) {
+      mediaRecorderRef.current.stop()
+      dispatch({ type: CameraActionType.SET_RECORDING, payload: false })
+
+      try {
+        await new Promise(resolve => setTimeout(resolve, 100))
+        const arrayBuffer = await videoBufferRef.current.getBuffer()
+        const blob = new Blob([arrayBuffer], { type: 'video/webm' })
+        console.log(blob)
+      } catch (err) {
+        console.error(err)
+        alert('녹화를 종료할 수 없습니다.')
+      } finally {
+        videoBufferRef.current.clear()
+      }
+    }
+  }
 
   const onClickCapture = useCallback(async () => {
     switch (data.mode) {
@@ -22,9 +70,13 @@ export default function CameraCapture() {
         const blob = await imageCapture.takePhoto()
         console.log(blob)
       } break
-      case CameraMode.VIDEO:
-        dispatch({ type: CameraActionType.SET_RECORDING, payload: !data.isRecording })
-        break
+      case CameraMode.VIDEO: {
+        if (data.isRecording) {
+          stopRecording()
+        } else {
+          startRecording()
+        }
+      } break
       default:
         break
     }
