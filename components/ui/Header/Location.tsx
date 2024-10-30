@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import { getLocationName } from '@/lib/location'
+import ProfileImage from '../Profile/Image'
 
 import s from './style.module.scss'
 
@@ -26,6 +27,7 @@ export default function LocationHeader() {
         <Icon icon={IconName.LocationOn} fill size={20} />
         <p>{location}</p>
       </HStack>
+      <ProfileImage width={30} height={30} />
     </HStack>
   </>
 }
