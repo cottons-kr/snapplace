@@ -12,7 +12,7 @@ export default function RootLayout(props: ILayoutProps) {
     <html lang='ko'>
       <head>
         <title>스냅플레이스</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' />
+        <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover' />
         <meta name='description' content='스냅플레이스로 자신의 추억을 맘껏 남겨보세요!' />
         <meta name='keywords' content='스냅플레이스, 스냅, 플레이스, snapplace, snap, place' />
         <meta name='mobile-web-app-capable' content='yes' />
