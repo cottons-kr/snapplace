@@ -13,7 +13,7 @@ type BottomSheetProps = {
 export default function BottomSheet(props: BottomSheetProps) {
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
-    duration: 0.4,
+    duration: 0.3,
   }
   const backgroundVariants: Variants = {
     hidden: { opacity: 0 },

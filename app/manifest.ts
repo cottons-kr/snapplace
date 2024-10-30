@@ -6,9 +6,8 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: '스냅플',
     description: '스냅플레이스로 자신의 추억을 맘껏 남겨보세요!',
     start_url: '/',
-    display: 'fullscreen',
-    display_override: ['fullscreen'],
-    theme_color: '#272727',
+    display: 'standalone',
+    theme_color: 'transparent',
     icons: [
       {
         src: '/web-app-manifest-192x192.png',

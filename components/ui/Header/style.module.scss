@@ -1,5 +1,6 @@
 .container {
   padding: 12px 20px;
+  margin-top: env(safe-area-inset-top);
   border-radius: 50px;
   border: 1.5px solid var(--Gray-5);
   backdrop-filter: blur(7px);
@@ -22,9 +23,10 @@
 
 .map {
   position: absolute;
+  height: 150px;
   top: 0;
   right: 0;
-  padding: 0 24px;
+  padding: calc(24px + env(safe-area-inset-top)) 24px 57px 24px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.00) 6.24%, rgba(0, 0, 0, 0.70) 106.68%);
   z-index: 10;
   p {
