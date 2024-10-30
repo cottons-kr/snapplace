@@ -1,4 +1,4 @@
-import { VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack } from '@/components/layout/Flex/Stack'
 import Image from 'next/image'
 import WelcomeTitle from '@/assets/welcome.svg'
 import Link from 'next/link'
@@ -12,10 +12,10 @@ export default function WelcomePage() {
         <Image src={WelcomeTitle} alt='스냅플' />
       </VStack>
       <VStack className={s.bottom} align='center' gap={12}>
-        <Link href='/register'>
-          <p>이메일로 가입하기</p>
-        </Link>
-        <p>아이디 혹은 비밀번호 찾기</p>
+        <HStack align='center' gap={6} width='fit-content'>
+          <p>이미 계정이 있다면면</p>
+          <Link href='/login'>로그인하기</Link>
+        </HStack>
       </VStack>
     </VStack>
   </>

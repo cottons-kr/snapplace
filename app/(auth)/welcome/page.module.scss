@@ -1,7 +1,18 @@
-.bottom p {
-  color: var(--Gray-3);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 150%;
-  letter-spacing: -0.28px;
+.bottom {
+  a {
+    width: fit-content;
+    color: #5093FF;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: -0.28px;
+    text-decoration-line: underline;
+  }
+  p {
+    color: var(--Gray-3);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: -0.28px;
+  }
 }
