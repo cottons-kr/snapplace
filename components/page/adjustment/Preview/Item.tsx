@@ -4,6 +4,7 @@ import Flex from '@/components/layout/Flex'
 import { AdjustMentData } from '@/lib/contexts/adjustment'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
+import { calculateImageFilter } from '@/utils/filter'
 
 import s from './style.module.scss'
 
@@ -20,7 +21,6 @@ export default function AdjustmentPreviewItem(props: AdjustmentPreviewItemProps)
     image.src = props.data.path
     image.onload = () => {
       const { width, height } = image
-      console.log(width, height)
       setOrientation(width > height ? 'landscape' : width < height ? 'portrait' : 'square')
     }
   }, [props.data])
@@ -30,6 +30,9 @@ export default function AdjustmentPreviewItem(props: AdjustmentPreviewItemProps)
       className={s.item}
       align='center' justify='center'
       width='fit-content' height='209px'
+      style={{
+        filter: calculateImageFilter(props.data)
+      }}
     >
       <img
         className={classNames(s.image, orientation && s[orientation])}

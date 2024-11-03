@@ -1,6 +1,6 @@
 import { VStack } from '@/components/layout/Flex/Stack'
 import AdjustmentContextWrapper from '@/components/page/adjustment/ContextWrapper'
-import AdjustmentControl from '@/components/page/adjustment/Control'
+import AdjustmentControl from '@/components/page/adjustment/Slider'
 import AdjustmentPreview from '@/components/page/adjustment/Preview'
 import { prisma } from '@/lib/prisma'
 import { IParams } from '@/types/props'
