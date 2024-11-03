@@ -8,6 +8,7 @@ import { useCallback, useContext, useRef } from 'react'
 import cn from 'classnames'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 import { VideoChunkBuffer } from '@/lib/video'
+import { getSupportedMimeType } from '@/utils/camera'
 
 import s from './style.module.scss'
 
@@ -20,9 +21,15 @@ export default function CameraCapture() {
     if (!data.mediaStream) return
 
     videoBufferRef.current.clear()
+    const supportedMimeType = getSupportedMimeType()
+    if (!supportedMimeType) {
+      return alert('이 기기에서 지원하는 미디어 타입이 없습니다.')
+    }
+
+    console.log('Supported MIME type:', supportedMimeType)
 
     const options: MediaRecorderOptions = {
-      mimeType: 'video/webm;codecs=vp9,opus'
+      mimeType: supportedMimeType,
     }
 
     try {
@@ -50,7 +57,7 @@ export default function CameraCapture() {
       try {
         await new Promise(resolve => setTimeout(resolve, 100))
         const arrayBuffer = await videoBufferRef.current.getBuffer()
-        const blob = new Blob([arrayBuffer], { type: 'video/webm' })
+        const blob = new Blob([arrayBuffer], { type: mediaRecorderRef.current.mimeType })
         console.log(blob)
       } catch (err) {
         console.error(err)
