@@ -1,6 +1,7 @@
 import Viewport from '@/components/layout/Viewport'
 import type { ILayoutProps } from '@/types/props'
 import { Metadata, Viewport as NextViewport } from 'next'
+import { auth } from '@/lib/auth'
 
 import '@/styles/app.scss'
 import '@/styles/color.scss'
@@ -8,6 +9,7 @@ import '@/styles/component.scss'
 import '@/styles/icon.scss'
 import 'swiper/css'
 import s from './layout.module.scss'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: '스냅플레이스',
@@ -19,7 +21,7 @@ export const viewport: NextViewport = {
   viewportFit: 'cover',
 }
 
-export default function RootLayout(props: ILayoutProps) {
+export default async function RootLayout(props: ILayoutProps) {
   return <>
     <html lang='ko'>
       <head>

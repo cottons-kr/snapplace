@@ -21,7 +21,7 @@ export default function LoginPage() {
   }
 
   return <>
-    <VStack justify='space-between' height='100dvh'>
+    <VStack className={s.page} justify='space-between' height='100dvh'>
       <h1 className={s.title}>로그인</h1>
 
       <form className={s.form} action={submit}>
