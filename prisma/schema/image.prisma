@@ -3,6 +3,12 @@ model Image {
 
   path String
 
+  brightness         Int @default(0)
+  contrast           Int @default(0)
+  brightnessContrast Int @default(0)
+  saturation         Int @default(0)
+  temperature        Int @default(0)
+
   histories History[]
 
   createdAt DateTime @default(now())
