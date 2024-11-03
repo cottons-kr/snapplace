@@ -4,13 +4,14 @@ import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import { CameraContext } from '@/lib/contexts/camera'
-import { useContext } from 'react'
-import { Transition, Variants, motion } from 'framer-motion'
+import { useContext, useMemo } from 'react'
+import { AnimatePresence, Transition, Variants, motion } from 'framer-motion'
 
 import s from './style.module.scss'
 
 export default function CameraHeader() {
   const { data } = useContext(CameraContext)
+  const shouldShowComplete = useMemo(() => data.savedContent.length > 0 && !data.isRecording, [data.savedContent.length, data.isRecording])
 
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
@@ -30,13 +31,15 @@ export default function CameraHeader() {
       <Icon icon={IconName.ChevronBackward} />
       <Icon icon={IconName.FlashlightOff} size={20} color='var(--Gray-5)' />
 
-      {data.savedContent.length > 0 && (
-        <motion.div
-          className={s.complete}
-          transition={transition} variants={variants}
-          initial='hidden' animate='visible'
-        >완료</motion.div>
-      )}
+      <AnimatePresence>{
+        shouldShowComplete && (
+          <motion.div
+            className={s.complete}
+            transition={transition} variants={variants}
+            initial='hidden' animate='visible' exit='hidden'
+          >완료</motion.div>
+        )
+      }</AnimatePresence>
     </HStack>
   </>
 }
