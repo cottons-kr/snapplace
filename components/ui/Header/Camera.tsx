@@ -7,7 +7,7 @@ import { CameraContext } from '@/lib/contexts/camera'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { AnimatePresence, Transition, Variants, motion } from 'framer-motion'
 import { createHistory } from '@/lib/actions/history'
-import { dataToFormData } from '@/utils/validator'
+import { dataToFormData, inferPrefix } from '@/utils/validator'
 import { CreateHistory } from '@/lib/schemas/history/CreateHistory.dto'
 import { blobToFile } from '@/utils/file'
 import { getCurrentPosition, getLocationName } from '@/lib/location'
@@ -26,12 +26,12 @@ export default function CameraHeader() {
 
     const position = await getCurrentPosition()
 
-    const formData = dataToFormData({
+    const formData = dataToFormData(inferPrefix({
       assets: data.savedContent.map(blobToFile),
       locationName: await getLocationName(),
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
-    } satisfies CreateHistory)
+    } satisfies CreateHistory))
 
     try {
       const history = await createHistory(formData)
