@@ -1,6 +1,6 @@
 model UserAsset {
   uuid      String @id @default(uuid())
-  ownerUUID String @unique
+  ownerUUID String
 
   path String
 

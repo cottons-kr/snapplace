@@ -4,6 +4,14 @@ import { z } from 'zod'
 import { prisma } from './prisma'
 import bcrypt from 'bcryptjs'
 
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      email: string
+    }
+  }
+}
+
 const signInSchema = z.object({
   email: z.string({ required_error: '이메일를 입력해주세요' })
     .email('이메일 형식이 올바르지 않습니다')
