@@ -10,6 +10,6 @@ export interface IErrorPageProps {
 }
 
 export interface IParams<P = '', S = ''> {
-  params: Record<P, string>
-  searchParams: Record<S, string>
+  params: Promise<Record<P, string>>
+  searchParams: Promise<Record<S, string>>
 }

@@ -6,11 +6,12 @@ import { IconName } from '../Icon/shared'
 import { CameraContext } from '@/lib/contexts/camera'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { AnimatePresence, Transition, Variants, motion } from 'framer-motion'
-import { uploadAssets } from '@/lib/actions/asset'
+import { createHistory } from '@/lib/actions/history'
 import { dataToFormData } from '@/utils/validator'
 import { CreateHistory } from '@/lib/schemas/history/CreateHistory.dto'
 import { blobToFile } from '@/utils/file'
 import { getCurrentPosition, getLocationName } from '@/lib/location'
+import { useRouter } from 'next/navigation'
 
 import s from './style.module.scss'
 
@@ -18,6 +19,7 @@ export default function CameraHeader() {
   const { data } = useContext(CameraContext)
   const shouldShowComplete = useMemo(() => data.savedContent.length > 0 && !data.isRecording, [data.savedContent.length, data.isRecording])
   const [isUploading, setIsUploading] = useState(false)
+  const router = useRouter()
 
   const onClickUpload = useCallback(async () => {
     setIsUploading(true)
@@ -31,9 +33,14 @@ export default function CameraHeader() {
       longitude: position.coords.longitude,
     } satisfies CreateHistory)
 
-    await uploadAssets(formData)
-
-    setIsUploading(false)
+    try {
+      const history = await createHistory(formData)
+      router.push(`/adjustment/${history.uuid}`)
+    } catch (err) {
+      console.error(err)
+      alert('업로드에 실패했습니다.')
+      setIsUploading(false)
+    }
   }, [data.savedContent])
 
   const transition: Transition = {

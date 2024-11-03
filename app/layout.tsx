@@ -6,6 +6,7 @@ import '@/styles/app.scss'
 import '@/styles/color.scss'
 import '@/styles/component.scss'
 import '@/styles/icon.scss'
+import 'swiper/css'
 import s from './layout.module.scss'
 
 export const metadata: Metadata = {

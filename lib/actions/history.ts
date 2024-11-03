@@ -6,7 +6,7 @@ import { auth } from '../auth'
 import { uploadFile } from '@/utils/minio'
 import { prisma } from '../prisma'
 
-export async function uploadAssets(formData: FormData) {
+export async function createHistory(formData: FormData) {
   const session = await auth()
   if (!session || !session.user) {
     throw new Error('Unauthorized')
@@ -29,7 +29,7 @@ export async function uploadAssets(formData: FormData) {
     assetUUIDs.push(assetUUID)
   }
 
-  await prisma.history.create({ data: {
+  return await prisma.history.create({ data: {
     locationName: data.locationName,
     latitude: Number(data.latitude),
     longitude: Number(data.longitude),

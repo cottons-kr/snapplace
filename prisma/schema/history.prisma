@@ -1,9 +1,10 @@
 model History {
   uuid String @id @default(uuid())
 
-  title   String  @default("")
-  content String  @default("")
-  private Boolean @default(false)
+  title     String  @default("")
+  content   String  @default("")
+  private   Boolean @default(false)
+  completed Boolean @default(false)
 
   locationName String
   latitude     Float
