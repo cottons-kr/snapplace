@@ -20,6 +20,9 @@ importers:
       framer-motion:
         specifier: ^11.11.10
         version: 11.11.10(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021))(react@19.0.0-rc-69d4b800-20241021)
+      image-capture:
+        specifier: ^0.4.0
+        version: 0.4.0
       jotai:
         specifier: ^2.10.1
         version: 2.10.1(@types/react@18.3.12)(react@19.0.0-rc-69d4b800-20241021)
@@ -1634,6 +1637,9 @@ packages:
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
+
+  image-capture@0.4.0:
+    resolution: {integrity: sha512-6RWTfqC4ij0AldG+6sQ51XSHTSbwfqMSjVl1GtwNBzbW4UrcfGZeB1Kn749BccvtLb04g5+jSTf1D7q3qHcxpA==}
 
   immutable@4.3.7:
     resolution: {integrity: sha512-1hqclzwYwjRDFLjcFxOM5AYkkG0rpFPpr1RLPMEuGczoS7YA8gLhy8SWXYRAA/XwfEHpfo3cw5JGioS32fnMRw==}
@@ -4178,6 +4184,8 @@ snapshots:
   idb@7.1.1: {}
 
   ignore@5.3.2: {}
+
+  image-capture@0.4.0: {}
 
   immutable@4.3.7: {}
 

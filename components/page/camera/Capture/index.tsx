@@ -69,6 +69,12 @@ export default function CameraCapture() {
   }
 
   const onClickCapture = useCallback(async () => {
+    const isImageCaptureSupported = 'ImageCapture' in window
+    if (!isImageCaptureSupported) {
+      console.warn('ImageCapture is not supported in this browser, using polyfill...')
+      await import('image-capture')
+    }
+
     switch (data.mode) {
       case CameraMode.PHOTO: {
         if (!data.mediaStream) return
