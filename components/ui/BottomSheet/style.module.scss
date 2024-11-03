@@ -1,8 +1,8 @@
 .background {
   position: fixed;
   width: 100%;
-  height: calc(100dvh - 52px - env(safe-area-inset-bottom));
-  margin-bottom: calc(52px + env(safe-area-inset-bottom));
+  height: calc(100dvh - 52px - var(--min-bottom));
+  margin-bottom: calc(52px + var(--min-bottom));
   background: linear-gradient(180deg, rgba(39, 39, 39, 0.80) 0%, rgba(39, 39, 39, 0.10) 100%);
   top: 0;
   left: 0;

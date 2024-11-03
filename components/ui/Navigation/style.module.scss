@@ -1,6 +1,6 @@
 .navigation {
   position: absolute;
-  padding: 12px 20px env(safe-area-inset-bottom) 20px;
+  padding: 12px 20px var(--min-bottom) 20px;
   background: var(--Main-1);
   left: 0;
   bottom: 0;
