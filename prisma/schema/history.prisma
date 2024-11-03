@@ -1,8 +1,8 @@
 model History {
   uuid String @id @default(uuid())
 
-  title   String
-  content String
+  title   String  @default("")
+  content String  @default("")
   private Boolean @default(false)
 
   locationName String

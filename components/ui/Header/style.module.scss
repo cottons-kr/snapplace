@@ -19,21 +19,39 @@
   background: rgba(17, 17, 17, 0.60);
   backdrop-filter: blur(4px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  .complete {
-    position: absolute;
-    width: 70px;
-    height: 32px;
-    display: grid;
-    place-items: center;
-    right: 20px;
-    top: calc(var(--min-top) + 20px + 24px + 20px);
-    background: rgba(17, 17, 17, 0.60);
-    backdrop-filter: blur(4px);
-    border-radius: 100px;
-    color: #FFF;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 150%; /* 24px */
+}
+
+.complete {
+  position: absolute;
+  width: 70px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  right: 20px;
+  top: calc(var(--min-top) + 20px + 24px + 20px);
+  background: rgba(17, 17, 17, 0.60);
+  backdrop-filter: blur(4px);
+  border-radius: 100px;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+  z-index: 100;
+  span {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #FFF;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   }
 }
 
