@@ -15,6 +15,8 @@ export enum IconName {
   Image = 'image',
   Cached = 'cached',
   LocationSearching = 'location_searching',
-  AddPhotoAlternate = 'add_photo_alternate',}
+  AddPhotoAlternate = 'add_photo_alternate',
+  ArrowBackIosNew = 'arrow_back_ios_new',
+  ArrowForwardIos = 'arrow_forward_ios',}
 
 export type IconType = keyof typeof IconName
