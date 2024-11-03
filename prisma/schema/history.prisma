@@ -9,7 +9,7 @@ model History {
   latitude     Float
   longitude    Float
 
-  images  Image[]
+  images  UserAsset[]
   friends Account[]
   likes   Like[]
 

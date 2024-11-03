@@ -1,5 +1,6 @@
-model Image {
-  uuid String @id @default(uuid())
+model UserAsset {
+  uuid      String @id @default(uuid())
+  ownerUUID String @unique
 
   path String
 
@@ -10,6 +11,7 @@ model Image {
   temperature        Int @default(0)
 
   histories History[]
+  owners    Account   @relation(fields: [ownerUUID], references: [uuid])
 
   createdAt DateTime @default(now())
 }
