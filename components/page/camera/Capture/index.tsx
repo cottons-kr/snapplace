@@ -58,7 +58,7 @@ export default function CameraCapture() {
         await new Promise(resolve => setTimeout(resolve, 100))
         const arrayBuffer = await videoBufferRef.current.getBuffer()
         const blob = new Blob([arrayBuffer], { type: mediaRecorderRef.current.mimeType })
-        console.log(blob)
+        dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, blob] })
       } catch (err) {
         console.error(err)
         alert('녹화를 종료할 수 없습니다.')
@@ -69,6 +69,10 @@ export default function CameraCapture() {
   }
 
   const onClickCapture = useCallback(async () => {
+    if (data.savedContent.length >= data.MAX_COUNT) {
+      return
+    }
+
     const isImageCaptureSupported = 'ImageCapture' in window
     if (!isImageCaptureSupported) {
       console.warn('ImageCapture is not supported in this browser, using polyfill...')
@@ -81,7 +85,7 @@ export default function CameraCapture() {
         const track = data.mediaStream.getVideoTracks()[0]
         const imageCapture = new ImageCapture(track)
         const blob = await imageCapture.takePhoto()
-        console.log(blob)
+        dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, blob] })
       } break
       case CameraMode.VIDEO: {
         if (data.isRecording) {

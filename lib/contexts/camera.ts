@@ -14,6 +14,9 @@ export type CameraContextType = {
   isFrontCamera: boolean
   isRecording: boolean
   mediaStream: MediaStream | null
+  savedContent: Array<Blob>
+
+  MAX_COUNT: number
 }
 
 export const initialCameraContext: CameraContextType = {
@@ -23,6 +26,9 @@ export const initialCameraContext: CameraContextType = {
   isFrontCamera: false,
   isRecording: false,
   mediaStream: null,
+  savedContent: [],
+
+  MAX_COUNT: 2,
 }
 
 export enum CameraActionType {
@@ -32,6 +38,7 @@ export enum CameraActionType {
   SET_FRONT_CAMERA = 'isFrontCamera',
   SET_RECORDING = 'isRecording',
   SET_MEDIA_STREAM = 'mediaStream',
+  SET_SAVED_CONTENT = 'savedContent',
 }
 
 type CameraPayload = {
@@ -41,6 +48,7 @@ type CameraPayload = {
   [CameraActionType.SET_FRONT_CAMERA]: boolean
   [CameraActionType.SET_RECORDING]: boolean
   [CameraActionType.SET_MEDIA_STREAM]: MediaStream | null
+  [CameraActionType.SET_SAVED_CONTENT]: Array<Blob>
 }
 
 export type CameraReducerAction = ActionMap<CameraPayload>[keyof ActionMap<CameraPayload>]
