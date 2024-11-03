@@ -4,11 +4,12 @@ model UserAsset {
 
   path String
 
-  brightness         Int @default(0)
-  contrast           Int @default(0)
-  brightnessContrast Int @default(0)
-  saturation         Int @default(0)
-  temperature        Int @default(0)
+  // 0 ~ 100
+  brightness         Int @default(50)
+  contrast           Int @default(50)
+  brightnessContrast Int @default(50)
+  saturation         Int @default(50)
+  temperature        Int @default(50)
 
   histories History[]
   owners    Account   @relation(fields: [ownerUUID], references: [uuid])

@@ -1,0 +1,39 @@
+.control {
+  padding: 0 var(--min-right) 0 var(--min-left);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.label {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 150%; /* 21px */
+}
+
+.bar {
+  position: relative;
+  background: var(--Gray-8);
+  &.saturation {
+    background: linear-gradient(90deg, #4F4F4F 0%, #FF4643 100%);
+  }
+  &.temperature {
+    background: linear-gradient(90deg, #2C72FF 0%, #515151 49.88%, #FF4643 100%);
+  }
+}
+
+.dot {
+  position: absolute;
+  top: -4px;
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  border: 3px solid var(--Gray-5);
+  transition: left linear 0.1s;
+}

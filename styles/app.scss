@@ -37,6 +37,6 @@ a {
 
   --min-top: max(12px, var(--safe-area-top));
   --min-bottom: max(12px, var(--safe-area-bottom));
-  --min-left: max(12px, var(--safe-area-left));
-  --min-right: max(12px, var(--safe-area-right));
+  --min-left: max(20px, var(--safe-area-left));
+  --min-right: max(20px, var(--safe-area-right));
 }

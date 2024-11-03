@@ -14,11 +14,11 @@ export default function AdjustmentContextWrapper(props: AdjustmentContextWrapper
     adjustments: props.assets.map(asset => ({
       assetUUID: asset.uuid,
       path: asset.path,
-      brightness: 0,
-      contrast: 0,
-      brightnessContrast: 0,
-      saturation: 0,
-      temperature: 0,
+      brightness: asset.brightness,
+      contrast: asset.contrast,
+      brightnessContrast: asset.brightnessContrast,
+      saturation: asset.saturation,
+      temperature: asset.temperature,
     })),
   })
 
