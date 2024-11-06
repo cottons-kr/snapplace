@@ -1,5 +1,6 @@
 model History {
-  uuid String @id @default(uuid())
+  uuid      String @id @default(uuid())
+  ownerUUID String
 
   title     String  @default("")
   content   String  @default("")
@@ -13,6 +14,7 @@ model History {
   images  UserAsset[]
   friends Account[]
   likes   Like[]
+  owner   Account     @relation(name: "Owner", fields: [ownerUUID], references: [uuid])
 
   createdAt DateTime @default(now())
 }

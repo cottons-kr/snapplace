@@ -31,6 +31,8 @@ export default function CameraConfirmPage() {
     setIsUploading(true)
     const selectedFiles = results.filter(f => selected.includes(f.name))
     const position = await getCurrentPosition()
+    const fileStorage = new FileStorage()
+    await fileStorage.init()
 
     const formData = dataToFormData(inferPrefix({
       assets: selectedFiles,
@@ -41,6 +43,7 @@ export default function CameraConfirmPage() {
 
     try {
       const history = await createHistory(formData)
+      await fileStorage.clearAll()
       router.push(`/adjustment/${history.uuid}`)
     } catch (err) {
       console.error(err)

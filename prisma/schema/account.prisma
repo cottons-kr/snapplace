@@ -8,6 +8,7 @@ model Account {
   friends            Account[]   @relation("Friendship")
   symmetricalFriends Account[]   @relation("Friendship")
   histories          History[]
+  ownedHistories     History[]   @relation("Owner")
   likes              Like[]
   uploads            UserAsset[]
 

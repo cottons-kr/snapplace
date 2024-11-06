@@ -36,6 +36,9 @@ export async function createHistory(formData: FormData) {
     longitude: Number(data.longitude),
     images: {
       connect: assetUUIDs.map(uuid => ({ uuid }))
+    },
+    owner: {
+      connect: { email: session.user.email }
     }
   } })
 }
@@ -47,7 +50,10 @@ export async function completeHistory(historyId: string, data: UploadContextType
   }
 
   return await prisma.history.update({
-    where: { uuid: historyId },
+    where: {
+      uuid: historyId,
+      owner: { email: session.user.email }
+    },
     data: {
       title: data.title,
       content: data.content,
