@@ -16,8 +16,13 @@ export default function AdjustmentSubmit(props: AdjustmentSubmitProps) {
   const router = useRouter()
 
   const onClickNext = useCallback(async () => {
-    await setImageAdjustment(data.adjustments)
-    router.push(`/upload/${props.historyId}`)
+    try {
+      await setImageAdjustment(data.adjustments)
+      router.push(`/upload/${props.historyId}`)
+    } catch (err) {
+      console.error(err)
+      alert('에러가 발생했습니다. 다시 시도해주세요.')
+    }
   }, [data])
 
   return <>

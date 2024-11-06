@@ -13,13 +13,12 @@
   width: calc(100% - var(--min-left) - var(--min-right));
   height: 56px;
   border-radius: 12px;
-  border: 2px solid var(--Gray-9, #222);
-  background: var(--Gray-1, #F9F9F9);
-  color: var(--Gray-9, #222);
+  border: 2px solid var(--Gray-9);
+  background: var(--Gray-1);
+  color: var(--Gray-9);
   text-align: center;
   font-family: inherit;
   font-size: 20px;
-  font-style: normal;
   font-weight: 600;
   line-height: 22px; /* 110% */
   letter-spacing: -0.8px;

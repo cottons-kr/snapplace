@@ -10,14 +10,14 @@ export async function setImageAdjustment(data: Array<AdjustMentData>) {
     throw new Error('Unauthorized')
   }
 
-  const assetUUIDs = data.map(({ assetUUID }) => assetUUID)
-  const result = await prisma.$transaction(assetUUIDs.map(uuid => {
-    const targetData = data.find(({ assetUUID }) => assetUUID === uuid)
+  const assetUUIDs = data.map(({ uuid }) => uuid)
+  const result = await prisma.$transaction(assetUUIDs.map(assetUUID => {
+    const targetData = data.find(({ uuid }) => uuid === assetUUID)
     if (!targetData) {
       throw new Error('Data not found')
     }
     return prisma.userAsset.update({
-      where: { uuid },
+      where: { uuid: assetUUID },
       data: {
         brightness: targetData.brightness,
         contrast: targetData.contrast,
