@@ -12,7 +12,7 @@ export default function AdjustmentContextWrapper(props: AdjustmentContextWrapper
   const [adjustmentData, setAdjustmentData] = useReducer(adjustmentReducer, {
     ...initialAdjustmentContext,
     adjustments: props.assets.map(asset => ({
-      assetUUID: asset.uuid,
+      uuid: asset.uuid,
       path: asset.path,
       brightness: asset.brightness,
       contrast: asset.contrast,

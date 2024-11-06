@@ -1,0 +1,14 @@
+.pagination {
+  padding: 4px 6px;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.50);
+  transition: background 0.2s;
+  &.active {
+    background: #FFF;
+  }
+}

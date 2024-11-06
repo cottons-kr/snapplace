@@ -37,7 +37,7 @@ export default function AssetSlide(props: AssetSliderProps) {
   return <>
     <Swiper {...swiperProps}>{
       props.assets.map(a => (
-        <SwiperSlide key={a.assetUUID} className={s.slide}>
+        <SwiperSlide key={a.uuid} className={s.slide}>
           <AssetSlideItem data={a} />
         </SwiperSlide>
       ))

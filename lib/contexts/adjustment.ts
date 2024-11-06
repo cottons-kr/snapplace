@@ -2,7 +2,7 @@ import { ActionMap } from '@/types/context'
 import { createContext, Dispatch } from 'react'
 
 export type AdjustMentData = {
-  assetUUID: string
+  uuid: string
   path: string
   brightness: number
   contrast: number
