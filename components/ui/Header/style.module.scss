@@ -37,22 +37,6 @@
   font-weight: 600;
   line-height: 150%; /* 24px */
   z-index: 100;
-  span {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #FFF;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  }
 }
 
 .map {

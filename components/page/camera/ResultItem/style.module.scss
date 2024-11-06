@@ -1,0 +1,29 @@
+.item {
+  position: relative;
+  width: calc(50% - 4px);
+  aspect-ratio: 2/1.1;
+  border-radius: 12px;
+  overflow: hidden;
+  img, video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.3s;
+  &.selected {
+    opacity: 1;
+  }
+}

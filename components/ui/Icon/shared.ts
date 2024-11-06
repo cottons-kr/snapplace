@@ -17,6 +17,7 @@ export enum IconName {
   LocationSearching = 'location_searching',
   AddPhotoAlternate = 'add_photo_alternate',
   ArrowBackIosNew = 'arrow_back_ios_new',
-  ArrowForwardIos = 'arrow_forward_ios',}
+  ArrowForwardIos = 'arrow_forward_ios',
+  CheckCircle = 'check_circle',}
 
 export type IconType = keyof typeof IconName

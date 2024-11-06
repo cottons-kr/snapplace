@@ -5,7 +5,6 @@ import { VStack } from '@/components/layout/Flex/Stack'
 import CameraHeader from '@/components/ui/Header/Camera'
 import CameraControl from '@/components/page/camera/Control'
 import CameraContentCounter from '@/components/page/camera/Counter'
-
 import { CameraActionType, CameraContext, cameraReducer, initialCameraContext } from '@/lib/contexts/camera'
 
 import s from './page.module.scss'

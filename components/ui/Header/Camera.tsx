@@ -4,43 +4,29 @@ import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import { CameraContext } from '@/lib/contexts/camera'
-import { useCallback, useContext, useMemo, useState } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import { AnimatePresence, Transition, Variants, motion } from 'framer-motion'
-import { createHistory } from '@/lib/actions/history'
-import { dataToFormData, inferPrefix } from '@/utils/validator'
-import { CreateHistory } from '@/lib/schemas/history/CreateHistory.dto'
-import { blobToFile } from '@/utils/file'
-import { getCurrentPosition, getLocationName } from '@/lib/location'
 import { useRouter } from 'next/navigation'
+import { FileStorage } from '@/lib/storage'
+import { blobToFile } from '@/utils/file'
 
 import s from './style.module.scss'
 
 export default function CameraHeader() {
   const { data } = useContext(CameraContext)
   const shouldShowComplete = useMemo(() => data.savedContent.length > 0 && !data.isRecording, [data.savedContent.length, data.isRecording])
-  const [isUploading, setIsUploading] = useState(false)
   const router = useRouter()
 
   const onClickUpload = useCallback(async () => {
-    setIsUploading(true)
+    const fileStorage = new FileStorage()
+    await fileStorage.init()
 
-    const position = await getCurrentPosition()
-
-    const formData = dataToFormData(inferPrefix({
-      assets: data.savedContent.map(blobToFile),
-      locationName: await getLocationName(),
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    } satisfies CreateHistory))
-
-    try {
-      const history = await createHistory(formData)
-      router.push(`/adjustment/${history.uuid}`)
-    } catch (err) {
-      console.error(err)
-      alert('업로드에 실패했습니다.')
-      setIsUploading(false)
+    for (const content of data.savedContent) {
+      const file = blobToFile(content)
+      await fileStorage.saveFile(file.name, file)
     }
+
+    router.push('/camera/confirm')
   }, [data.savedContent])
 
   const transition: Transition = {
@@ -69,7 +55,7 @@ export default function CameraHeader() {
           transition={transition} variants={variants}
           initial='hidden' animate='visible' exit='hidden'
           onClick={onClickUpload}
-        >{isUploading ? <span /> : '완료'}</motion.div>
+        >완료</motion.div>
       )
     }</AnimatePresence>
   </>
