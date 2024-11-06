@@ -5,6 +5,7 @@ import { CreateHistorySchema } from '../schemas/history/CreateHistory.dto'
 import { auth } from '../auth'
 import { uploadFile } from '@/utils/minio'
 import { prisma } from '../prisma'
+import { UploadContextType } from '../contexts/upload'
 
 export async function createHistory(formData: FormData) {
   const session = await auth()
@@ -37,4 +38,23 @@ export async function createHistory(formData: FormData) {
       connect: assetUUIDs.map(uuid => ({ uuid }))
     }
   } })
+}
+
+export async function completeHistory(historyId: string, data: UploadContextType) {
+  const session = await auth()
+  if (!session || !session.user) {
+    throw new Error('Unauthorized')
+  }
+
+  return await prisma.history.update({
+    where: { uuid: historyId },
+    data: {
+      title: data.title,
+      content: data.content,
+      private: data.private,
+      friends: {
+        connect: data.friends.map(({ email }) => ({ email }))
+      },
+    }
+  })
 }

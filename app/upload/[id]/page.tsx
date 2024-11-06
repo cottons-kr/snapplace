@@ -26,7 +26,7 @@ export default async function UploadPage(props: IParams<'id'>) {
       <VStack className={s.page} gap={12} height='100%'>
         <UploadPreview assets={history.images} />
         <UploadForm />
-        <UploadSubmit />
+        <UploadSubmit historyId={id} />
       </VStack>
     </UploadContextWrapper>
   </>
