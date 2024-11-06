@@ -55,6 +55,7 @@ export async function completeHistory(historyId: string, data: UploadContextType
       friends: {
         connect: data.friends.map(({ email }) => ({ email }))
       },
+      completed: true
     }
   })
 }
