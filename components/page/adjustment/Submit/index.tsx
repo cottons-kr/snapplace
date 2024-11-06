@@ -8,12 +8,16 @@ import { useRouter } from 'next/navigation'
 
 import s from './style.module.scss'
 
-export default function AdjustmentSubmit() {
+type AdjustmentSubmitProps = {
+  historyId: string
+}
+export default function AdjustmentSubmit(props: AdjustmentSubmitProps) {
   const { data } = useContext(AdjustmentContext)
   const router = useRouter()
 
   const onClickNext = useCallback(async () => {
     await setImageAdjustment(data.adjustments)
+    router.push(`/upload/${props.historyId}`)
   }, [data])
 
   return <>

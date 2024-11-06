@@ -2,18 +2,18 @@
 
 import Flex from '@/components/layout/Flex'
 import { AdjustMentData } from '@/lib/contexts/adjustment'
-import { useEffect, useState } from 'react'
-import classNames from 'classnames'
 import { calculateImageFilter } from '@/utils/filter'
+import classNames from 'classnames'
+import { useState, useEffect } from 'react'
 
 import s from './style.module.scss'
 
 type Orientation = 'landscape' | 'portrait' | 'square' | null
 
-type AdjustmentPreviewItemProps = {
+type AssetSlideItemProps = {
   data: AdjustMentData
 }
-export default function AdjustmentPreviewItem(props: AdjustmentPreviewItemProps) {
+export default function AssetSlideItem(props: AssetSlideItemProps) {
   const [orientation, setOrientation] = useState<Orientation>(null)
 
   useEffect(() => {
@@ -41,3 +41,4 @@ export default function AdjustmentPreviewItem(props: AdjustmentPreviewItemProps)
     </Flex>
   </>
 }
+

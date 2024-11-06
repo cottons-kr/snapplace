@@ -29,7 +29,7 @@ export default async function AdjustmentPage(props: IParams<'id'>) {
         <Viewport direction='column' height='100%'>
           <AdjustmentControl />
         </Viewport>
-        <AdjustmentSubmit />
+        <AdjustmentSubmit historyId={id} />
       </VStack>
     </AdjustmentContextWrapper>
   </>
