@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "UserAsset" ALTER COLUMN "brightness" SET DEFAULT 50,
+ALTER COLUMN "contrast" SET DEFAULT 50,
+ALTER COLUMN "brightnessContrast" SET DEFAULT 50,
+ALTER COLUMN "saturation" SET DEFAULT 50,
+ALTER COLUMN "temperature" SET DEFAULT 50;

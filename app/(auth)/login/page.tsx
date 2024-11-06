@@ -1,23 +1,27 @@
+'use client'
+
 import { HStack, VStack } from '@/components/layout/Flex/Stack'
 import Link from 'next/link'
-import { signIn } from '@/lib/auth'
+import { login } from '@/lib/actions/account'
 
 import s from './page.module.scss'
 
 export default function LoginPage() {
   const submit = async (formData: FormData) => {
-    'use server'
-
     const email = formData.get('email')
     const password = formData.get('password')
     if (!email || !password) {
       return
     }
 
-    await signIn('credentials', {
-      email, password,
-      redirectTo: '/',
-    })
+    try {
+      await login(email.toString(), password.toString())
+    } catch (err) {
+      console.error(err)
+      if (err instanceof Error && err.name !== 'NEXT_REDIRECT') {
+        alert('이메일 혹은 비밀번호가 일치하지 않습니다.')
+      }
+    }
   }
 
   return <>
