@@ -11,7 +11,22 @@ export async function setImageAdjustment(data: Array<AdjustMentData>) {
   }
 
   const assetUUIDs = data.map(({ assetUUID }) => assetUUID)
-  const updated = await prisma.userAsset
+  const result = await prisma.$transaction(assetUUIDs.map(uuid => {
+    const targetData = data.find(({ assetUUID }) => assetUUID === uuid)
+    if (!targetData) {
+      throw new Error('Data not found')
+    }
+    return prisma.userAsset.update({
+      where: { uuid },
+      data: {
+        brightness: targetData.brightness,
+        contrast: targetData.contrast,
+        brightnessContrast: targetData.brightnessContrast,
+        saturation: targetData.saturation,
+        temperature: targetData.temperature,
+      },
+    })
+  }))
 
-  return updated
+  return result
 }
