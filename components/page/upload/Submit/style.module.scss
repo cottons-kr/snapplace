@@ -1,0 +1,42 @@
+.button {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 56px;
+  padding: 15px auto;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 2px solid var(--Gray-9);
+  background: var(--Gray-1);
+  color: var(--Gray-9);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px; /* 110% */
+  letter-spacing: -0.8px;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+  &:disabled {
+    background: var(--Gray-8);
+    color: var(--Gray-5);
+  }
+  &.uploading {
+    pointer-events: none;
+    background: var(--Gray-8);
+    span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--Gray-5);
+      border-top-color: var(--Gray-9);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+  
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
