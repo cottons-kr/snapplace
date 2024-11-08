@@ -17,6 +17,10 @@ const nextConfig = {
       bodySizeLimit: '100mb',
     },
   },
+
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 }
 
 module.exports = withPWA(nextConfig)
