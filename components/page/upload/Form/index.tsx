@@ -1,17 +1,20 @@
 'use client'
 
-import { VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack } from '@/components/layout/Flex/Stack'
 import Viewport from '@/components/layout/Viewport'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { useContext } from 'react'
 import { UploadActionType as ActionType, UploadContext } from '@/lib/contexts/upload'
 import classNames from 'classnames'
+import { useToggle } from '@/hooks/useToggle'
+import UploadFormAddFriends from './AddFriends'
 
 import s from './style.module.scss'
 
 export default function UploadForm() {
   const { data, dispatch } = useContext(UploadContext)
+  const addFriendsToggle = useToggle()
 
   return <>
     <Viewport direction='column' height='100%'>
@@ -25,6 +28,7 @@ export default function UploadForm() {
             onChange={e => dispatch({ type: ActionType.SET_TITLE, payload: e.target.value })}
           />
         </label>
+
         <label className={s.label}>
           <span>내용</span>
           <textarea
@@ -33,6 +37,19 @@ export default function UploadForm() {
             onChange={e => dispatch({ type: ActionType.SET_CONTENT, payload: e.target.value })}
           />
         </label>
+
+        <label className={s.label} onClick={addFriendsToggle.open}>
+          <span>같이 찍은 친구</span>
+          <HStack className={s['friends-list']} wrap='wrap' align='center' gap={8}>
+            {
+              data.friends.map(f => (
+                <HStack key={f.uuid}>{f.nickname}</HStack>
+              ))
+            }
+            <Icon icon={IconName.GroupAdd} size={20} />
+          </HStack>
+        </label>
+
         <label
           className={classNames(s.check, data.private && s.checked)}
           onClick={() => dispatch({ type: ActionType.SET_PRIVATE, payload: !data.private })}
@@ -42,5 +59,7 @@ export default function UploadForm() {
         </label>
       </VStack>
     </Viewport>
+
+    <UploadFormAddFriends provider={addFriendsToggle} />
   </>
 }

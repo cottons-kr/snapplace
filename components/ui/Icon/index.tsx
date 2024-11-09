@@ -25,6 +25,7 @@ export default function Icon(props: IconProps) {
           color: props.color,
           userSelect: 'none',
           cursor: props.onClick ? 'pointer' : 'inherit',
+          flexShrink: 0,
         }}
         onClick={props.onClick}
       >

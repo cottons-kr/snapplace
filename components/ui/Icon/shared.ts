@@ -19,6 +19,8 @@ export enum IconName {
   ArrowBackIosNew = 'arrow_back_ios_new',
   ArrowForwardIos = 'arrow_forward_ios',
   CheckCircle = 'check_circle',
-  Priority = 'priority',}
+  Priority = 'priority',
+  GroupAdd = 'group_add',
+  Search = 'search',}
 
 export type IconType = keyof typeof IconName

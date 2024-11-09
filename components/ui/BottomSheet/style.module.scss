@@ -3,31 +3,41 @@
   width: 100%;
   height: calc(100dvh - 52px - var(--min-bottom));
   margin-bottom: calc(52px + var(--min-bottom));
-  background: linear-gradient(180deg, rgba(39, 39, 39, 0.80) 0%, rgba(39, 39, 39, 0.10) 100%);
+  // background: linear-gradient(180deg, rgba(39, 39, 39, 0.80) 0%, rgba(39, 39, 39, 0.10) 100%);
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   z-index: 100;
+  &.stickToBottom {
+    height: 100dvh;
+    margin-bottom: 0;
+    .container {
+      padding-bottom: calc(var(--min-bottom) + 8px);
+    }
+  }
 }
 
 .container {
   position: relative;
   min-height: 100px;
-  padding: 19px 20px 8px 20px;
+  padding: 30px 20px 8px 20px;
   border-radius: 10px 10px 0px 0px;
-  background: var(--Gray-9);
+  background: var(--Gray-8);
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  &.darker {
+    background: var(--Gray-9);
+  }
   .line {
     position: absolute;
     width: 50px;
     height: 4px;
     background-color: var(--Gray-5);
     border-radius: 2px;
-    top: 6px;
+    top: 13px;
     left: calc(50% - 25px);
   }
 }

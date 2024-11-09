@@ -29,7 +29,7 @@ export default function HomeNewHistory() {
       <Image src={Right} alt='right' />
     </HStack>
 
-    <BottomSheet provider={bottomSheetToggle}>
+    <BottomSheet darker provider={bottomSheetToggle}>
       <HStack className={s.options} gap={10}>
         <Link href='/camera'>
           <VStack className={s.option} align='center' justify='center'>
