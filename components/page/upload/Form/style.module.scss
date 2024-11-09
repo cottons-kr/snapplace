@@ -34,6 +34,19 @@
 
 .friends-list {
   min-height: 28px;
+  .item {
+    padding: 8px 10px;
+    border-radius: 22px;
+    border: 1px solid var(--Gray-1);
+    img {
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    p {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
 }
 
 .friends-add {
@@ -59,6 +72,26 @@
       &::placeholder {
         color: var(--Gray-5);
       }
+    }
+  }
+  .item {
+    padding: 12px 20px;
+    img:first-child {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border-radius: 50%;
+    }
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 22px; /* 137.5% */
+    }
+    p {
+      color: var(--Gray-3);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px; /* 157.143% */
     }
   }
   button {

@@ -9,6 +9,8 @@ import { UploadActionType as ActionType, UploadContext } from '@/lib/contexts/up
 import classNames from 'classnames'
 import { useToggle } from '@/hooks/useToggle'
 import UploadFormAddFriends from './AddFriends'
+import DefaultImage from '@/assets/default.png'
+import Image from 'next/image'
 
 import s from './style.module.scss'
 
@@ -43,7 +45,10 @@ export default function UploadForm() {
           <HStack className={s['friends-list']} wrap='wrap' align='center' gap={8}>
             {
               data.friends.map(f => (
-                <HStack key={f.uuid}>{f.nickname}</HStack>
+                <HStack key={f.uuid} className={s.item} align='center' gap={6} width='fit-content'>
+                  <Image src={DefaultImage} alt='프사' width={28} height={28} />
+                  <p>{f.nickname}({f.id})</p>
+                </HStack>
               ))
             }
             <Icon icon={IconName.GroupAdd} size={20} />

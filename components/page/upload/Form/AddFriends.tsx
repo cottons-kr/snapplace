@@ -9,10 +9,12 @@ import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import Viewport from '@/components/layout/Viewport'
 import { useCallback, useContext } from 'react'
-import { UploadContext } from '@/lib/contexts/upload'
+import { UploadActionType, UploadContext } from '@/lib/contexts/upload'
 import { Account } from '@prisma/client'
 import DefaultImage from '@/assets/default.png'
 import Image from 'next/image'
+import CheckOn from '@/assets/check_on.svg'
+import CheckOff from '@/assets/check_off.svg'
 
 import s from './style.module.scss'
 
@@ -20,7 +22,6 @@ type UploadFormAddFriendsProps = {
   provider: ToggleProvider
 }
 export default function UploadFormAddFriends(props: UploadFormAddFriendsProps) {
-  const { data, dispatch } = useContext(UploadContext)
   const { data: friends } = useFetcher('', () => (
     getFriends()
   ))
@@ -53,12 +54,31 @@ type ItemProps = {
   data: Account
 }
 function Item(props: ItemProps) {
+  const { data, dispatch } = useContext(UploadContext)
+
+  const onClick = useCallback(() => {
+    const friend = data.friends.find(f => f.uuid === props.data.uuid)
+    dispatch({
+      type: UploadActionType.SET_FRIENDS,
+      payload: friend
+        ? data.friends.filter(f => f.uuid !== props.data.uuid)
+        : [...data.friends, props.data]
+    })
+  }, [data.friends])
+
   return <>
-    <HStack className={s.item} gap={12}>
+    <HStack className={s.item} align='center' gap={12} onClick={onClick}>
       <Image src={DefaultImage} alt='프사' />
       <VStack>
         <h4>{props.data.nickname}</h4>
+        <p>{props.data.id}</p>
       </VStack>
+      <Image
+        width={28}
+        height={28}
+        src={data.friends.find(f => f.uuid === props.data.uuid) ? CheckOn : CheckOff}
+        alt={data.friends.find(f => f.uuid === props.data.uuid) ? '체크됨' : '체크안됨'}
+      />
     </HStack>
   </>
 }
