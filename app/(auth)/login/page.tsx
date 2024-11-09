@@ -3,24 +3,29 @@
 import { HStack, VStack } from '@/components/layout/Flex/Stack'
 import Link from 'next/link'
 import { login } from '@/lib/actions/account'
+import { useRouter } from 'next/navigation'
 
 import s from './page.module.scss'
 
 export default function LoginPage() {
+  const router = useRouter()
+
   const submit = async (formData: FormData) => {
-    const email = formData.get('email')
+    const id = formData.get('id')
     const password = formData.get('password')
-    if (!email || !password) {
+    if (!id || !password) {
       return
     }
 
     try {
-      await login(email.toString(), password.toString())
+      await login(id.toString(), password.toString())
     } catch (err) {
-      console.error(err)
-      if (err instanceof Error && err.name !== 'NEXT_REDIRECT') {
+      if (err instanceof Error && err.message !== 'NEXT_REDIRECT') {
+        console.error(err)
         alert('이메일 혹은 비밀번호가 일치하지 않습니다.')
+        return
       }
+      router.replace('/')
     }
   }
 
@@ -30,8 +35,8 @@ export default function LoginPage() {
 
       <form className={s.form} action={submit}>
         <label>
-          <span>이메일</span>
-          <input type='text' placeholder='이메일을 입력해주세요' name='email' />
+          <span>아이디</span>
+          <input type='text' placeholder='아이디를 입력해주세요' name='id' />
         </label>
         <label>
           <span>비밀번호</span>

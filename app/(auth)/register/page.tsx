@@ -5,17 +5,20 @@ import Goback from '@/components/ui/Goback'
 import { initialRegisterAccountContext, RegisterAccountActionType as ActionType, RegisterAccountContext, registerAccountReducer } from '@/lib/contexts/register-account'
 import { useCallback, useReducer } from 'react'
 import RegisterAccountEmail from '@/components/page/register-account/email'
+import RegisterAccountID from '@/components/page/register-account/id'
 import RegisterAccountFriend from '@/components/page/register-account/friend'
 import RegisterAccountNickname from '@/components/page/register-account/nickname'
 import RegisterAccountPassword from '@/components/page/register-account/password'
 import Flex from '@/components/layout/Flex'
 import RegisterAccountComplete from '@/components/page/register-account/complete/page'
 import { isRegisteredEmail, registerAccount } from '@/lib/actions/account'
+import { useRouter } from 'next/navigation'
 
 import s from './style.module.scss'
 
 export default function RegisterAccountPage() {
   const [registerAccountData, setRegisterAccountData] = useReducer(registerAccountReducer, initialRegisterAccountContext)
+  const router = useRouter()
 
   const next = useCallback(() => {
     setRegisterAccountData({ type: ActionType.SET_STEP, payload: registerAccountData.step + 1 })
@@ -36,17 +39,34 @@ export default function RegisterAccountPage() {
       registerAccountData.step === 1 &&
       await isRegisteredEmail(registerAccountData.email)
     ) {
-      // 이미 가입된 이메일인지 확인
-      // TODO: 로그인 페이지로 리다이렉트
       alert('이미 가입된 이메일입니다.')
+      router.replace('/login')
       return
     }
 
-    if (registerAccountData.step === 4) {
+    if (registerAccountData.step === 4 && registerAccountData.password !== registerAccountData.confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다.')
+      return
+    }
+
+    if (registerAccountData.step === 6) {
+      router.replace('/login')
+      return
+    }
+
+    if (registerAccountData.step === 5) {
       await submit()
     } else {
       next()
     }
+  }, [registerAccountData])
+
+  const onClickPrev = useCallback(() => {
+    if (registerAccountData.step === 1) {
+      router.replace('/login')
+      return
+    }
+    setRegisterAccountData({ type: ActionType.SET_STEP, payload: registerAccountData.step - 1 })
   }, [registerAccountData])
   
   return <>
@@ -55,13 +75,14 @@ export default function RegisterAccountPage() {
       dispatch: setRegisterAccountData
     }}>
       <VStack>
-        <Goback />
+        <Goback onClick={onClickPrev} />
         <Flex className={s.content} height='100%'>{
           registerAccountData.step === 1 ? <RegisterAccountEmail /> :
-          registerAccountData.step === 2 ? <RegisterAccountNickname /> :
-          registerAccountData.step === 3 ? <RegisterAccountPassword /> :
-          registerAccountData.step === 4 ? <RegisterAccountFriend /> :
-          registerAccountData.step === 5 ? <RegisterAccountComplete /> :
+          registerAccountData.step === 2 ? <RegisterAccountID /> :
+          registerAccountData.step === 3 ? <RegisterAccountNickname /> :
+          registerAccountData.step === 4 ? <RegisterAccountPassword /> :
+          registerAccountData.step === 5 ? <RegisterAccountFriend /> :
+          registerAccountData.step === 6 ? <RegisterAccountComplete /> :
           null
         }</Flex>
         <button className={s.button} onClick={onClickNext}>{

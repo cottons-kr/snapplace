@@ -1,6 +1,7 @@
 model Account {
   uuid String @id @default(uuid())
 
+  id       String @unique
   nickname String @unique
   password String
   email    String @unique

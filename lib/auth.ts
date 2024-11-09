@@ -13,9 +13,8 @@ declare module 'next-auth' {
 }
 
 const signInSchema = z.object({
-  email: z.string({ required_error: '이메일를 입력해주세요' })
-    .email('이메일 형식이 올바르지 않습니다')
-    .min(1, '이메일을 입력해주세요'),
+  id: z.string({ required_error: '아이디를 입력해주세요' })
+    .min(1, '아이디를 입력해주세요'),
   password: z.string({ required_error: '비밀번호를 입력해주세요' })
     .min(1, '비밀번호를 입력해주세요')
 })
@@ -24,13 +23,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       credentials: {
-        email: { type: 'email' },
+        id: { type: 'text' },
         password: { type: 'password' },
       },
       authorize: async credentials => {
-        const { email, password } = signInSchema.parse(credentials)
+        const { id, password } = signInSchema.parse(credentials)
 
-        const targetAccount = await prisma.account.findUnique({ where: { email } })
+        const targetAccount = await prisma.account.findUnique({ where: { id } })
         if (!targetAccount) {
           return null
         }

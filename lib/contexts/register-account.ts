@@ -3,6 +3,7 @@ import { createContext, Dispatch } from 'react'
 
 export type RegisterAccountContextType = {
   step: number
+  id: string
   email: string
   nickname: string
   password: string
@@ -12,6 +13,7 @@ export type RegisterAccountContextType = {
 
 export const initialRegisterAccountContext: RegisterAccountContextType = {
   step: 1,
+  id: '',
   email: '',
   nickname: '',
   password: '',
@@ -21,6 +23,7 @@ export const initialRegisterAccountContext: RegisterAccountContextType = {
 
 export enum RegisterAccountActionType {
   SET_STEP = 'step',
+  SET_ID = 'id',
   SET_EMAIL = 'email',
   SET_NICKNAME = 'nickname',
   SET_PASSWORD = 'password',
@@ -30,6 +33,7 @@ export enum RegisterAccountActionType {
 
 type RegisterAccountPayload = {
   [RegisterAccountActionType.SET_STEP]: number
+  [RegisterAccountActionType.SET_ID]: string
   [RegisterAccountActionType.SET_EMAIL]: string
   [RegisterAccountActionType.SET_NICKNAME]: string
   [RegisterAccountActionType.SET_PASSWORD]: string
