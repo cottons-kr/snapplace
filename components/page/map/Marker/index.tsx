@@ -3,6 +3,7 @@
 import { urlToFile } from '@/utils/common'
 import { AdvancedMarker } from '@vis.gl/react-google-maps'
 import { useEffect, useState } from 'react'
+import { motion, Transition, Variants } from 'framer-motion'
 
 type MapMarkerProps = {
   historyId: string
@@ -12,6 +13,24 @@ type MapMarkerProps = {
 }
 export default function MapMarker(props: MapMarkerProps) {
   const [base64, setBase64] = useState<string | null>(null)
+
+  const transition: Transition = {
+    ease: [0.4, 0, 0.2, 1],
+    duration: 0.3,
+    delay: 0.7 * Math.random() + 0.1
+  }
+  const variants: Variants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+    }
+  }
 
   useEffect(() => {
     urlToFile(props.previewURL)
@@ -27,7 +46,11 @@ export default function MapMarker(props: MapMarkerProps) {
       draggable={false}
       onClick={e => e.stop()}
     >
-      <svg width='40' height='51' viewBox='0 0 40 51' fill='none' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
+      <motion.svg
+        transition={transition} variants={variants}
+        initial='hidden' animate='visible'
+        width='40' height='51' viewBox='0 0 40 51' fill='none' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+      >
         <g opacity='0.9'>
           <mask id='path-1-inside-1_992_855' fill='white'>
             <path fillRule='evenodd' clipRule='evenodd' d='M12 0C5.37258 0 0 5.37258 0 12V28C0 34.6274 5.37258 40 12 40H13.6491L20 51L26.3509 40H28C34.6274 40 40 34.6274 40 28V12C40 5.37258 34.6274 0 28 0H12Z'/>
@@ -41,7 +64,7 @@ export default function MapMarker(props: MapMarkerProps) {
           </pattern>
           <image id='image0_992_855' width='960' height='720' xlinkHref={base64}/>
         </defs>
-      </svg>
+      </motion.svg>
     </AdvancedMarker>
   </>
 }
