@@ -7,6 +7,23 @@ import { uploadFile } from '@/utils/minio'
 import { prisma } from '../prisma'
 import { UploadContextType } from '../contexts/upload'
 
+export async function getMyHistories() {
+  const session = await auth()
+  if (!session || !session.user) {
+    throw new Error('Unauthorized')
+  }
+
+  const histories = await prisma.history.findMany({
+    where: {
+      owner: { email: session.user.email },
+      completed: true
+    },
+    include: { images: true },
+  })
+
+  return histories || []
+}
+
 export async function createHistory(formData: FormData) {
   const session = await auth()
   if (!session || !session.user) {

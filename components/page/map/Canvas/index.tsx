@@ -5,16 +5,25 @@ import { getCurrentPosition } from '@/lib/location'
 import { AdvancedMarker, Map } from '@vis.gl/react-google-maps'
 import PersonPinCircle from '@/assets/person_pin_circle.svg'
 import Image from 'next/image'
+import { getMyHistories } from '@/lib/actions/history'
 
 import s from './style.module.scss'
+import MapMarker from '../Marker'
 
-export default function MapCanvas() {
+type MapCanvasProps = {
+  histories: Awaited<ReturnType<typeof getMyHistories>>
+}
+export default function MapCanvas(props: MapCanvasProps) {
   const [coords, setCoords] = useState<GeolocationCoordinates | null>(null)
 
   useEffect(() => {
     getCurrentPosition()
       .then(({ coords }) => setCoords(coords))
   }, [])
+
+  useEffect(() => {
+    console.log(props.histories)
+  }, [props.histories])
 
   return <>
     <div className={s.container}>{
@@ -37,6 +46,17 @@ export default function MapCanvas() {
           >
             <Image src={PersonPinCircle} alt='현재 위치' />
           </AdvancedMarker>
+          {
+            props.histories.map(h => (
+              <MapMarker
+                key={h.uuid}
+                historyId={h.uuid}
+                latitude={h.latitude}
+                longitude={h.longitude}
+                previewURL={h.images[0].path}
+              />
+            ))
+          }
         </Map>
       )
     }</div>
