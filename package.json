@@ -17,6 +17,7 @@
   "dependencies": {
     "@egjs/react-flicking": "^4.11.4",
     "@prisma/client": "^5.21.1",
+    "@vis.gl/react-google-maps": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.5.1",
     "framer-motion": "^11.11.10",
