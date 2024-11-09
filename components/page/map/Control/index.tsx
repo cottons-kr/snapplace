@@ -6,15 +6,29 @@ import { IconName } from '@/components/ui/Icon/shared'
 import BottomSheet from '@/components/ui/BottomSheet'
 import { useToggle } from '@/hooks/useToggle'
 import Link from 'next/link'
+import { useMap } from '@vis.gl/react-google-maps'
+import { useCallback } from 'react'
+import { getCurrentPosition } from '@/lib/location'
 
 import s from './style.module.scss'
 
 export default function MapControl() {
   const bottomSheetToggle = useToggle()
+  const map = useMap()
+
+  const onClickCenter = useCallback(async () => {
+    const { coords } = await getCurrentPosition()
+    if (coords) {
+      map?.moveCamera({
+        center: { lat: coords.latitude, lng: coords.longitude },
+        zoom: 16,
+      })
+    }
+  }, [map])
 
   return <>
     <HStack className={s.container} align='center' justify='space-between'>
-      <div className={s.button}>
+      <div className={s.button} onClick={onClickCenter}>
         <Icon icon={IconName.LocationSearching} />
       </div>
       <div className={s.button} onClick={bottomSheetToggle.open}>
