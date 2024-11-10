@@ -21,6 +21,7 @@ export enum IconName {
   CheckCircle = 'check_circle',
   Priority = 'priority',
   GroupAdd = 'group_add',
-  Search = 'search',}
+  Search = 'search',
+  Favorite = 'favorite',}
 
 export type IconType = keyof typeof IconName

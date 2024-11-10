@@ -4,15 +4,20 @@ import { urlToFile } from '@/utils/common'
 import { AdvancedMarker } from '@vis.gl/react-google-maps'
 import { useEffect, useState } from 'react'
 import { motion, Transition, Variants } from 'framer-motion'
+import HistoryDetail from '@/components/ui/HistoryDetail'
+import { Account, History, Like, UserAsset } from '@prisma/client'
+import { useToggle } from '@/hooks/useToggle'
 
 type MapMarkerProps = {
-  historyId: string
-  latitude: number
-  longitude: number
-  previewURL: string
+  data: History & {
+    images: Array<UserAsset>
+    likes: Array<Like>
+    friends: Array<Account>
+  }
 }
 export default function MapMarker(props: MapMarkerProps) {
   const [base64, setBase64] = useState<string | null>(null)
+  const detailToggle = useToggle()
 
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
@@ -33,18 +38,22 @@ export default function MapMarker(props: MapMarkerProps) {
   }
 
   useEffect(() => {
-    urlToFile(props.previewURL)
+    if (props.data.images.length === 0) return
+    urlToFile(props.data.images[0].path)
       .then(file => {
         setBase64(URL.createObjectURL(file))
       })
-  }, [props.previewURL])
+  }, [props.data.images])
 
   return base64 && <>
     <AdvancedMarker
-      position={{ lat: props.latitude, lng: props.longitude }}
+      position={{ lat: props.data.latitude, lng: props.data.longitude }}
       clickable={false}
       draggable={false}
-      onClick={e => e.stop()}
+      onClick={e => {
+        detailToggle.open()
+        e.stop()
+      }}
     >
       <motion.svg
         transition={transition} variants={variants}
@@ -66,5 +75,10 @@ export default function MapMarker(props: MapMarkerProps) {
         </defs>
       </motion.svg>
     </AdvancedMarker>
+
+    <HistoryDetail
+      history={props.data}
+      provider={detailToggle}
+    />
   </>
 }

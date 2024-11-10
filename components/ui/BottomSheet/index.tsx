@@ -11,7 +11,11 @@ type BottomSheetProps = {
   provider: ToggleProvider
   stickToBottom?: boolean
   darker?: boolean
+  fullSize?: boolean
+  noBlur?: boolean
+  noBackground?: boolean
   duration?: number
+  lineClassName?: string
   children?: ReactNode
 }
 export default function BottomSheet(props: BottomSheetProps) {
@@ -25,8 +29,8 @@ export default function BottomSheet(props: BottomSheetProps) {
       backdropFilter: 'blur(0px)',
     },
     visible: {
-      background: 'linear-gradient(180deg, rgba(39, 39, 39, 0.80) 0%, rgba(39, 39, 39, 0.10) 100%)',
-      backdropFilter: 'blur(4px)',
+      background: props.noBackground ? 'transparent' : 'linear-gradient(180deg, rgba(39, 39, 39, 0.80) 0%, rgba(39, 39, 39, 0.10) 100%)',
+      backdropFilter: props.noBlur ? 'none' : 'blur(4px)',
     },
   }
   const containerVariants: Variants = {
@@ -51,11 +55,12 @@ export default function BottomSheet(props: BottomSheetProps) {
           <motion.div
             className={classNames(s.container, {
               [s.darker]: props.darker,
+              [s.fullSize]: props.fullSize,
             })}
             variants={containerVariants} transition={transition}
             onClick={e => e.stopPropagation()}
           >
-            <span className={s.line} />
+            <span className={classNames(s.line, props.lineClassName)} />
             {props.children}
           </motion.div>
         </motion.div>

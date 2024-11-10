@@ -18,6 +18,24 @@ export async function getMyHistories() {
       owner: { email: session.user.email },
       completed: true
     },
+    include: {
+      images: true,
+      likes: true,
+      friends: true
+    },
+  })
+
+  return histories || []
+}
+
+export async function getVisibleHistories() {
+  const session = await auth()
+  if (!session || !session.user) {
+    throw new Error('Unauthorized')
+  }
+
+  const histories = await prisma.history.findMany({
+    where: {},
     include: { images: true },
   })
 
