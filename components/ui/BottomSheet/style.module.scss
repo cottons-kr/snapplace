@@ -28,9 +28,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   &.darker {
     background: var(--Gray-9);
+    .spare {
+      background-color: var(--Gray-9);
+    }
   }
   &.fullSize {
     padding: 0;
@@ -45,5 +47,11 @@
     top: 13px;
     left: calc(50% - 25px);
     z-index: 100;
+  }
+  .spare {
+    position: absolute;
+    top: calc(100% - 10px);
+    left: 0;
+    background-color: var(--Gray-8);
   }
 }

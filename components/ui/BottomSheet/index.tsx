@@ -1,11 +1,12 @@
 'use client'
 
 import { ToggleProvider } from '@/hooks/useToggle'
-import { ReactNode } from 'react'
+import { ReactNode, useRef } from 'react'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 import classNames from 'classnames'
 
 import s from './style.module.scss'
+import Flex from '@/components/layout/Flex'
 
 type BottomSheetProps = {
   provider: ToggleProvider
@@ -35,7 +36,7 @@ export default function BottomSheet(props: BottomSheetProps) {
   }
   const containerVariants: Variants = {
     hidden: { y: '100%' },
-    visible: { y: 0 },
+    visible: { y: '0%' },
   }
 
   return <>
@@ -59,9 +60,15 @@ export default function BottomSheet(props: BottomSheetProps) {
             })}
             variants={containerVariants} transition={transition}
             onClick={e => e.stopPropagation()}
+            drag='y'
+            dragConstraints={{ top: 0, bottom: 0 }}
+            onDragEnd={(_, { offset }) => {
+              if (offset.y > 100) props.provider.close()
+            }}
           >
             <span className={classNames(s.line, props.lineClassName)} />
             {props.children}
+            <Flex className={s.spare} height='100dvh' />
           </motion.div>
         </motion.div>
       )
