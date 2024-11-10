@@ -24,6 +24,8 @@ prefix는 parsing 시에 제거된다.
 import { ZodObject, z } from 'zod'
 import type { ZodRawShape, ZodTypeAny } from 'zod'
 
+export type ZodSchema<T> = ZodObject<ZodRawShape, 'strip', ZodTypeAny, T>
+
 export const enum Prefix {
   String = 's',
   Number = 'n',
@@ -108,7 +110,7 @@ export function parseValue(value: FormDataEntryValue, prefix: Prefix) {
   }
 }
 
-export function isValidData<T extends object>(data: unknown, schema: ZodObject<ZodRawShape, 'strip', ZodTypeAny, T>): data is T {
+export function isValidData<T extends object>(data: unknown, schema: ZodSchema<T>): data is T {
   const result = schema.safeParse(data)
   if (!result.success) {
     console.error(result.error.errors)
@@ -117,7 +119,7 @@ export function isValidData<T extends object>(data: unknown, schema: ZodObject<Z
   return true
 }
 
-export function validateFormDataAndParse<T extends object>(formData: FormData, schema: ZodObject<ZodRawShape, 'strip', ZodTypeAny, T>): T {
+export function validateFormDataAndParse<T extends object>(formData: FormData, schema: ZodSchema<T>): T {
   const data = parseFormData(formData)
   const keys = zodKeys(schema)
   if (isValidData(data, schema)) {
@@ -243,4 +245,12 @@ export function isJSONEncodable(value: unknown): boolean {
   }
 
   return false
+}
+
+export function getValidationIssues(data: FormData, schema: ZodSchema<unknown>) {
+  const result = schema.safeParse(parseFormData(data))
+  if (!result.success) {
+    return result.error.errors
+  }
+  return []
 }
