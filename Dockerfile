@@ -1,4 +1,4 @@
-FROM node:22.9.0
+FROM oven/bun:latest
 
 # build nextjs app
 COPY . /app
@@ -11,10 +11,8 @@ ENV NODE_ENV=production
 ENV time_zone=Asia/Seoul
 ENV PORT=$PORT
 
-RUN corepack enable
-RUN corepack prepare pnpm
-RUN pnpm install --frozen-lockfile
+RUN bun install --frozen-lockfile
 
-RUN pnpm run build
+RUN bun run build
 
-CMD ["pnpm", "start"]
+CMD ["bun", "run", "--bun", "start"]
