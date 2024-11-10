@@ -62,6 +62,9 @@ importers:
       swiper:
         specifier: ^11.1.14
         version: 11.1.14
+      typescript:
+        specifier: ^5.6.3
+        version: 5.6.3
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -84,9 +87,6 @@ importers:
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
-      typescript:
-        specifier: ^5.6.3
-        version: 5.6.3
 
 packages:
 

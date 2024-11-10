@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:22.9.0
 
 # build nextjs app
 COPY . /app
@@ -13,7 +13,7 @@ ENV PORT=$PORT
 
 RUN corepack enable
 RUN corepack prepare pnpm
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile
 
 RUN pnpm run build
 
