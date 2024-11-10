@@ -1,7 +1,7 @@
 'use client'
 
 import { ToggleProvider } from '@/hooks/useToggle'
-import { ReactNode, useRef } from 'react'
+import { ReactNode } from 'react'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 import classNames from 'classnames'
 
@@ -62,6 +62,7 @@ export default function BottomSheet(props: BottomSheetProps) {
             onClick={e => e.stopPropagation()}
             drag='y'
             dragConstraints={{ top: 0, bottom: 0 }}
+            dragDirectionLock
             onDragEnd={(_, { offset }) => {
               if (offset.y > 100) props.provider.close()
             }}
