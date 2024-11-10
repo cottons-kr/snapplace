@@ -1,4 +1,4 @@
-FROM node:22.6-bookworm-slim
+FROM node:latest
 
 # build nextjs app
 COPY . /app
