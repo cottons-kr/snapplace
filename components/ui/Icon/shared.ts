@@ -22,6 +22,11 @@ export enum IconName {
   Priority = 'priority',
   GroupAdd = 'group_add',
   Search = 'search',
-  Favorite = 'favorite',}
+  Favorite = 'favorite',
+  Group = 'group',
+  CollectionsBookmark = 'collections_bookmark',
+  DataInfoAlert = 'data_info_alert',
+  Article = 'article',
+  SupportAgent = 'support_agent',}
 
 export type IconType = keyof typeof IconName

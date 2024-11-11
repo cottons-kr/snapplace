@@ -1,0 +1,21 @@
+.page {
+  padding: calc(var(--min-top) + 36px) 20px 0 20px;
+}
+
+.profile {
+  img {
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.48px;
+  }
+  p {
+    color: var(--Gray-3, #C8C8C8);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.32px;
+  }
+}
