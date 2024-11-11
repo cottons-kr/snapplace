@@ -57,7 +57,7 @@ export default function MapMarker(props: MapMarkerProps) {
     >
       <motion.svg
         transition={transition} variants={variants}
-        initial='hidden' animate='visible'
+        initial='hidden' whileInView='visible'
         width='40' height='51' viewBox='0 0 40 51' fill='none' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
       >
         <g opacity='0.9'>
