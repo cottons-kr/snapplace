@@ -22,3 +22,7 @@ export function getFileExtension(file: File): string {
     default: return ''
   }
 }
+
+export function changeFileName(file: File, newName: string): File {
+  return new File([file], newName, { type: file.type })
+}
