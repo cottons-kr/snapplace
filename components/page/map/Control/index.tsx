@@ -8,23 +8,23 @@ import { useToggle } from '@/hooks/useToggle'
 import Link from 'next/link'
 import { useMap } from '@vis.gl/react-google-maps'
 import { useCallback } from 'react'
-import { getCurrentPosition } from '@/lib/location'
+import { useLocation } from '@/hooks/useLocation'
 
 import s from './style.module.scss'
 
 export default function MapControl() {
   const bottomSheetToggle = useToggle()
   const map = useMap()
+  const { latitude, longitude, isReady } = useLocation()
 
   const onClickCenter = useCallback(async () => {
-    const { coords } = await getCurrentPosition()
-    if (coords) {
+    if (isReady) {
       map?.moveCamera({
-        center: { lat: coords.latitude, lng: coords.longitude },
+        center: { lat: latitude, lng: longitude },
         zoom: 16,
       })
     }
-  }, [map])
+  }, [map, isReady])
 
   return <>
     <HStack className={s.container} align='center' justify='space-between'>
