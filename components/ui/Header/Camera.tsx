@@ -34,6 +34,8 @@ export default function CameraHeader() {
 
     if (data.mode === CameraMode.FOUR_CUT) {
       localStorage.setItem(CameraMode.FOUR_CUT, 'true')
+    } else {
+      localStorage.removeItem(CameraMode.FOUR_CUT)
     }
 
     router.push('/camera/confirm')

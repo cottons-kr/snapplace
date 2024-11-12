@@ -11,9 +11,9 @@ import { createHistory } from '@/lib/actions/history'
 import { getCurrentPosition, getLocationName } from '@/lib/location'
 import { CreateHistory } from '@/lib/schemas/history/CreateHistory.dto'
 import { dataToFormData, inferPrefix } from '@/utils/validator'
+import { CameraMode } from '@/lib/contexts/camera'
 
 import s from './page.module.scss'
-import { CameraMode } from '@/lib/contexts/camera'
 
 export default function CameraConfirmPage() {
   const [results, setResults] = useState<Array<File>>([])
@@ -26,15 +26,27 @@ export default function CameraConfirmPage() {
     const fileStorage = new FileStorage()
     await fileStorage.init()
     await fileStorage.clearAll()
+    localStorage.removeItem(CameraMode.FOUR_CUT)
     router.push('/camera')
   }, [])
 
   const onClickNext = useCallback(async () => {
+    const fileStorage = new FileStorage()
+    await fileStorage.init()
+
+    if (isFourCut) {
+      const unSelected = results.map(f => f.name).filter(n => !selected.includes(n))
+      for (const name of unSelected) {
+        await fileStorage.deleteFile(name)
+      }
+      localStorage.setItem(CameraMode.FOUR_CUT, 'true')
+      router.push('/camera/frame')
+      return
+    }
+
     setIsUploading(true)
     const selectedFiles = results.filter(f => selected.includes(f.name))
     const position = await getCurrentPosition()
-    const fileStorage = new FileStorage()
-    await fileStorage.init()
 
     const formData = dataToFormData(inferPrefix({
       assets: selectedFiles,
@@ -52,7 +64,7 @@ export default function CameraConfirmPage() {
       alert('업로드에 실패했습니다.')
       setIsUploading(false)
     }
-  }, [results, selected])
+  }, [results, selected, isFourCut])
 
   useEffect(() => {
     const isFourCut = localStorage.getItem(CameraMode.FOUR_CUT) === 'true'
@@ -67,7 +79,7 @@ export default function CameraConfirmPage() {
         alert('촬영된 사진이 없습니다. 카메라로 이동합니다.')
         router.push('/camera')
       }
-      if (!isFourCut) {
+      if (!isFourCut || savedKeys.length === 4) {
         setSelected(savedKeys)
       }
 
