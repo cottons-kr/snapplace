@@ -33,19 +33,16 @@ export default function CameraConfirmPage() {
   const onClickNext = useCallback(async () => {
     const fileStorage = new FileStorage()
     await fileStorage.init()
+    const selectedFiles = results.filter(f => selected.includes(f.name))
 
     if (isFourCut) {
-      const unSelected = results.map(f => f.name).filter(n => !selected.includes(n))
-      for (const name of unSelected) {
-        await fileStorage.deleteFile(name)
-      }
       localStorage.setItem(CameraMode.FOUR_CUT, 'true')
+      localStorage.setItem('fourCut-selected', JSON.stringify(selectedFiles.map(f => f.name)))
       router.push('/camera/frame')
       return
     }
 
     setIsUploading(true)
-    const selectedFiles = results.filter(f => selected.includes(f.name))
     const position = await getCurrentPosition()
 
     const formData = dataToFormData(inferPrefix({
@@ -74,13 +71,18 @@ export default function CameraConfirmPage() {
     fileStorage.init().then(async () => {
       const savedKeys = (await fileStorage.listFiles()).map(({ key }) => key)
       const files = await Promise.all(savedKeys.map(key => fileStorage.getFile(key)))
+      const savedSelected: Array<string> = localStorage.getItem('fourCut-selected') ? JSON.parse(localStorage.getItem('fourCut-selected') || '') : []
 
       if (files.length <= 0) {
         alert('촬영된 사진이 없습니다. 카메라로 이동합니다.')
         router.push('/camera')
       }
-      if (!isFourCut || savedKeys.length === 4) {
-        setSelected(savedKeys)
+      if (savedKeys.length > 0) {
+        setSelected(savedSelected)
+      } else {
+        if (!isFourCut || savedKeys.length === 4) {
+          setSelected(savedKeys)
+        }
       }
 
       setResults(files.filter(Boolean) as Array<File>)

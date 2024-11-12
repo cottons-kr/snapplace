@@ -1,0 +1,26 @@
+.item {
+  .dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    outline: solid 1px transparent;
+    transition: outline-color 0.2s;
+  }
+  span {
+    color: var(--Gray-5, #AAA);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 150%; /* 18px */
+    letter-spacing: -0.24px;
+    transition: color 0.2s;
+  }
+  &.selected {
+    .dot {
+      outline-color: var(--Gray-1);
+    }
+    span {
+      color: var(--Gray-1);
+      font-weight: 600;
+    }
+  }
+}
