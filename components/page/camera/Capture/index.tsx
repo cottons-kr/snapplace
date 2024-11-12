@@ -106,19 +106,11 @@ export default function CameraCapture() {
   }, [data])
 
   useEffect(() => {
-    if (data.mode === CameraMode.FOUR_CUT) {
-      dispatch({ type: CameraActionType.SET_MAX_COUNT, payload: 4 })
-    } else {
-      dispatch({ type: CameraActionType.SET_MAX_COUNT, payload: 10 })
-    }
-  }, [data.mode])
-
-  useEffect(() => {
     async function init() {
       const isImageCaptureSupported = 'ImageCapture' in window
       if (!isImageCaptureSupported) {
         console.warn('ImageCapture is not supported in this browser, using polyfill...')
-        import('image-capture')
+        await import('image-capture')
       } else {
         console.log('ImageCapture is supported in this browser.')
       }

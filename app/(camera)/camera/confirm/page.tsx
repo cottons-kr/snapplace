@@ -13,11 +13,13 @@ import { CreateHistory } from '@/lib/schemas/history/CreateHistory.dto'
 import { dataToFormData, inferPrefix } from '@/utils/validator'
 
 import s from './page.module.scss'
+import { CameraMode } from '@/lib/contexts/camera'
 
 export default function CameraConfirmPage() {
   const [results, setResults] = useState<Array<File>>([])
   const [selected, setSelected] = useState<Array<string>>([])
   const [isUploading, setIsUploading] = useState(false)
+  const [isFourCut, setIsFourCut] = useState(false)
   const router = useRouter()
 
   const onClickRetake = useCallback(async () => {
@@ -53,6 +55,9 @@ export default function CameraConfirmPage() {
   }, [results, selected])
 
   useEffect(() => {
+    const isFourCut = localStorage.getItem(CameraMode.FOUR_CUT) === 'true'
+    setIsFourCut(isFourCut)
+
     const fileStorage = new FileStorage()
     fileStorage.init().then(async () => {
       const savedKeys = (await fileStorage.listFiles()).map(({ key }) => key)
@@ -62,9 +67,11 @@ export default function CameraConfirmPage() {
         alert('촬영된 사진이 없습니다. 카메라로 이동합니다.')
         router.push('/camera')
       }
+      if (!isFourCut) {
+        setSelected(savedKeys)
+      }
 
       setResults(files.filter(Boolean) as Array<File>)
-      setSelected(savedKeys)
     })
   }, [])
 
@@ -85,7 +92,7 @@ export default function CameraConfirmPage() {
         className={s.counter}
         align='center' justify='center'
         width='60px'
-      >{selected.length} / {results.length}</Flex>
+      >{selected.length} / {isFourCut ? '4' : results.length}</Flex>
 
       <HStack className={s.buttons} gap={8}>
         <button
@@ -95,7 +102,7 @@ export default function CameraConfirmPage() {
         <button
           className={isUploading ? s.loading : ''}
           onClick={onClickNext}
-          disabled={selected.length <= 0}
+          disabled={isFourCut ? selected.length !== 4 : selected.length <= 0}
         >{isUploading ? <span /> : '다음'}</button>
       </HStack>
     </VStack>

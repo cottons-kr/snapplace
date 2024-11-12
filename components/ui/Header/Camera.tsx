@@ -3,7 +3,7 @@
 import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
-import { CameraContext } from '@/lib/contexts/camera'
+import { CameraContext, CameraMode } from '@/lib/contexts/camera'
 import { useCallback, useContext, useMemo } from 'react'
 import { AnimatePresence, Transition, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
@@ -32,8 +32,12 @@ export default function CameraHeader() {
       await fileStorage.saveFile(file.name, file)
     }
 
+    if (data.mode === CameraMode.FOUR_CUT) {
+      localStorage.setItem(CameraMode.FOUR_CUT, 'true')
+    }
+
     router.push('/camera/confirm')
-  }, [data.savedContent])
+  }, [data])
 
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
