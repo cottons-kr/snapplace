@@ -14,7 +14,13 @@ import s from './style.module.scss'
 
 export default function CameraHeader() {
   const { data } = useContext(CameraContext)
-  const shouldShowComplete = useMemo(() => data.savedContent.length > 0 && !data.isRecording, [data.savedContent.length, data.isRecording])
+  const shouldShowComplete = useMemo(() => {
+    if (data.isTakingFourCut) {
+      return data.savedContent.length >= 4
+    } else {
+      return !data.isRecording && data.savedContent.length > 0
+    }
+  }, [data])
   const router = useRouter()
 
   const onClickUpload = useCallback(async () => {

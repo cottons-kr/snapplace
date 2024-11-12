@@ -1,8 +1,15 @@
+enum UserAssetType {
+  IMAGE
+  VIDEO
+  FOUR_CUT
+}
+
 model UserAsset {
   uuid      String @id @default(uuid())
   ownerUUID String
 
   path String
+  type UserAssetType @default(IMAGE)
 
   // 0 ~ 100
   brightness         Int @default(50)

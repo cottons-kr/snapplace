@@ -4,18 +4,20 @@ import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
-import { useCallback, useContext, useRef } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
 import cn from 'classnames'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 import { VideoChunkBuffer } from '@/lib/video'
 import { getSupportedMimeType } from '@/utils/camera'
 
 import s from './style.module.scss'
+import { FileStorage } from '@/lib/storage'
 
 export default function CameraCapture() {
   const { data, dispatch } = useContext(CameraContext)
   const videoBufferRef = useRef(new VideoChunkBuffer())
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
+  const shouldHideGalleryButton = useMemo(() => data.isTakingFourCut || data.isRecording, [data])
 
   const startRecording = () => {
     if (!data.mediaStream) return
@@ -68,24 +70,22 @@ export default function CameraCapture() {
     }
   }
 
+  const takePhoto = async () => {
+    if (!data.mediaStream) return
+    const track = data.mediaStream.getVideoTracks()[0]
+    const imageCapture = new ImageCapture(track)
+    const blob = await imageCapture.takePhoto()
+    dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, blob] })
+  }
+
   const onClickCapture = useCallback(async () => {
     if (data.savedContent.length >= data.MAX_COUNT) {
       return
     }
 
-    const isImageCaptureSupported = 'ImageCapture' in window
-    if (!isImageCaptureSupported) {
-      console.warn('ImageCapture is not supported in this browser, using polyfill...')
-      await import('image-capture')
-    }
-
     switch (data.mode) {
       case CameraMode.PHOTO: {
-        if (!data.mediaStream) return
-        const track = data.mediaStream.getVideoTracks()[0]
-        const imageCapture = new ImageCapture(track)
-        const blob = await imageCapture.takePhoto()
-        dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, blob] })
+        await takePhoto()
       } break
       case CameraMode.VIDEO: {
         if (data.isRecording) {
@@ -94,10 +94,43 @@ export default function CameraCapture() {
           startRecording()
         }
       } break
+      case CameraMode.FOUR_CUT: {
+        if (!data.isTakingFourCut) {
+          dispatch({ type: CameraActionType.SET_TAKING_FOUR_CUT, payload: true })
+        }
+        await takePhoto()
+      } break
       default:
         break
     }
   }, [data])
+
+  useEffect(() => {
+    if (data.mode === CameraMode.FOUR_CUT) {
+      dispatch({ type: CameraActionType.SET_MAX_COUNT, payload: 4 })
+    } else {
+      dispatch({ type: CameraActionType.SET_MAX_COUNT, payload: 10 })
+    }
+  }, [data.mode])
+
+  useEffect(() => {
+    async function init() {
+      const isImageCaptureSupported = 'ImageCapture' in window
+      if (!isImageCaptureSupported) {
+        console.warn('ImageCapture is not supported in this browser, using polyfill...')
+        import('image-capture')
+      } else {
+        console.log('ImageCapture is supported in this browser.')
+      }
+      console.log('MediaRecorder is supported:', 'MediaRecorder' in window)
+      console.log('User Agent:', navigator.userAgent)
+
+      const fileStorage = new FileStorage()
+      await fileStorage.init()
+      await fileStorage.clearAll()
+    }
+    init()
+  } ,[])
 
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
@@ -109,9 +142,9 @@ export default function CameraCapture() {
   }
 
   return <>
-    <HStack align='center' justify='center' gap={60} width='272px'>
+    <HStack align='center' justify='flex-end' gap={60} width='272px'>
       <AnimatePresence>{
-        !data.isRecording && (
+        !shouldHideGalleryButton && (
           <motion.div
             className={s.button}
             variants={variants} transition={transition}
