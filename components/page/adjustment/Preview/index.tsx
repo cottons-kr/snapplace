@@ -19,6 +19,8 @@ export default function AdjustmentPreview() {
   return <>
     <VStack gap={21}>
       <AssetSlide
+        assets={data.assets}
+        adjustments={data.adjustments}
         setControlledSwiper={setSwiper}
         onSlideChange={onSlideChange}
       />

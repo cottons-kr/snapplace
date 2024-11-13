@@ -27,8 +27,8 @@ export default function UploadSubmit() {
       await createHistory(dataToFormData({
         [n('title')]: data.title,
         [n('content')]: data.content,
-        [n('assets', Prefix.FileList)]: data.files,
-        [n('assetAdjustments', Prefix.JSON)]: data.assets,
+        [n('files', Prefix.FileList)]: data.files,
+        [n('assetAdjustments', Prefix.JSON)]: data.adjustments,
         [n('locationName')]: await getLocationName(),
         [n('latitude', Prefix.Number)]: coords.latitude,
         [n('longitude', Prefix.Number)]: coords.longitude,

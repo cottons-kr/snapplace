@@ -15,12 +15,13 @@ export default function UploadPreview() {
   return <>
     <VStack align='center' gap={6}>
       <AssetSlide
-        assets={data.assets}
+        assets={data.files}
+        adjustments={data.adjustments}
         onSlideChange={setCurrentIndex}
       />
       <HStack className={s.pagination} justify='center' gap={4}>{
-        data.assets.map((asset, index) => (
-          <span key={asset.path} className={classNames(s.dot, currentIndex === index && s.active)} />
+        data.files.map((f, i) => (
+          <span key={f.name} className={classNames(s.dot, currentIndex === i && s.active)} />
         ))
       }</HStack>
     </VStack>

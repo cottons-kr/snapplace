@@ -1,7 +1,7 @@
 'use client'
 
 import Flex from '@/components/layout/Flex'
-import { AdjustmentContext } from '@/lib/contexts/adjustment'
+import { AdjustmentContext, AdjustMentData } from '@/lib/contexts/adjustment'
 import { calculateImageFilter } from '@/utils/filter'
 import classNames from 'classnames'
 import { useState, useEffect, useContext } from 'react'
@@ -12,9 +12,9 @@ type Orientation = 'landscape' | 'portrait' | 'square' | null
 
 type AssetSlideItemProps = {
   data: File
+  adjustment: AdjustMentData
 }
 export default function AssetSlideItem(props: AssetSlideItemProps) {
-  const { data } = useContext(AdjustmentContext)
   const [orientation, setOrientation] = useState<Orientation>(null)
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function AssetSlideItem(props: AssetSlideItemProps) {
       align='center' justify='center'
       width='fit-content' height='209px'
       style={{
-        filter: calculateImageFilter(data.adjustments[props.data.name.split('.')[0]]),
+        filter: calculateImageFilter(props.adjustment),
       }}
     >
       <img

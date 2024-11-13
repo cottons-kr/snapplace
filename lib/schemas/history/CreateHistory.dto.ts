@@ -4,8 +4,8 @@ import { z } from 'zod'
 export class CreateHistory {
   title: string
   content: string
-  assets: Array<File>
-  assetAdjustments: Array<Omit<AdjustMentData, 'path'>>
+  files: Array<File>
+  assetAdjustments: Record<string, AdjustMentData>
   locationName: string
   latitude: number
   longitude: number
@@ -17,13 +17,13 @@ export class CreateHistory {
 export const CreateHistorySchema = z.object({
   title: z.string(),
   content: z.string(),
-  assets: z.array(z.instanceof(File)),
-  assetAdjustments: z.array(z.object({
+  files: z.array(z.instanceof(File)),
+  assetAdjustments: z.record(z.object({
     brightness: z.number(),
     contrast: z.number(),
     brightnessContrast: z.number(),
     saturation: z.number(),
-    temperature: z.number()
+    temperature: z.number(),
   })),
   locationName: z.string(),
   latitude: z.number(),

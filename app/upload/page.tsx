@@ -8,6 +8,7 @@ import { uploadReducer, initialUploadContext, UploadContext, UploadActionType } 
 import { useEffect, useReducer } from 'react'
 import { useRouter } from 'next/navigation'
 import { FileStorage } from '@/lib/storage'
+import { AdjustMentData } from '@/lib/contexts/adjustment'
 
 import s from './page.module.scss'
 
@@ -16,6 +17,7 @@ export default function UploadPage() {
   const router = useRouter()
 
   useEffect(() => {
+    const adjustments: Record<string, AdjustMentData> = JSON.parse(localStorage.getItem('adjustments') || '{}')
     const selectedKeys: Array<string> = JSON.parse(localStorage.getItem('selected') || '[]')
     if (selectedKeys.length <= 0) {
       alert('선택된 이미지가 없습니다, 선택 페이지로 이동합니다.')
@@ -27,17 +29,8 @@ export default function UploadPage() {
     fileStorage.init().then(async () => {
       const files = await Promise.all(selectedKeys.map(k => fileStorage.getFile(k)))
         .then(files => files.filter(f => f !== null))
-        setUploadData({
-        type: UploadActionType.SET_ASSETS,
-        payload: files.map(f => ({
-          path: URL.createObjectURL(f),
-          brightness: 0,
-          contrast: 0,
-          brightnessContrast: 0,
-          saturation: 0,
-          temperature: 0,
-        }))
-      })
+      setUploadData({ type: UploadActionType.SET_FILES, payload: files })
+      setUploadData({ type: UploadActionType.SET_ADJUSTMENTS, payload: adjustments })
     })
   }, [])
 

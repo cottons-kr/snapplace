@@ -6,8 +6,8 @@ import { AdjustMentData } from './adjustment'
 export type UploadContextType = {
   title: string
   content: string
-  assets: Array<AdjustMentData>
   files: Array<File>
+  adjustments: Record<string, AdjustMentData>
   friends: Array<Account>
   private: boolean
   isFourCut: boolean
@@ -16,8 +16,8 @@ export type UploadContextType = {
 export const initialUploadContext: UploadContextType = {
   title: '',
   content: '',
-  assets: [],
   files: [],
+  adjustments: {},
   friends: [],
   private: false,
   isFourCut: false,
@@ -26,8 +26,8 @@ export const initialUploadContext: UploadContextType = {
 export enum UploadActionType {
   SET_TITLE = 'title',
   SET_CONTENT = 'content',
-  SET_ASSETS = 'assets',
   SET_FILES = 'files',
+  SET_ADJUSTMENTS = 'adjustments',
   SET_FRIENDS = 'friends',
   SET_PRIVATE = 'private',
   SET_IS_FOUR_CUT = 'isFourCut',
@@ -36,8 +36,8 @@ export enum UploadActionType {
 type UploadPayload = {
   [UploadActionType.SET_TITLE]: string
   [UploadActionType.SET_CONTENT]: string
-  [UploadActionType.SET_ASSETS]: Array<AdjustMentData>
   [UploadActionType.SET_FILES]: Array<File>
+  [UploadActionType.SET_ADJUSTMENTS]: Record<string, AdjustMentData>
   [UploadActionType.SET_FRIENDS]: Array<Account>
   [UploadActionType.SET_PRIVATE]: boolean
   [UploadActionType.SET_IS_FOUR_CUT]: boolean

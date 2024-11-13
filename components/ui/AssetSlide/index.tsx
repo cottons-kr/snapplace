@@ -3,18 +3,19 @@
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react'
 import { Swiper as SwiperType } from 'swiper'
 import { Controller } from 'swiper/modules'
-import { Dispatch, SetStateAction, useContext, useState } from 'react'
-import { AdjustmentContext } from '@/lib/contexts/adjustment'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { AdjustMentData } from '@/lib/contexts/adjustment'
 import AssetSlideItem from './Item'
 
 import s from './style.module.scss'
 
 type AssetSliderProps = {
+  assets: Array<File>
+  adjustments: Record<string, AdjustMentData>
   onSlideChange?: (activeIndex: number) => unknown
   setControlledSwiper?: Dispatch<SetStateAction<SwiperType | null>>
 }
 export default function AssetSlide(props: AssetSliderProps) {
-  const { data, dispatch } = useContext(AdjustmentContext)
   const [controlledSwiper, setControlledSwiper] = useState<SwiperType | null>(null)
 
   const swiperProps: SwiperProps = {
@@ -36,9 +37,9 @@ export default function AssetSlide(props: AssetSliderProps) {
 
   return <>
     <Swiper {...swiperProps}>{
-      data.assets.map(a => (
+      props.assets.map(a => (
         <SwiperSlide key={a.name} className={s.slide}>
-          <AssetSlideItem data={a} />
+          <AssetSlideItem data={a} adjustment={props.adjustments[a.name.split('.')[0]]} />
         </SwiperSlide>
       ))
     }</Swiper>

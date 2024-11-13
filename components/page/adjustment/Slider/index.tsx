@@ -2,7 +2,7 @@
 
 import { VStack } from '@/components/layout/Flex/Stack'
 import { AdjustmentActionType, AdjustmentContext, AdjustMentData } from '@/lib/contexts/adjustment'
-import { useCallback, useContext, useMemo } from 'react'
+import { useContext } from 'react'
 import AdjustmentControlSlider from './Slider'
 
 import s from './style.module.scss'

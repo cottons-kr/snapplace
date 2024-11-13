@@ -49,13 +49,13 @@ export async function createHistory(formData: FormData) {
   }
 
   const data = validateFormDataAndParse(formData, CreateHistorySchema)
-  if (data.isFourCut && data.assets.length !== 1) {
+  if (data.isFourCut && data.files.length !== 1) {
     throw new Error('FourCut must have only one image')
   }
 
   const assetUUIDs: Array<string> = []
-  for (let i = 0; i < data.assets.length; i++) {
-    const path = await uploadFile(data.assets[i])
+  for (let i = 0; i < data.files.length; i++) {
+    const path = await uploadFile(data.files[i])
     const adjustment = data.assetAdjustments[i]
     const { uuid: assetUUID } = await prisma.userAsset.create({
       data: {
@@ -77,6 +77,7 @@ export async function createHistory(formData: FormData) {
     latitude: Number(data.latitude),
     longitude: Number(data.longitude),
     private: data.private,
+    completed: true,
     images: {
       connect: assetUUIDs.map(uuid => ({ uuid }))
     },
