@@ -27,6 +27,7 @@ export enum IconName {
   CollectionsBookmark = 'collections_bookmark',
   DataInfoAlert = 'data_info_alert',
   Article = 'article',
-  SupportAgent = 'support_agent',}
+  SupportAgent = 'support_agent',
+  Check = 'check',}
 
 export type IconType = keyof typeof IconName

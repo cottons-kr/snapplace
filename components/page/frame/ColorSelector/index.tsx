@@ -7,6 +7,8 @@ import { FrameBackground } from '../shared'
 
 import s from './style.module.scss'
 import classNames from 'classnames'
+import Icon from '@/components/ui/Icon'
+import { IconName } from '@/components/ui/Icon/shared'
 
 type FrameColorSelectorProps = {
   frameType: FrameBackground
@@ -59,7 +61,9 @@ function Item(props: ItemProps) {
       <div
         className={s.dot}
         style={{ background: props.color }}
-      />
+      >{
+        props.selected && <Icon icon={IconName.Check} size={18} />
+      }</div>
       <span>{props.label}</span>
     </VStack>
   </>

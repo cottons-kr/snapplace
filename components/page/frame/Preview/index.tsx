@@ -20,22 +20,21 @@ export default function FramePreview(props: FramePreviewProps) {
   const [images, setImages] = useState<Array<File>>([])
 
   useEffect(() => {
-    const selectedKeys = JSON.parse(localStorage.getItem('fourCut-selected') || '') ?? []
+    const selectedKeys: Array<string> = JSON.parse(localStorage.getItem('fourCut-selected') || '') ?? []
     if (!selectedKeys) {
       alert('선택된 이미지가 없습니다.')
     }
 
     const fileStorage = new FileStorage()
     fileStorage.init().then(async () => {
-      for (const key of selectedKeys) {
-        const file = await fileStorage.getFile(key)
-        if (!file) {
-          alert('파일을 불러오는데 실패했습니다. 다시 선택해주세요')
-          router.push('/camera/confirm')
-          return
-        }
-        setImages(prev => [...prev, file])
+      const files = await Promise.all(selectedKeys.map(key => fileStorage.getFile(key)))
+        .then(files => files.filter(file => file !== null) as Array<File>)
+      if (files.length !== 4) {
+        alert('이미지를 불러오는데 실패했습니다. 다시 선택해주세요')
+        router.push('/camera/confirm')
+        return
       }
+      setImages(files)
     })
   }, [])
 

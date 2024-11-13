@@ -33,6 +33,8 @@ export default function CameraPage() {
         console.error(error)
         alert('카메라를 사용할 수 없습니다.')
       })
+    
+      localStorage.removeItem('fourCut-selected')
   }, [])
   
   return <>
