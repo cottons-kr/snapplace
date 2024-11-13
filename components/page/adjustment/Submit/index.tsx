@@ -13,7 +13,9 @@ export default function AdjustmentSubmit() {
 
   const onClickNext = useCallback(async () => {
     try {
-      
+      const isFourCut = localStorage.getItem('fourCut') === 'true'
+      localStorage.setItem('adjustments', JSON.stringify(data.adjustments))
+      router.replace(isFourCut ? '/camera/frame' : '/upload')
     } catch (err) {
       console.error(err)
       alert('에러가 발생했습니다. 다시 시도해주세요.')

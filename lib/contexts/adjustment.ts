@@ -39,7 +39,7 @@ type AdjustmentPayload = {
   [AdjustmentActionType.SET_ADJUSTMENTS]: Record<string, AdjustMentData & { path: string }>
   [AdjustmentActionType.UPDATE_ADJUSTMENT]: {
     id: string
-    data: AdjustMentData
+    data: Partial<AdjustMentData>
   }
   [AdjustmentActionType.REMOVE_ADJUSTMENT]: number
 }

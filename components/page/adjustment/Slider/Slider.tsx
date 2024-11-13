@@ -13,9 +13,7 @@ type AdjustmentControlSliderProps = {
 }
 export default function AdjustmentControlSlider(props: AdjustmentControlSliderProps) {  
   return <>
-    <div
-      className={s.container}
-    >
+    <div className={s.container}>
       <p className={s.label}>{props.label}</p>
       <input
         type='range'

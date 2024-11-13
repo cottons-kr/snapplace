@@ -32,7 +32,7 @@ export default function AssetSlideItem(props: AssetSlideItemProps) {
       align='center' justify='center'
       width='fit-content' height='209px'
       style={{
-        filter: calculateImageFilter(data.adjustments[data.assets[data.currentIndex].name.split('.')[0]]),
+        filter: calculateImageFilter(data.adjustments[props.data.name.split('.')[0]]),
       }}
     >
       <img

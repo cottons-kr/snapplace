@@ -42,11 +42,11 @@ export default function AdjustmentPage() {
         payload: files.reduce((acc, file) => {
           acc[file.name.split('.')[0]] = {
             path: URL.createObjectURL(file),
-            brightness: 0,
-            contrast: 0,
-            brightnessContrast: 0,
-            saturation: 0,
-            temperature: 0,
+            brightness: 50,
+            contrast: 50,
+            brightnessContrast: 50,
+            saturation: 50,
+            temperature: 50,
           }
           return acc
         }, {} as AdjustmentContextType['adjustments'])

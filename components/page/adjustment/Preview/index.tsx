@@ -11,11 +11,16 @@ export default function AdjustmentPreview() {
   const { data, dispatch } = useContext(AdjustmentContext)
   const [swiper, setSwiper] = useState<SwiperType | null>(null)
 
+  const onSlideChange = (i: number) => {
+    dispatch({ type: ActionType.SET_CURRENT_INDEX, payload: i })
+    dispatch({ type: ActionType.SET_CURRENT_ID, payload: data.assets[i].name.split('.')[0] })
+  }
+
   return <>
     <VStack gap={21}>
       <AssetSlide
         setControlledSwiper={setSwiper}
-        onSlideChange={i => dispatch({ type: ActionType.SET_CURRENT_INDEX, payload: i })}
+        onSlideChange={onSlideChange}
       />
       <AdjustmentPreviewControl swiper={swiper} />
     </VStack>
