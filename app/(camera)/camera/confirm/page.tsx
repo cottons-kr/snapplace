@@ -7,10 +7,6 @@ import { FileStorage } from '@/lib/storage'
 import { useCallback, useEffect, useState } from 'react'
 import Flex from '@/components/layout/Flex'
 import { useRouter } from 'next/navigation'
-import { createHistory } from '@/lib/actions/history'
-import { getCurrentPosition, getLocationName } from '@/lib/location'
-import { CreateHistory } from '@/lib/schemas/history/CreateHistory.dto'
-import { dataToFormData, inferPrefix } from '@/utils/validator'
 import { CameraMode } from '@/lib/contexts/camera'
 
 import s from './page.module.scss'
@@ -18,7 +14,6 @@ import s from './page.module.scss'
 export default function CameraConfirmPage() {
   const [results, setResults] = useState<Array<File>>([])
   const [selected, setSelected] = useState<Array<string>>([])
-  const [isUploading, setIsUploading] = useState(false)
   const [isFourCut, setIsFourCut] = useState(false)
   const router = useRouter()
 
@@ -35,32 +30,10 @@ export default function CameraConfirmPage() {
     await fileStorage.init()
     const selectedFiles = results.filter(f => selected.includes(f.name))
 
-    if (isFourCut) {
-      localStorage.setItem(CameraMode.FOUR_CUT, 'true')
-      localStorage.setItem('selected', JSON.stringify(selectedFiles.map(f => f.name)))
-      router.push('/adjustment')
-      return
-    }
+    localStorage.setItem('selected', JSON.stringify(selectedFiles.map(f => f.name)))
+    localStorage.setItem(CameraMode.FOUR_CUT, isFourCut.toString())
 
-    setIsUploading(true)
-    const position = await getCurrentPosition()
-
-    const formData = dataToFormData(inferPrefix({
-      assets: selectedFiles,
-      locationName: await getLocationName(),
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    } satisfies CreateHistory))
-
-    try {
-      const history = await createHistory(formData)
-      await fileStorage.clearAll()
-      router.push('/adjustment')
-    } catch (err) {
-      console.error(err)
-      alert('업로드에 실패했습니다.')
-      setIsUploading(false)
-    }
+    router.push('/adjustment')
   }, [results, selected, isFourCut])
 
   useEffect(() => {
@@ -109,15 +82,11 @@ export default function CameraConfirmPage() {
       >{selected.length} / {isFourCut ? '4' : results.length}</Flex>
 
       <HStack className={s.buttons} gap={8}>
+        <button onClick={onClickRetake}>다시 촬영하기</button>
         <button
-          className={isUploading ? s.loading : ''}
-          onClick={onClickRetake}
-        >{isUploading ? <span /> : '다시 촬영하기'}</button>
-        <button
-          className={isUploading ? s.loading : ''}
           onClick={onClickNext}
           disabled={isFourCut ? selected.length !== 4 : selected.length <= 0}
-        >{isUploading ? <span /> : '다음'}</button>
+        >다음</button>
       </HStack>
     </VStack>
   </>

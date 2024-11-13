@@ -1,7 +1,7 @@
 'use client'
 
 import { VStack } from '@/components/layout/Flex/Stack'
-import { AdjustmentActionType, AdjustmentContext } from '@/lib/contexts/adjustment'
+import { AdjustmentActionType, AdjustmentContext, AdjustMentData } from '@/lib/contexts/adjustment'
 import { useCallback, useContext, useMemo } from 'react'
 import AdjustmentControlSlider from './Slider'
 
@@ -9,17 +9,20 @@ import s from './style.module.scss'
 
 export default function AdjustmentControl() {
   const { data, dispatch } = useContext(AdjustmentContext)
-  const targetData = useMemo(() => data.adjustments[data.currentIndex], [data])
+  const targetData = useMemo(() => data.adjustments[data.currentId], [data.adjustments, data.currentId])
 
-  const updateValue = useCallback((key: keyof typeof targetData, value: number) => {
+  const updateValue = useCallback((key: keyof AdjustMentData, value: number) => {
     dispatch({
       type: AdjustmentActionType.UPDATE_ADJUSTMENT,
       payload: {
-        index: data.currentIndex,
-        data: { [key]: value }
+        id: data.currentId,
+        data: {
+          ...targetData,
+          [key]: value,
+        }
       }
     })
-  }, [data.currentIndex, dispatch])
+  }, [targetData, data.currentId, dispatch])
 
   return <>
     <VStack className={s.control} gap={35}>

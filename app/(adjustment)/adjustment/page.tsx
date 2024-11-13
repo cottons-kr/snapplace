@@ -6,7 +6,7 @@ import AdjustmentPreview from '@/components/page/adjustment/Preview'
 import Viewport from '@/components/layout/Viewport'
 import AdjustmentSubmit from '@/components/page/adjustment/Submit'
 import { useEffect, useReducer } from 'react'
-import { AdjustmentActionType, AdjustmentContext, adjustmentReducer, initialAdjustmentContext } from '@/lib/contexts/adjustment'
+import { AdjustmentActionType, AdjustmentContext, AdjustmentContextType, adjustmentReducer, initialAdjustmentContext } from '@/lib/contexts/adjustment'
 import { FileStorage } from '@/lib/storage'
 import { useRouter } from 'next/navigation'
 
@@ -28,16 +28,28 @@ export default function AdjustmentPage() {
     fileStorage.init().then(async () => {
       const files = await Promise.all(selectedKeys.map(k => fileStorage.getFile(k)))
         .then(files => files.filter(f => f !== null))
+
+      setAdjustmentData({
+        type: AdjustmentActionType.SET_ASSETS,
+        payload: files,
+      })
+      setAdjustmentData({
+        type: AdjustmentActionType.SET_CURRENT_ID,
+        payload: files[0].name.split('.')[0],
+      })
       setAdjustmentData({
         type: AdjustmentActionType.SET_ADJUSTMENTS,
-        payload: files.map(f => ({
-          path: URL.createObjectURL(f),
-          brightness: 0,
-          contrast: 0,
-          brightnessContrast: 0,
-          saturation: 0,
-          temperature: 0,
-        }))
+        payload: files.reduce((acc, file) => {
+          acc[file.name.split('.')[0]] = {
+            path: URL.createObjectURL(file),
+            brightness: 0,
+            contrast: 0,
+            brightnessContrast: 0,
+            saturation: 0,
+            temperature: 0,
+          }
+          return acc
+        }, {} as AdjustmentContextType['adjustments'])
       })
     })
   }, [])

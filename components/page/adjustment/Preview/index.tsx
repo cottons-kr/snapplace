@@ -14,7 +14,6 @@ export default function AdjustmentPreview() {
   return <>
     <VStack gap={21}>
       <AssetSlide
-        assets={data.adjustments}
         setControlledSwiper={setSwiper}
         onSlideChange={i => dispatch({ type: ActionType.SET_CURRENT_INDEX, payload: i })}
       />

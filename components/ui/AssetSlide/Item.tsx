@@ -1,24 +1,25 @@
 'use client'
 
 import Flex from '@/components/layout/Flex'
-import { AdjustMentData } from '@/lib/contexts/adjustment'
+import { AdjustmentContext } from '@/lib/contexts/adjustment'
 import { calculateImageFilter } from '@/utils/filter'
 import classNames from 'classnames'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
 import s from './style.module.scss'
 
 type Orientation = 'landscape' | 'portrait' | 'square' | null
 
 type AssetSlideItemProps = {
-  data: AdjustMentData
+  data: File
 }
 export default function AssetSlideItem(props: AssetSlideItemProps) {
+  const { data } = useContext(AdjustmentContext)
   const [orientation, setOrientation] = useState<Orientation>(null)
 
   useEffect(() => {
     const image = new Image()
-    image.src = props.data.path
+    image.src = URL.createObjectURL(props.data)
     image.onload = () => {
       const { width, height } = image
       setOrientation(width > height ? 'landscape' : width < height ? 'portrait' : 'square')
@@ -31,12 +32,12 @@ export default function AssetSlideItem(props: AssetSlideItemProps) {
       align='center' justify='center'
       width='fit-content' height='209px'
       style={{
-        filter: calculateImageFilter(props.data)
+        filter: calculateImageFilter(data.adjustments[data.assets[data.currentIndex].name.split('.')[0]]),
       }}
     >
       <img
         className={classNames(s.image, orientation && s[orientation])}
-        src={props.data.path}
+        src={URL.createObjectURL(props.data)}
       />
     </Flex>
   </>

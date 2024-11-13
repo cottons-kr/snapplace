@@ -32,7 +32,7 @@ export default function AdjustmentPreviewControl(props: AdjustmentPreviewControl
         className={s.counter}
         width='60px' height='24px'
         align='center' justify='center'
-      >{data.currentIndex + 1} / {data.adjustments.length}</Flex>
+      >{data.currentIndex + 1} / {data.assets.length}</Flex>
 
       <Icon icon={IconName.ArrowForwardIos} onClick={onClickForward} />
     </HStack>

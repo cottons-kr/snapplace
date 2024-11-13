@@ -11,25 +11,32 @@ export type AdjustMentData = {
 
 export type AdjustmentContextType = {
   currentIndex: number
+  currentId: string
+  assets: Array<File>
   adjustments: Record<string, AdjustMentData & { path: string }>
 }
 
 export const initialAdjustmentContext: AdjustmentContextType = {
   currentIndex: 0,
+  currentId: '',
+  assets: [],
   adjustments: {}
 }
 
 export enum AdjustmentActionType {
   SET_CURRENT_INDEX = 'currentIndex',
+  SET_CURRENT_ID = 'currentId',
+  SET_ASSETS = 'assets',
   SET_ADJUSTMENTS = 'adjustments',
   UPDATE_ADJUSTMENT = 'updateAdjustment',
-  ADD_ADJUSTMENT = 'addAdjustment',
   REMOVE_ADJUSTMENT = 'removeAdjustment'
 }
 
 type AdjustmentPayload = {
   [AdjustmentActionType.SET_CURRENT_INDEX]: number
-  [AdjustmentActionType.SET_ADJUSTMENTS]: Array<AdjustMentData>
+  [AdjustmentActionType.SET_CURRENT_ID]: string
+  [AdjustmentActionType.SET_ASSETS]: Array<File>
+  [AdjustmentActionType.SET_ADJUSTMENTS]: Record<string, AdjustMentData & { path: string }>
   [AdjustmentActionType.UPDATE_ADJUSTMENT]: {
     id: string
     data: AdjustMentData
@@ -47,6 +54,8 @@ export function adjustmentReducer(
 
   switch (type) {
     case AdjustmentActionType.SET_CURRENT_INDEX:
+    case AdjustmentActionType.SET_CURRENT_ID:
+    case AdjustmentActionType.SET_ASSETS:
     case AdjustmentActionType.SET_ADJUSTMENTS:
       return { ...state, [type]: payload }
 
