@@ -2,7 +2,8 @@ model UserAsset {
   uuid      String @id @default(uuid())
   ownerUUID String
 
-  path String
+  path      String
+  isFourCut Boolean @default(false)
 
   // 0 ~ 100
   brightness         Int @default(50)

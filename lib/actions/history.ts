@@ -49,6 +49,9 @@ export async function createHistory(formData: FormData) {
   }
 
   const data = validateFormDataAndParse(formData, CreateHistorySchema)
+  if (data.isFourCut && data.assets.length !== 1) {
+    throw new Error('FourCut must have only one image')
+  }
 
   const assetUUIDs: Array<string> = []
   for (const asset of data.assets) {
@@ -58,7 +61,8 @@ export async function createHistory(formData: FormData) {
         path,
         owners: {
           connect: { email: session.user.email }
-        }
+        },
+        isFourCut: data.isFourCut,
       },
       select: { uuid: true }
     })

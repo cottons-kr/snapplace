@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { FrameBackground } from '../shared'
 import Logo from '@/assets/frame-logo.svg'
 import Image from 'next/image'
+import classNames from 'classnames'
 
 import s from './style.module.scss'
 
@@ -42,7 +43,7 @@ export default function FramePreview(props: FramePreviewProps) {
     <Viewport direction='column' height='100%'>
       <Flex align='center' justify='center' width='100%' height='100%'>
         <VStack
-          className={s.frame}
+          className={classNames(s.frame, s[props.frameType])}
           align='center' justify='center'
           width='172px' height='588px'
           gap={12}

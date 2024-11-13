@@ -1,0 +1,19 @@
+.submit {
+  padding-bottom: 20px;
+  button {
+    width: 100%;
+    height: 56px;
+    padding: 15px 0;
+    flex-shrink: 0;
+    border-radius: 12px;
+    border: 2px solid var(--Gray-9);
+    background: var(--Gray-1);
+    color: var(--Gray-9);
+    text-align: center;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 22px; /* 110% */
+    letter-spacing: -0.8px;
+  }
+}

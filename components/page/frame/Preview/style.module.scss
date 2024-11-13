@@ -1,5 +1,20 @@
 .frame {
   border: 1px solid var(--Gray-1);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  &.default {
+    background: var(--Gray-9);
+  }
+  &.gray {
+    background: #333;
+  }
+  &.sunset {
+    background-image: url('/assets//sunset.jpg');
+  }
+  &.beach {
+    background-image: url('/assets//beach.jpg');
+  }
 }
 
 .image {

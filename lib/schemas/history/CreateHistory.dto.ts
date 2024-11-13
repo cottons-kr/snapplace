@@ -5,6 +5,7 @@ export class CreateHistory {
   locationName: string
   latitude: number
   longitude: number
+  isFourCut?: boolean
 }
 
 export const CreateHistorySchema = z.object({
@@ -12,4 +13,5 @@ export const CreateHistorySchema = z.object({
   locationName: z.string(),
   latitude: z.number(),
   longitude: z.number(),
+  isFourCut: z.boolean().optional()
 })

@@ -4,11 +4,11 @@ import { HStack, VStack } from '@/components/layout/Flex/Stack'
 import { SetStateAction } from 'jotai'
 import { Dispatch, useMemo } from 'react'
 import { FrameBackground } from '../shared'
-
-import s from './style.module.scss'
 import classNames from 'classnames'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
+
+import s from './style.module.scss'
 
 type FrameColorSelectorProps = {
   frameType: FrameBackground
