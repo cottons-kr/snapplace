@@ -3,23 +3,40 @@
 import { useCallback, useContext, useState } from 'react'
 import classNames from 'classnames'
 import { UploadContext } from '@/lib/contexts/upload'
-import { completeHistory } from '@/lib/actions/history'
 import { useRouter } from 'next/navigation'
+import { createHistory } from '@/lib/actions/history'
+import { dataToFormData, Prefix, typedName } from '@/utils/validator'
+import { CreateHistory } from '@/lib/schemas/history/CreateHistory.dto'
+import { getCurrentPosition, getLocationName } from '@/lib/location'
 
 import s from './style.module.scss'
 
-type UploadSubmitProps = {
-  historyId: string
-}
-export default function UploadSubmit(props: UploadSubmitProps) {
+export default function UploadSubmit() {
   const { data } = useContext(UploadContext)
   const [isUploading, setIsUploading] = useState(false)
   const router = useRouter()
 
+  const n = typedName<CreateHistory>
+
   const onClickUpload = useCallback(async () => {
     setIsUploading(true)
+    
     try {
-      await completeHistory(props.historyId, data)
+      const { coords } = await getCurrentPosition()
+
+      await createHistory(dataToFormData({
+        [n('title')]: data.title,
+        [n('content')]: data.content,
+        [n('assets', Prefix.FileList)]: data.files,
+        [n('assetAdjustments', Prefix.JSON)]: data.assets,
+        [n('locationName')]: await getLocationName(),
+        [n('latitude', Prefix.Number)]: coords.latitude,
+        [n('longitude', Prefix.Number)]: coords.longitude,
+        [n('friends', Prefix.JSON)]: data.friends.map(f => f.uuid),
+        [n('private', Prefix.StrictBoolean)]: data.private,
+        [n('isFourCut', Prefix.StrictBoolean)]: data.isFourCut,
+      }))
+
       router.push('/upload/complete')
     } catch (err) {
       console.error(err)

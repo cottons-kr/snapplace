@@ -5,10 +5,6 @@ import Flex from '@/components/layout/Flex'
 import html2canvas from 'html2canvas'
 import previewStyle from '../Preview/style.module.scss'
 import { nanoid } from 'nanoid'
-import { createHistory } from '@/lib/actions/history'
-import { getCurrentPosition, getLocationName } from '@/lib/location'
-import { CreateHistory } from '@/lib/schemas/history/CreateHistory.dto'
-import { dataToFormData, inferPrefix } from '@/utils/validator'
 import { useRouter } from 'next/navigation'
 import { FileStorage } from '@/lib/storage'
 
@@ -34,28 +30,16 @@ export default function FrameSubmit() {
       return alert('사진 저장에 실패했습니다.')
     }
 
-    const image = new File([data], `${nanoid()}.png`, { type: 'image/png' })
-    const position = await getCurrentPosition()
+    const id = nanoid()
+    const image = new File([data], `${id}.png`, { type: 'image/png' })
 
-    const formData = dataToFormData(inferPrefix({
-      assets: [image],
-      locationName: await getLocationName(),
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-      isFourCut: true,
-    } satisfies CreateHistory))
+    const fileStorage = new FileStorage()
+    await fileStorage.init()
+    await fileStorage.clearAll()
+    await fileStorage.saveFile(id, image)
+    localStorage.setItem('selected', JSON.stringify([id]))
 
-    try {
-      const fileStorage = new FileStorage()
-      await fileStorage.init()
-      const history = await createHistory(formData)
-      await fileStorage.clearAll()
-      router.push(`/upload/${history.uuid}`)
-    } catch (err) {
-      console.error(err)
-      alert('업로드에 실패했습니다.')
-      setIsProcessing(false)
-    }
+    router.push('/upload')
   }, [])
 
   return <>

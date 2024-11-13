@@ -10,6 +10,7 @@ import { FrameBackground } from '../shared'
 import Logo from '@/assets/frame-logo.svg'
 import Image from 'next/image'
 import classNames from 'classnames'
+import { calculateImageFilter } from '@/utils/filter'
 
 import s from './style.module.scss'
 
@@ -21,7 +22,7 @@ export default function FramePreview(props: FramePreviewProps) {
   const [images, setImages] = useState<Array<File>>([])
 
   useEffect(() => {
-    const selectedKeys: Array<string> = JSON.parse(localStorage.getItem('fourCut-selected') || '') ?? []
+    const selectedKeys: Array<string> = JSON.parse(localStorage.getItem('selected') || '') ?? []
     if (!selectedKeys) {
       alert('선택된 이미지가 없습니다.')
     }
@@ -50,7 +51,12 @@ export default function FramePreview(props: FramePreviewProps) {
         >
           {images.map((image, index) => (
             <div key={image.name} className={s.image}>
-              <img src={URL.createObjectURL(image)} alt={`image-${index}`} />
+              <img
+                src={URL.createObjectURL(image)} alt={`image-${index}`}
+                style={{
+                  filter: calculateImageFilter(image),
+                }}
+              />
             </div>
           ))}
           <Image src={Logo} alt='logo' />

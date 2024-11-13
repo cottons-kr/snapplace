@@ -29,6 +29,7 @@ export default function MapMarker(props: MapMarkerProps) {
       opacity: 0,
       scale: 0.8,
       y: 20,
+      transition: { delay: 0 },
     },
     visible: {
       opacity: 1,

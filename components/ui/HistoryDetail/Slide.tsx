@@ -9,6 +9,7 @@ import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import classNames from 'classnames'
+import { calculateImageFilter } from '@/utils/filter'
 
 import s from './style.module.scss'
 
@@ -39,7 +40,10 @@ export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
       <Swiper {...swiperProps}>{
         props.assets.map(a => (
           <SwiperSlide key={a.uuid} className={s.asset}>
-            <img src={a.path} />
+            <img
+              src={a.path}
+              style={{ filter: calculateImageFilter(a) }}
+            />
           </SwiperSlide>
         ))
       }</Swiper>

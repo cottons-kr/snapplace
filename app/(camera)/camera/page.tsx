@@ -34,7 +34,7 @@ export default function CameraPage() {
         alert('카메라를 사용할 수 없습니다.')
       })
     
-      localStorage.removeItem('fourCut-selected')
+      localStorage.removeItem('selected')
   }, [])
   
   return <>

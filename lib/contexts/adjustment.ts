@@ -2,8 +2,6 @@ import { ActionMap } from '@/types/context'
 import { createContext, Dispatch } from 'react'
 
 export type AdjustMentData = {
-  uuid: string
-  path: string
   brightness: number
   contrast: number
   brightnessContrast: number
@@ -13,12 +11,12 @@ export type AdjustMentData = {
 
 export type AdjustmentContextType = {
   currentIndex: number
-  adjustments: Array<AdjustMentData>
+  adjustments: Record<string, AdjustMentData & { path: string }>
 }
 
 export const initialAdjustmentContext: AdjustmentContextType = {
   currentIndex: 0,
-  adjustments: []
+  adjustments: {}
 }
 
 export enum AdjustmentActionType {
@@ -33,10 +31,9 @@ type AdjustmentPayload = {
   [AdjustmentActionType.SET_CURRENT_INDEX]: number
   [AdjustmentActionType.SET_ADJUSTMENTS]: Array<AdjustMentData>
   [AdjustmentActionType.UPDATE_ADJUSTMENT]: {
-    index: number
-    data: Partial<AdjustMentData>
+    id: string
+    data: AdjustMentData
   }
-  [AdjustmentActionType.ADD_ADJUSTMENT]: AdjustMentData
   [AdjustmentActionType.REMOVE_ADJUSTMENT]: number
 }
 
@@ -52,30 +49,19 @@ export function adjustmentReducer(
     case AdjustmentActionType.SET_CURRENT_INDEX:
     case AdjustmentActionType.SET_ADJUSTMENTS:
       return { ...state, [type]: payload }
-    
+
     case AdjustmentActionType.UPDATE_ADJUSTMENT: {
-      const newAdjustments = [...state.adjustments]
-      newAdjustments[payload.index] = {
-        ...newAdjustments[payload.index],
-        ...payload.data
-      }
-      return {
-        ...state,
-        adjustments: newAdjustments
-      }
+      const { id, data } = payload
+      const adjustments = { ...state.adjustments }
+      adjustments[id] = { ...adjustments[id], ...data }
+      return { ...state, adjustments }
     }
 
-    case AdjustmentActionType.ADD_ADJUSTMENT:
-      return {
-        ...state,
-        adjustments: [...state.adjustments, payload]
-      }
-
-    case AdjustmentActionType.REMOVE_ADJUSTMENT:
-      return {
-        ...state,
-        adjustments: state.adjustments.filter((_, index) => index !== payload)
-      }
+    case AdjustmentActionType.REMOVE_ADJUSTMENT: {
+      const adjustments = { ...state.adjustments }
+      delete adjustments[payload]
+      return { ...state, adjustments }
+    }
 
     default:
       return state

@@ -37,8 +37,8 @@ export default function CameraConfirmPage() {
 
     if (isFourCut) {
       localStorage.setItem(CameraMode.FOUR_CUT, 'true')
-      localStorage.setItem('fourCut-selected', JSON.stringify(selectedFiles.map(f => f.name)))
-      router.push('/camera/frame')
+      localStorage.setItem('selected', JSON.stringify(selectedFiles.map(f => f.name)))
+      router.push('/adjustment')
       return
     }
 
@@ -55,7 +55,7 @@ export default function CameraConfirmPage() {
     try {
       const history = await createHistory(formData)
       await fileStorage.clearAll()
-      router.push(`/adjustment/${history.uuid}`)
+      router.push('/adjustment')
     } catch (err) {
       console.error(err)
       alert('업로드에 실패했습니다.')
@@ -71,7 +71,7 @@ export default function CameraConfirmPage() {
     fileStorage.init().then(async () => {
       const savedKeys = (await fileStorage.listFiles()).map(({ key }) => key)
       const files = await Promise.all(savedKeys.map(key => fileStorage.getFile(key)))
-      const savedSelected: Array<string> = localStorage.getItem('fourCut-selected') ? JSON.parse(localStorage.getItem('fourCut-selected') || '') : []
+      const savedSelected: Array<string> = localStorage.getItem('selected') ? JSON.parse(localStorage.getItem('selected') || '') : []
 
       if (files.length <= 0) {
         alert('촬영된 사진이 없습니다. 카메라로 이동합니다.')

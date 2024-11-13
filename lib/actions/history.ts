@@ -54,14 +54,16 @@ export async function createHistory(formData: FormData) {
   }
 
   const assetUUIDs: Array<string> = []
-  for (const asset of data.assets) {
-    const path = await uploadFile(asset)
+  for (let i = 0; i < data.assets.length; i++) {
+    const path = await uploadFile(data.assets[i])
+    const adjustment = data.assetAdjustments[i]
     const { uuid: assetUUID } = await prisma.userAsset.create({
       data: {
         path,
         owners: {
           connect: { email: session.user.email }
         },
+        ...adjustment,
         isFourCut: data.isFourCut,
       },
       select: { uuid: true }
@@ -70,37 +72,19 @@ export async function createHistory(formData: FormData) {
   }
 
   return await prisma.history.create({ data: {
+    title: data.title,
     locationName: data.locationName,
     latitude: Number(data.latitude),
     longitude: Number(data.longitude),
+    private: data.private,
     images: {
       connect: assetUUIDs.map(uuid => ({ uuid }))
     },
+    friends: {
+      connect: data.friends.map(uuid => ({ uuid }))
+    },
     owner: {
       connect: { email: session.user.email }
-    }
-  } })
-}
-
-export async function completeHistory(historyId: string, data: UploadContextType) {
-  const session = await auth()
-  if (!session || !session.user) {
-    throw new Error('Unauthorized')
-  }
-
-  return await prisma.history.update({
-    where: {
-      uuid: historyId,
-      owner: { email: session.user.email }
     },
-    data: {
-      title: data.title,
-      content: data.content,
-      private: data.private,
-      friends: {
-        connect: data.friends.map(({ email }) => ({ email }))
-      },
-      completed: true
-    }
-  })
+  } })
 }
