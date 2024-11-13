@@ -32,6 +32,9 @@ export default function UploadPage() {
       setUploadData({ type: UploadActionType.SET_FILES, payload: files })
       setUploadData({ type: UploadActionType.SET_ADJUSTMENTS, payload: adjustments })
     })
+
+    const isFourCut = localStorage.getItem('fourCut') === 'true'
+    setUploadData({ type: UploadActionType.SET_IS_FOUR_CUT, payload: isFourCut })
   }, [])
 
   return <>
