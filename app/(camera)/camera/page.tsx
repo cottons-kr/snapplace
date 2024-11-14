@@ -6,13 +6,14 @@ import CameraHeader from '@/components/ui/Header/Camera'
 import CameraControl from '@/components/page/camera/Control'
 import CameraContentCounter from '@/components/page/camera/Counter'
 import { CameraActionType, CameraContext, cameraReducer, initialCameraContext } from '@/lib/contexts/camera'
+import classNames from 'classnames'
 
 import s from './page.module.scss'
 
 export default function CameraPage() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [cameraData, setCameraData] = useReducer(cameraReducer, initialCameraContext)
-  const [isCameraOn, setIsCameraOn] = useState(false)
+  const [_, setIsCameraOn] = useState(false)
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({
@@ -38,6 +39,9 @@ export default function CameraPage() {
     if (!videoRef.current) return
     if (cameraData.mediaStream) {
       videoRef.current.srcObject = cameraData.mediaStream
+      videoRef.current.onplay = () => {
+        setCameraData({ type: CameraActionType.SET_ROTATING, payload: false })
+      }
       setIsCameraOn(true)
     } else {
       videoRef.current.srcObject = null
@@ -53,12 +57,14 @@ export default function CameraPage() {
       <VStack className={s.page}>
         <CameraHeader />
         <video
-          className={s.video}
+          className={classNames(s.video, { [s.rotating]: cameraData.isRotating })}
           ref={videoRef}
           autoPlay muted playsInline controls={false}
         />
         <CameraContentCounter />
         <CameraControl />
+
+        <div className={classNames(s.rotatingOverlay, { [s.show]: cameraData.isRotating })} />
       </VStack>
     </CameraContext.Provider>
   </>

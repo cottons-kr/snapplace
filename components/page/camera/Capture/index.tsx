@@ -110,9 +110,14 @@ export default function CameraCapture() {
   }, [data])
 
   const onClickFlip = async () => {
+    if (data.isRotating) return
+
     await navigator.mediaDevices.enumerateDevices()
-    dispatch({ type: CameraActionType.SET_MEDIA_STREAM, payload: null })
-    dispatch({ type: CameraActionType.SET_FRONT_CAMERA, payload: !data.isFrontCamera })
+    dispatch({ type: CameraActionType.SET_ROTATING, payload: true })
+    setTimeout(() => {
+      dispatch({ type: CameraActionType.SET_MEDIA_STREAM, payload: null })
+      dispatch({ type: CameraActionType.SET_FRONT_CAMERA, payload: !data.isFrontCamera })
+    }, 500)
   }
 
   useEffect(() => {

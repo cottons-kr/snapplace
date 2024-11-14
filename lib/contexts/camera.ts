@@ -14,6 +14,7 @@ export type CameraContextType = {
   isFrontCamera: boolean
   isRecording: boolean
   isTakingFourCut: boolean
+  isRotating: boolean
   mediaStream: MediaStream | null
   savedContent: Array<Blob>
 
@@ -27,6 +28,7 @@ export const initialCameraContext: CameraContextType = {
   isFrontCamera: false,
   isRecording: false,
   isTakingFourCut: false,
+  isRotating: false,
   mediaStream: null,
   savedContent: [],
 
@@ -40,6 +42,7 @@ export enum CameraActionType {
   SET_FRONT_CAMERA = 'isFrontCamera',
   SET_RECORDING = 'isRecording',
   SET_TAKING_FOUR_CUT = 'isTakingFourCut',
+  SET_ROTATING = 'isRotating',
   SET_MEDIA_STREAM = 'mediaStream',
   SET_SAVED_CONTENT = 'savedContent',
   SET_MAX_COUNT = 'MAX_COUNT',
@@ -52,6 +55,7 @@ type CameraPayload = {
   [CameraActionType.SET_FRONT_CAMERA]: boolean
   [CameraActionType.SET_RECORDING]: boolean
   [CameraActionType.SET_TAKING_FOUR_CUT]: boolean
+  [CameraActionType.SET_ROTATING]: boolean
   [CameraActionType.SET_MEDIA_STREAM]: MediaStream | null
   [CameraActionType.SET_SAVED_CONTENT]: Array<Blob>
   [CameraActionType.SET_MAX_COUNT]: number
