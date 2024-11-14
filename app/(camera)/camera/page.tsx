@@ -19,11 +19,11 @@ export default function CameraPage() {
     navigator.mediaDevices.getUserMedia({
       video: {
         facingMode: cameraData.isFrontCamera ? 'user' : 'environment',
-        frameRate: { ideal: 30, max: 60 },
       },
       audio: true,
     })
       .then(stream => {
+        console.log('Media stream:', stream, cameraData.isFrontCamera)
         setCameraData({ type: CameraActionType.SET_MEDIA_STREAM, payload: stream })
         if (videoRef.current && !isCameraOn) {
           videoRef.current.srcObject = stream
