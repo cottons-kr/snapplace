@@ -18,6 +18,7 @@ export default function CameraPage() {
     navigator.mediaDevices.getUserMedia({
       video: {
         facingMode: cameraData.isFrontCamera ? 'user' : 'environment',
+        advanced: [{ torch: false }],
       },
       audio: true,
     })

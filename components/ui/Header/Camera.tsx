@@ -4,7 +4,7 @@ import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import { CameraActionType as ActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
-import { useCallback, useContext, useMemo } from 'react'
+import { useCallback, useContext, useEffect, useMemo } from 'react'
 import { AnimatePresence, Transition, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { FileStorage } from '@/lib/storage'
@@ -49,6 +49,16 @@ export default function CameraHeader() {
     hidden: { opacity: 0, x: 15, scale: 0.9 },
     visible: { opacity: 1, x: 0, scale: 1 },
   }
+
+  useEffect(() => {
+    if (!data.mediaStream) return
+    const videoTracks = data.mediaStream.getVideoTracks()
+    if (videoTracks.length > 0) {
+      videoTracks[0].applyConstraints({
+        advanced: [{ torch: data.isFlashOn }],
+      })
+    }
+  }, [data.mediaStream, data.isFlashOn])
 
   return <>
     <HStack

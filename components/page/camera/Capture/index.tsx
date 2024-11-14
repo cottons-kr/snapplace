@@ -19,6 +19,9 @@ export default function CameraCapture() {
   const videoBufferRef = useRef(new VideoChunkBuffer())
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const shouldHideGalleryButton = useMemo(() => data.isTakingFourCut || data.isRecording, [data])
+  const shouldAlignCenter = useMemo(() => {
+    return data.isRecording || !data.isTakingFourCut
+  }, [data])
 
   const startRecording = () => {
     if (!data.mediaStream) return
@@ -71,15 +74,13 @@ export default function CameraCapture() {
     }
   }
 
-  const takePhoto = async () => {
+  const takePhoto = useCallback(async () => {
     if (!data.mediaStream) return
     const track = data.mediaStream.getVideoTracks()[0]
     const imageCapture = new ImageCapture(track)
-    const blob = await imageCapture.takePhoto({
-      fillLightMode: data.isFlashOn ? 'flash' : 'off',
-    })
+    const blob = await imageCapture.takePhoto()
     dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, blob] })
-  }
+  }, [data])
 
   const onClickCapture = useCallback(async () => {
     if (data.savedContent.length >= data.MAX_COUNT) {
@@ -143,7 +144,7 @@ export default function CameraCapture() {
   }
 
   return <>
-    <HStack align='center' justify={shouldHideGalleryButton ? 'center' : 'flex-end'} gap={60} width='272px'>
+    <HStack align='center' justify={shouldAlignCenter ? 'center' : 'flex-end'} gap={60} width='272px'>
       <AnimatePresence>{
         !shouldHideGalleryButton && (
           <motion.div
