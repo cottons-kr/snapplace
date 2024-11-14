@@ -13,11 +13,19 @@ import s from './style.module.scss'
 export default function CameraSwitcher() {
   const { data, dispatch } = useContext(CameraContext)
   const [dragStartPoint, setDragStartPoint] = useState(0)
+  const [isDragEnd, setIsDragEnd] = useState(false)
   const shouldHide = useMemo(() => {
     return data.isRecording || data.isTakingFourCut
   }, [data.isRecording, data.isTakingFourCut])
   
-  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    setDragStartPoint(e.touches[0].clientX)
+    setIsDragEnd(false)
+  }, [])
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    if (isDragEnd) return
+
     const diff = e.changedTouches[0].clientX - dragStartPoint
     let direction: 'left' | 'right'
     if (diff > 50) {
@@ -41,6 +49,7 @@ export default function CameraSwitcher() {
       nextIndex = 0
     }
     dispatch({ type: CameraActionType.SET_MODE, payload: modes[nextIndex] })
+    setIsDragEnd(true)
   }, [data.mode, dragStartPoint])
 
   const transition: Transition = {
@@ -74,8 +83,8 @@ export default function CameraSwitcher() {
         className={cn(s.switcher, s[data.mode])}
         align='center' justify='center' gap={36}
         width='fit-content'
-        onTouchStart={e => setDragStartPoint(e.touches[0].clientX)}
-        onTouchEnd={onTouchEnd}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
       >
         <CameraSwitcherItem
           label='PHOTO'
