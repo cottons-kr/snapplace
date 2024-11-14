@@ -147,13 +147,21 @@ export default function CameraCapture() {
     <HStack align='center' justify={shouldAlignCenter ? 'center' : 'flex-end'} gap={60} width='272px'>
       <AnimatePresence>{
         !shouldHideGalleryButton && (
-          <motion.div
+          <motion.label
             className={classNames(s.button, s.gallery)}
             variants={variants} transition={transition}
             initial='hidden' animate='visible' exit='hidden'
           >
             <Icon icon={IconName.Image} fill />
-          </motion.div>
+            <input
+              type='file' accept='image/*' multiple
+              onChange={e => {
+                const files = Array.from(e.target.files || []).filter(Boolean)
+                const blobs = files.map(file => file.slice(0, file.size, file.type))
+                dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, ...blobs] })
+              }}
+            />
+          </motion.label>
         )
       }</AnimatePresence>
 
