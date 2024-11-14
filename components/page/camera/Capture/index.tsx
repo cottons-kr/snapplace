@@ -108,6 +108,12 @@ export default function CameraCapture() {
     }
   }, [data])
 
+  const onClickFlip = async () => {
+    await navigator.mediaDevices.enumerateDevices()
+    dispatch({ type: CameraActionType.SET_MEDIA_STREAM, payload: null })
+    dispatch({ type: CameraActionType.SET_FRONT_CAMERA, payload: !data.isFrontCamera })
+  }
+
   useEffect(() => {
     async function init() {
       const isImageCaptureSupported = 'ImageCapture' in window
@@ -165,7 +171,7 @@ export default function CameraCapture() {
             className={classNames(s.button, s.flip)}
             variants={variants} transition={transition}
             initial='hidden' animate='visible' exit='hidden'
-            onClick={() => dispatch({ type: CameraActionType.SET_FRONT_CAMERA, payload: !data.isFrontCamera })}
+            onClick={onClickFlip}
           >
             <Icon icon={IconName.Cached} fill />
           </motion.div>
