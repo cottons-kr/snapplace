@@ -6,7 +6,7 @@ import previewStyle from '../Preview/style.module.scss'
 import { nanoid } from 'nanoid'
 import { useRouter } from 'next/navigation'
 import { FileStorage } from '@/lib/storage'
-import * as htmlToImage from 'html-to-image'
+import { domToBlob } from 'modern-screenshot'
 
 import s from './style.module.scss'
 
@@ -22,10 +22,7 @@ export default function FrameSubmit() {
 
     setIsProcessing(true)
 
-    const canvas = await htmlToImage.toCanvas(preview)
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(blob => resolve(blob), 'image/png'))
+    const blob = await domToBlob(preview)
     if (!blob) {
       setIsProcessing(false)
       return alert('사진 저장에 실패했습니다.')
