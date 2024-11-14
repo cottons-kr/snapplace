@@ -24,24 +24,24 @@ export default function AdjustmentControl() {
   return <>
     <VStack className={s.control} gap={35}>
       <AdjustmentControlSlider
-        label='노출' value={targetData?.brightness || 50}
+        label='노출' value={targetData?.brightness ?? 50}
         onValueChange={value => updateValue('brightness', value)}
       />
       <AdjustmentControlSlider
-        label='대비' value={targetData?.contrast || 50}
+        label='대비' value={targetData?.contrast ?? 50}
         onValueChange={value => updateValue('contrast', value)}
       />
       <AdjustmentControlSlider
-        label='명조' value={targetData?.brightnessContrast || 50}
+        label='명조' value={targetData?.brightnessContrast ?? 50}
         onValueChange={value => updateValue('brightnessContrast', value)}
       />
       <AdjustmentControlSlider
-        label='채도' value={targetData?.saturation || 50}
+        label='채도' value={targetData?.saturation ?? 50}
         sliderClassName={s.saturation}
         onValueChange={value => updateValue('saturation', value)}
       />
       <AdjustmentControlSlider
-        label='색온도' value={targetData?.temperature || 50}
+        label='색온도' value={targetData?.temperature ?? 50}
         sliderClassName={s.temperature}
         onValueChange={value => updateValue('temperature', value)}
       />

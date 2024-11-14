@@ -34,7 +34,9 @@ export async function urlToFile(url: string) {
     'image/webp': ['webp'],
     'image/svg+xml': ['svg'],
     'image/bmp': ['bmp'],
-    'image/tiff': ['tiff', 'tif']
+    'image/tiff': ['tiff', 'tif'],
+    'video/mp4': ['mp4'],
+    'video/webm': ['webm'],
   }
 
   const extension = (filename.split('.').pop() || 'png').toLowerCase()

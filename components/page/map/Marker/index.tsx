@@ -7,6 +7,8 @@ import { motion, Transition, Variants } from 'framer-motion'
 import HistoryDetail from '@/components/ui/HistoryDetail'
 import { Account, History, Like, UserAsset } from '@prisma/client'
 import { useToggle } from '@/hooks/useToggle'
+import { getVideoThumbnail, isVideoExtension, isVideoFile } from '@/utils/file'
+import { calculateImageFilter } from '@/utils/filter'
 
 type MapMarkerProps = {
   data: History & {
@@ -40,11 +42,17 @@ export default function MapMarker(props: MapMarkerProps) {
 
   useEffect(() => {
     if (props.data.images.length === 0) return
-    console.log(props.data.images)
-    urlToFile(props.data.images[0].path)
-      .then(file => {
-        setBase64(URL.createObjectURL(file))
+    if (isVideoExtension(props.data.images[0].path.split('.').pop() || '')) {
+      getVideoThumbnail(props.data.images[0].path).then(thumbnail => {
+        setBase64(thumbnail)
       })
+    } else {
+      urlToFile(props.data.images[0].path).then(file => {
+        const url = URL.createObjectURL(file)
+        setBase64(url)
+        return () => URL.revokeObjectURL(url)
+      })
+    }
   }, [props.data.images])
 
   return base64 && <>
@@ -73,7 +81,12 @@ export default function MapMarker(props: MapMarkerProps) {
           <pattern id='pattern0_992_855' patternContentUnits='objectBoundingBox' width='1' height='1'>
             <use xlinkHref='#image0_992_855' transform='matrix(0.00177083 0 0 0.00138889 -0.35 0)'/>
           </pattern>
-          <image id='image0_992_855' width='960' height='720' xlinkHref={base64}/>
+          <image
+            id='image0_992_855' width='960' height='720' xlinkHref={base64}
+            style={{
+              filter: calculateImageFilter(props.data.images[0])
+            }}
+          />
         </defs>
       </motion.svg>
     </AdvancedMarker>

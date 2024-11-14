@@ -4,10 +4,13 @@ export async function getCurrentPosition() {
   })
 }
 
-export async function getLocationName() {
-  const position = await getCurrentPosition()
-  const { latitude, longitude } = position.coords
+export async function getLocationName(latitude?: number, longitude?: number) {
   const geocoder = new kakao.maps.services.Geocoder()
+  if (!latitude || !longitude) {
+    const position = await getCurrentPosition()
+    latitude = position.coords.latitude
+    longitude = position.coords.longitude
+  }
 
   return new Promise<string>((resolve, reject) => {
     geocoder.coord2RegionCode(longitude, latitude, (result: any, status: any) => {

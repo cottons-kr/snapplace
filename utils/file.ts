@@ -1,7 +1,8 @@
 import { nanoid } from 'nanoid'
+import GIF from 'gif.js'
 
 export function blobToFile(blob: Blob): File {
-  return new File([blob], nanoid(), { type: blob.type.split(';')[0] })
+  return new File([blob], nanoid(), { type: blob.type.split('')[0] })
 }
 
 export function getFileExtension(file: File): string {
@@ -25,4 +26,46 @@ export function getFileExtension(file: File): string {
 
 export function changeFileName(file: File, newName: string): File {
   return new File([file], newName, { type: file.type })
+}
+
+export function isVideoFile(file: File): boolean {
+  return file.type.startsWith('video')
+}
+
+export function isVideoExtension(fileName: string): boolean {
+  return ['mp4', 'webm', 'ogg'].includes(fileName.split('.').pop() || '')
+}
+
+export function extractFrameFromVideo(videoUrl: string): Promise<string> {
+  const videoElement = document.createElement('video')
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+  if (!ctx) {
+    return Promise.reject('2d context is not supported')
+  }
+
+  return new Promise((resolve, reject) => {
+      videoElement.src = videoUrl
+      videoElement.crossOrigin = 'anonymous'
+      
+      videoElement.onloadeddata = () => {
+          canvas.width = videoElement.videoWidth
+          canvas.height = videoElement.videoHeight
+          
+          videoElement.currentTime = 0.1
+      }
+
+      videoElement.onseeked = () => {
+        ctx.drawImage(videoElement, 0, 0)
+        const imageData = canvas.toDataURL('image/jpeg')
+        resolve(imageData)
+      }
+
+      videoElement.onerror = reject
+  })
+}
+
+export async function getVideoThumbnail(videoUrl: string) {
+  const thumbnail = await extractFrameFromVideo(videoUrl)
+  return thumbnail
 }

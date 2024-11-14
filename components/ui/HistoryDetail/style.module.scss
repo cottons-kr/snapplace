@@ -76,6 +76,7 @@
     font-size: 16px;
     font-weight: 500;
     line-height: 150%; /* 24px */
+    font-family: inherit;
   }
   .date {
     color: var(--Gray-3, #C8C8C8);
@@ -109,7 +110,7 @@
   justify-content: center;
   align-items: center;
   z-index: 100000;
-  img {
+  img, video {
     width: calc(100% - var(--min-left) - var(--min-right));
     height: auto;
     max-height: 90%;

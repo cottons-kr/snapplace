@@ -2,9 +2,9 @@
 
 import { UserAsset } from '@prisma/client'
 import { motion, Transition, Variants } from 'framer-motion'
+import { calculateImageFilter } from '@/utils/filter'
 
 import s from './style.module.scss'
-import { calculateImageFilter } from '@/utils/filter'
 
 type HistoryDetailFullImageProps = {
   asset: UserAsset
@@ -17,7 +17,8 @@ export default function HistoryDetailFullImage(props: HistoryDetailFullImageProp
 
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
-    duration: 0.4,
+    duration: 0.7,
+    type: 'spring',
   }
   const backgroundVariants: Variants = {
     hidden: { opacity: 0 },
