@@ -4,12 +4,17 @@ import { UserAsset } from '@prisma/client'
 import { motion, Transition, Variants } from 'framer-motion'
 
 import s from './style.module.scss'
+import { calculateImageFilter } from '@/utils/filter'
 
 type HistoryDetailFullImageProps = {
   asset: UserAsset
   close: () => unknown
 }
 export default function HistoryDetailFullImage(props: HistoryDetailFullImageProps) {
+  const supportVideoExt = ['mp4', 'webm']
+  const fileName = props.asset.path.split('/').pop() || ''
+  const isVideo = supportVideoExt.includes(fileName.split('.').pop() || '')
+
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
     duration: 0.4,
@@ -29,18 +34,29 @@ export default function HistoryDetailFullImage(props: HistoryDetailFullImageProp
     }
   }
 
+  const childrenProps = {
+    src: props.asset.path,
+    alt: props.asset.uuid,
+    onClick: props.close,
+    style: { filter: calculateImageFilter(props.asset) },
+    variants: assetVariants,
+    transition,
+    initial: 'hidden',
+    animate: 'visible',
+    exit: 'hidden',
+    crossOrigin: 'anonymous' as const,
+  }
+
   return <>
     <motion.div
       className={s['full-image']}
       variants={backgroundVariants} transition={transition}
       initial='hidden' animate='visible' exit='hidden'
       onClick={props.close}
-    >
-      <motion.img
-        src={props.asset.path} alt={props.asset.uuid}
-        variants={assetVariants} transition={transition}
-        initial='hidden' animate='visible' exit='hidden'
-      />
-    </motion.div>
+    >{
+      isVideo ?
+        <motion.video {...childrenProps} autoPlay muted controls={false} loop /> :
+        <motion.img {...childrenProps} />
+    }</motion.div>
   </>
 }

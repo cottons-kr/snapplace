@@ -25,7 +25,7 @@ export default function HistoryDetailContent(props: HistoryDetailContentProps) {
       </HStack>
 
       <p className={s.description}>{props.data.content}</p>
-      <p className={s.date}>{props.data.createdAt.toLocaleDateString('ko-KR')}</p>
+      <pre className={s.date}>{props.data.createdAt.toLocaleDateString('ko-KR')}</pre>
 
       <HStack wrap='wrap' gap={8}>{
         props.data.friends.map(f => (

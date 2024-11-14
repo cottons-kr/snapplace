@@ -88,6 +88,7 @@ function AssetItem(props: AssetItemProps) {
     className: props.asset.isFourCut ? s.fourCut : '',
     src: props.asset.path,
     style: { filter: calculateImageFilter(props.asset) },
+    crossOrigin: 'anonymous' as const,
     onClick: props.onClick
   }
 

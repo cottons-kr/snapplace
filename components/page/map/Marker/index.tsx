@@ -40,6 +40,7 @@ export default function MapMarker(props: MapMarkerProps) {
 
   useEffect(() => {
     if (props.data.images.length === 0) return
+    console.log(props.data.images)
     urlToFile(props.data.images[0].path)
       .then(file => {
         setBase64(URL.createObjectURL(file))

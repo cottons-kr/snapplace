@@ -5,7 +5,6 @@ import { CreateHistorySchema } from '../schemas/history/CreateHistory.dto'
 import { auth } from '../auth'
 import { uploadFile } from '@/utils/minio'
 import { prisma } from '../prisma'
-import { UploadContextType } from '../contexts/upload'
 
 export async function getMyHistories() {
   const session = await auth()
@@ -54,16 +53,20 @@ export async function createHistory(formData: FormData) {
   }
 
   const assetUUIDs: Array<string> = []
-  for (let i = 0; i < data.files.length; i++) {
-    const path = await uploadFile(data.files[i])
-    const adjustment = data.assetAdjustments[i]
+  for (const file of data.files) {
+    const path = await uploadFile(file)
+    const adjustment = data.assetAdjustments[file.name.split('.')[0]]
     const { uuid: assetUUID } = await prisma.userAsset.create({
       data: {
         path,
         owners: {
           connect: { email: session.user.email }
         },
-        ...adjustment,
+        brightness: adjustment.brightness,
+        contrast: adjustment.contrast,
+        brightnessContrast: adjustment.brightnessContrast,
+        saturation: adjustment.saturation,
+        temperature: adjustment.temperature,
         isFourCut: data.isFourCut,
       },
       select: { uuid: true }
@@ -73,6 +76,7 @@ export async function createHistory(formData: FormData) {
 
   return await prisma.history.create({ data: {
     title: data.title,
+    content: data.content,
     locationName: data.locationName,
     latitude: Number(data.latitude),
     longitude: Number(data.longitude),
