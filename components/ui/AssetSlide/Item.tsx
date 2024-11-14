@@ -1,10 +1,10 @@
 'use client'
 
 import Flex from '@/components/layout/Flex'
-import { AdjustmentContext, AdjustMentData } from '@/lib/contexts/adjustment'
+import { AdjustMentData } from '@/lib/contexts/adjustment'
 import { calculateImageFilter } from '@/utils/filter'
 import classNames from 'classnames'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import s from './style.module.scss'
 
@@ -16,6 +16,12 @@ type AssetSlideItemProps = {
 }
 export default function AssetSlideItem(props: AssetSlideItemProps) {
   const [orientation, setOrientation] = useState<Orientation>(null)
+  const isVideo = props.data.type.includes('video')
+
+  const childrenProps = useMemo(() => ({
+    className: classNames(s.image, orientation && s[orientation]),
+    src: URL.createObjectURL(props.data),
+  }), [orientation, props.data])
 
   useEffect(() => {
     const image = new Image()
@@ -34,12 +40,11 @@ export default function AssetSlideItem(props: AssetSlideItemProps) {
       style={{
         filter: calculateImageFilter(props.adjustment),
       }}
-    >
-      <img
-        className={classNames(s.image, orientation && s[orientation])}
-        src={URL.createObjectURL(props.data)}
-      />
-    </Flex>
+    >{
+      isVideo ? 
+        <video {...childrenProps} autoPlay muted controls={false} loop /> :
+        <img {...childrenProps} />
+    }</Flex>
   </>
 }
 

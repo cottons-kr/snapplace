@@ -10,10 +10,10 @@ import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import classNames from 'classnames'
 import { calculateImageFilter } from '@/utils/filter'
-
-import s from './style.module.scss'
 import { AnimatePresence } from 'framer-motion'
 import HistoryDetailFullImage from './FullImage'
+
+import s from './style.module.scss'
 
 type HistoryDetailSlideProps = {
   assets: Array<UserAsset>
@@ -43,12 +43,7 @@ export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
       <Swiper {...swiperProps}>{
         props.assets.map(a => (
           <SwiperSlide key={a.uuid} className={s.asset}>
-            <img
-              className={a.isFourCut ? s.fourCut : ''}
-              src={a.path}
-              style={{ filter: calculateImageFilter(a) }}
-              onClick={() => setFullImageTarget(a)}
-            />
+            <AssetItem asset={a} onClick={() => setFullImageTarget(a)} />
           </SwiperSlide>
         ))
       }</Swiper>
@@ -78,4 +73,27 @@ export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
       )
     }</AnimatePresence>
   </>
+}
+
+type AssetItemProps = {
+  asset: UserAsset
+  onClick: () => unknown
+}
+function AssetItem(props: AssetItemProps) {
+  const supportVideoExt = ['mp4', 'webm']
+  const fileName = props.asset.path.split('/').pop() || ''
+  const isVideo = supportVideoExt.includes(fileName.split('.').pop() || '')
+
+  const childrenProps = {
+    className: props.asset.isFourCut ? s.fourCut : '',
+    src: props.asset.path,
+    style: { filter: calculateImageFilter(props.asset) },
+    onClick: props.onClick
+  }
+
+  return (
+    isVideo
+      ? <video {...childrenProps} autoPlay muted controls={false} loop />
+      : <img {...childrenProps} />
+  )
 }

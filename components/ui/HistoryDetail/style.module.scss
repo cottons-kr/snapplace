@@ -7,7 +7,9 @@
   .asset {
     width: 100%;
     height: 252px;
-    img {
+    border-radius: 10px 10px 0px 0px;
+    overflow: hidden;
+    img, video {
       width: 100%;
       height: 100%;
       object-fit: cover;
