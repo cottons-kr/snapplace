@@ -9,9 +9,9 @@ import cn from 'classnames'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 import { VideoChunkBuffer } from '@/lib/video'
 import { getSupportedMimeType } from '@/utils/camera'
+import { FileStorage } from '@/lib/storage'
 
 import s from './style.module.scss'
-import { FileStorage } from '@/lib/storage'
 
 export default function CameraCapture() {
   const { data, dispatch } = useContext(CameraContext)
@@ -134,7 +134,7 @@ export default function CameraCapture() {
   }
 
   return <>
-    <HStack align='center' justify='flex-end' gap={60} width='272px'>
+    <HStack align='center' justify={shouldHideGalleryButton ? 'center' : 'flex-end'} gap={60} width='272px'>
       <AnimatePresence>{
         !shouldHideGalleryButton && (
           <motion.div

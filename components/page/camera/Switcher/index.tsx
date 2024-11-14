@@ -1,7 +1,7 @@
 'use client'
 
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
-import { useContext, useMemo } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { HStack } from '@/components/layout/Flex/Stack'
 import CameraSwitcherItem from './Item'
 import Flex from '@/components/layout/Flex'
@@ -12,6 +12,7 @@ import s from './style.module.scss'
 
 export default function CameraSwitcher() {
   const { data, dispatch } = useContext(CameraContext)
+  const [dragStartPoint, setDragStartPoint] = useState(0)
   const shouldHide = useMemo(() => {
     return data.isRecording || data.isTakingFourCut
   }, [data.isRecording, data.isTakingFourCut])
@@ -47,6 +48,32 @@ export default function CameraSwitcher() {
         className={cn(s.switcher, s[data.mode])}
         align='center' justify='center' gap={36}
         width='fit-content'
+        onTouchStart={e => setDragStartPoint(e.touches[0].clientX)}
+        onTouchEnd={e => {
+          const diff = e.changedTouches[0].clientX - dragStartPoint
+          let direction: 'left' | 'right'
+          if (diff > 50) {
+            direction = 'right'
+          } else if (diff < -50) {
+            direction = 'left'
+          } else {
+            return
+          }
+          const modes = [CameraMode.PHOTO, CameraMode.VIDEO, CameraMode.FOUR_CUT]
+          const currentIndex = modes.indexOf(data.mode)
+          let nextIndex = currentIndex
+          if (direction === 'left') {
+            nextIndex = currentIndex + 1
+          } else {
+            nextIndex = currentIndex - 1
+          }
+          if (nextIndex < 0) {
+            nextIndex = modes.length - 1
+          } else if (nextIndex >= modes.length) {
+            nextIndex = 0
+          }
+          dispatch({ type: CameraActionType.SET_MODE, payload: modes[nextIndex] })
+        }}
       >
         <CameraSwitcherItem
           label='PHOTO'
