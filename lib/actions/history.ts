@@ -62,11 +62,11 @@ export async function createHistory(formData: FormData) {
         owners: {
           connect: { email: session.user.email }
         },
-        brightness: adjustment.brightness,
-        contrast: adjustment.contrast,
-        brightnessContrast: adjustment.brightnessContrast,
-        saturation: adjustment.saturation,
-        temperature: adjustment.temperature,
+        brightness: adjustment?.brightness ?? 50,
+        contrast: adjustment?.contrast ?? 50,
+        brightnessContrast: adjustment?.brightnessContrast ?? 50,
+        saturation: adjustment?.saturation ?? 50,
+        temperature: adjustment?.temperature ?? 50,
         isFourCut: data.isFourCut,
       },
       select: { uuid: true }

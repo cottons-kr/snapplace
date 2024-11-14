@@ -11,6 +11,7 @@ import Logo from '@/assets/frame-logo.svg'
 import Image from 'next/image'
 import classNames from 'classnames'
 import { calculateImageFilter } from '@/utils/filter'
+import { AdjustMentData } from '@/lib/contexts/adjustment'
 
 import s from './style.module.scss'
 
@@ -20,12 +21,16 @@ type FramePreviewProps = {
 export default function FramePreview(props: FramePreviewProps) {
   const router = useRouter()
   const [images, setImages] = useState<Array<File>>([])
+  const [adjustments, setAdjustments] = useState<Record<string, AdjustMentData>>({})
 
   useEffect(() => {
     const selectedKeys: Array<string> = JSON.parse(localStorage.getItem('selected') || '') ?? []
     if (!selectedKeys) {
       alert('선택된 이미지가 없습니다.')
     }
+
+    const adjustmentData: Record<string, AdjustMentData> = JSON.parse(localStorage.getItem('adjustments') || '{}')
+    setAdjustments(adjustmentData)
 
     const fileStorage = new FileStorage()
     fileStorage.init().then(async () => {
@@ -54,7 +59,7 @@ export default function FramePreview(props: FramePreviewProps) {
               <img
                 src={URL.createObjectURL(image)} alt={`image-${index}`}
                 style={{
-                  filter: calculateImageFilter(image),
+                  filter: calculateImageFilter(adjustments[image.name.split('.')[0]]),
                 }}
               />
             </div>

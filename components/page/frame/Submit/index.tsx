@@ -2,11 +2,11 @@
 
 import { useCallback, useState } from 'react'
 import Flex from '@/components/layout/Flex'
-import html2canvas from 'html2canvas'
 import previewStyle from '../Preview/style.module.scss'
 import { nanoid } from 'nanoid'
 import { useRouter } from 'next/navigation'
 import { FileStorage } from '@/lib/storage'
+import * as htmlToImage from 'html-to-image'
 
 import s from './style.module.scss'
 
@@ -19,19 +19,17 @@ export default function FrameSubmit() {
     if (!preview) {
       return alert('사진 저장에 실패했습니다.')
     }
-    const canvas = await html2canvas(preview)
+
     setIsProcessing(true)
 
-    const data = await new Promise<Blob | null>((resolve) => {
-      canvas.toBlob((blob) => resolve(blob))
-    })
-    if (!data) {
+    const blob = await htmlToImage.toBlob(preview)
+    if (!blob) {
       setIsProcessing(false)
       return alert('사진 저장에 실패했습니다.')
     }
 
     const id = nanoid()
-    const image = new File([data], `${id}.png`, { type: 'image/png' })
+    const image = new File([blob], `${id}.png`, { type: 'image/png' })
 
     const fileStorage = new FileStorage()
     await fileStorage.init()

@@ -21,7 +21,7 @@
     "bcryptjs": "^2.4.3",
     "classnames": "^2.5.1",
     "framer-motion": "^11.11.10",
-    "html2canvas": "^1.4.1",
+    "html-to-image": "^1.11.11",
     "image-capture": "^0.4.0",
     "jotai": "^2.10.1",
     "minio": "^8.0.2",
