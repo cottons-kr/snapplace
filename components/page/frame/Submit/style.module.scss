@@ -15,5 +15,19 @@
     font-weight: 600;
     line-height: 22px; /* 110% */
     letter-spacing: -0.8px;
+    transition: background 0.2s, color 0.2s;
+    &.loading {
+      pointer-events: none;
+      background: var(--Gray-8);
+      span {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--Gray-5);
+        border-top-color: var(--Gray-9);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
   }
 }

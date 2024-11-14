@@ -22,7 +22,10 @@ export default function FrameSubmit() {
 
     setIsProcessing(true)
 
-    const blob = await htmlToImage.toBlob(preview)
+    const canvas = await htmlToImage.toCanvas(preview)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
+    const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(blob => resolve(blob), 'image/png'))
     if (!blob) {
       setIsProcessing(false)
       return alert('사진 저장에 실패했습니다.')
@@ -42,7 +45,7 @@ export default function FrameSubmit() {
 
   return <>
     <Flex className={s.submit}>
-      <button onClick={onClick}>{
+      <button className={isProcessing ? s.loading : ''} onClick={onClick}>{
         isProcessing ? <span /> : '완료'
       }</button>
     </Flex>
