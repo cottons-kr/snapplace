@@ -12,6 +12,8 @@ import classNames from 'classnames'
 import { calculateImageFilter } from '@/utils/filter'
 
 import s from './style.module.scss'
+import { AnimatePresence } from 'framer-motion'
+import HistoryDetailFullImage from './FullImage'
 
 type HistoryDetailSlideProps = {
   assets: Array<UserAsset>
@@ -19,6 +21,7 @@ type HistoryDetailSlideProps = {
 export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
   const [controlledSwiper, setControlledSwiper] = useState<SwiperType | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [fullImageTarget, setFullImageTarget] = useState<UserAsset | null>(null)
 
   const swiperProps: SwiperProps = {
     allowTouchMove: true,
@@ -41,8 +44,10 @@ export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
         props.assets.map(a => (
           <SwiperSlide key={a.uuid} className={s.asset}>
             <img
+              className={a.isFourCut ? s.fourCut : ''}
               src={a.path}
               style={{ filter: calculateImageFilter(a) }}
+              onClick={() => setFullImageTarget(a)}
             />
           </SwiperSlide>
         ))
@@ -63,5 +68,14 @@ export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
         ))
       }</HStack>
     </div>
+
+    <AnimatePresence>{
+      fullImageTarget && (
+        <HistoryDetailFullImage
+          asset={fullImageTarget}
+          close={() => setFullImageTarget(null)}
+        />
+      )
+    }</AnimatePresence>
   </>
 }

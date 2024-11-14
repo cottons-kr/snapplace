@@ -7,6 +7,14 @@
   .asset {
     width: 100%;
     height: 252px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fourCut {
+      object-fit: contain;
+    }
   }
   .control {
     position: absolute;
@@ -84,5 +92,25 @@
       font-size: 14px;
       font-weight: 600;
     }
+  }
+}
+
+.full-image {
+  position: absolute;
+  width: 100%;
+  height: calc(100dvh - 64px - 27px - (24px + var(--min-top)) * 2);
+  backdrop-filter: blur(20px);
+  border-radius: 10px 10px 0px 0px;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+  img {
+    width: calc(100% - var(--min-left) - var(--min-right));
+    height: auto;
+    max-height: 90%;
+    object-fit: contain;
   }
 }

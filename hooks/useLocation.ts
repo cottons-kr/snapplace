@@ -15,6 +15,7 @@ export function useLocation() {
   useEffect(() => {
     getCurrentPosition()
       .then(position => {
+        console.log('Client Current Position:', position)
         setLocationData(prev => (
           prev ?
             {
@@ -27,6 +28,7 @@ export function useLocation() {
       })
     
     getLocationName().then(locationName => {
+      console.log('Client Location Name:', locationName)
       setLocationData(prev => (
         prev ?
           { ...prev, locationName } :

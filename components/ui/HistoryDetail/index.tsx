@@ -24,7 +24,9 @@ export default function HistoryDetail(props: HistoryDetailProps) {
       provider={props.provider}
     >
       <VStack height='calc(100dvh - 64px - 27px - (24px + var(--min-top)) * 2)'>
-        <HistoryDetailSlide assets={props.history.images} />
+        <HistoryDetailSlide
+          assets={props.history.images}
+        />
         <Viewport direction='column' height='100%'>
           <HistoryDetailContent data={props.history} />
         </Viewport>
