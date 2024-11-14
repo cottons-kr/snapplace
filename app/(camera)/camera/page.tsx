@@ -15,7 +15,6 @@ export default function CameraPage() {
   const [isCameraOn, setIsCameraOn] = useState(false)
 
   useEffect(() => {
-    setIsCameraOn(false)
     navigator.mediaDevices.getUserMedia({
       video: {
         facingMode: cameraData.isFrontCamera ? 'user' : 'environment',
@@ -25,10 +24,6 @@ export default function CameraPage() {
       .then(stream => {
         console.log('Media stream:', stream, cameraData.isFrontCamera)
         setCameraData({ type: CameraActionType.SET_MEDIA_STREAM, payload: stream })
-        if (videoRef.current && !isCameraOn) {
-          videoRef.current.srcObject = stream
-          setIsCameraOn(true)
-        }
       })
       .catch(error => {
         console.error(error)
@@ -37,6 +32,17 @@ export default function CameraPage() {
     
       localStorage.removeItem('selected')
   }, [cameraData.isFrontCamera])
+
+  useEffect(() => {
+    if (!videoRef.current) return
+    if (cameraData.mediaStream) {
+      videoRef.current.srcObject = cameraData.mediaStream
+      setIsCameraOn(true)
+    } else {
+      videoRef.current.srcObject = null
+      setIsCameraOn(false)
+    }
+  }, [cameraData.mediaStream])
   
   return <>
     <CameraContext.Provider value={{
