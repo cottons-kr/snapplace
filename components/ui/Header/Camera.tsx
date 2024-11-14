@@ -29,6 +29,7 @@ export default function CameraHeader() {
 
     for (const content of data.savedContent) {
       const file = blobToFile(content)
+      console.log('file', file)
       await fileStorage.saveFile(file.name, file)
     }
 

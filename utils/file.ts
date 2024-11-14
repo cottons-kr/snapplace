@@ -1,8 +1,7 @@
 import { nanoid } from 'nanoid'
-import GIF from 'gif.js'
 
 export function blobToFile(blob: Blob): File {
-  return new File([blob], nanoid(), { type: blob.type.split('')[0] })
+  return new File([blob], nanoid(), { type: blob.type })
 }
 
 export function getFileExtension(file: File): string {

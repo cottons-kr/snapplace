@@ -58,6 +58,7 @@ export default function CameraConfirmPage() {
         }
       }
 
+      console.log('Saved Files:', files)
       setResults(files.filter(Boolean) as Array<File>)
     })
   }, [])
