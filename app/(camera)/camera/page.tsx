@@ -15,9 +15,10 @@ export default function CameraPage() {
   const [isCameraOn, setIsCameraOn] = useState(false)
 
   useEffect(() => {
+    setIsCameraOn(false)
     navigator.mediaDevices.getUserMedia({
       video: {
-        facingMode: 'environment',
+        facingMode: cameraData.isFrontCamera ? 'user' : 'environment',
         frameRate: { ideal: 30, max: 60 },
       },
       audio: true,
@@ -35,7 +36,7 @@ export default function CameraPage() {
       })
     
       localStorage.removeItem('selected')
-  }, [])
+  }, [cameraData.isFrontCamera])
   
   return <>
     <CameraContext.Provider value={{

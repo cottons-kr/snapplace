@@ -10,6 +10,7 @@ import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 import { VideoChunkBuffer } from '@/lib/video'
 import { getSupportedMimeType } from '@/utils/camera'
 import { FileStorage } from '@/lib/storage'
+import classNames from 'classnames'
 
 import s from './style.module.scss'
 
@@ -74,7 +75,9 @@ export default function CameraCapture() {
     if (!data.mediaStream) return
     const track = data.mediaStream.getVideoTracks()[0]
     const imageCapture = new ImageCapture(track)
-    const blob = await imageCapture.takePhoto()
+    const blob = await imageCapture.takePhoto({
+      fillLightMode: data.isFlashOn ? 'flash' : 'off',
+    })
     dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, blob] })
   }
 
@@ -138,7 +141,7 @@ export default function CameraCapture() {
       <AnimatePresence>{
         !shouldHideGalleryButton && (
           <motion.div
-            className={s.button}
+            className={classNames(s.button, s.gallery)}
             variants={variants} transition={transition}
             initial='hidden' animate='visible' exit='hidden'
           >
@@ -159,9 +162,10 @@ export default function CameraCapture() {
       <AnimatePresence>{
         !data.isRecording && (
           <motion.div
-            className={s.button}
+            className={classNames(s.button, s.flip)}
             variants={variants} transition={transition}
             initial='hidden' animate='visible' exit='hidden'
+            onClick={() => dispatch({ type: CameraActionType.SET_FRONT_CAMERA, payload: !data.isFrontCamera })}
           >
             <Icon icon={IconName.Cached} fill />
           </motion.div>

@@ -3,7 +3,7 @@
 import { HStack } from '@/components/layout/Flex/Stack'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
-import { CameraContext, CameraMode } from '@/lib/contexts/camera'
+import { CameraActionType as ActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
 import { useCallback, useContext, useMemo } from 'react'
 import { AnimatePresence, Transition, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
@@ -13,7 +13,7 @@ import { blobToFile } from '@/utils/file'
 import s from './style.module.scss'
 
 export default function CameraHeader() {
-  const { data } = useContext(CameraContext)
+  const { data, dispatch } = useContext(CameraContext)
   const shouldShowComplete = useMemo(() => {
     if (data.isTakingFourCut) {
       return data.savedContent.length >= 4
@@ -29,7 +29,6 @@ export default function CameraHeader() {
 
     for (const content of data.savedContent) {
       const file = blobToFile(content)
-      console.log('file', file)
       await fileStorage.saveFile(file.name, file)
     }
 
@@ -57,8 +56,12 @@ export default function CameraHeader() {
       align='center' justify='space-between'
       height='54px'
     >
-      <Icon icon={IconName.ChevronBackward} />
-      <Icon icon={IconName.FlashlightOff} size={20} color='var(--Gray-5)' />
+      <Icon icon={IconName.ChevronBackward} onClick={router.back} />
+      <Icon
+        icon={data.isFlashOn ? IconName.FlashlightOn : IconName.FlashlightOff}
+        size={20} color={data.isFlashOn ? 'yellow' : 'var(--Gray-5)'}
+        onClick={() => dispatch({ type: ActionType.SET_FLASH_ON, payload: !data.isFlashOn })}
+      />
     </HStack>
 
     <AnimatePresence>{

@@ -1,7 +1,7 @@
 'use client'
 
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
-import { useContext, useMemo, useState } from 'react'
+import { useCallback, useContext, useMemo, useState } from 'react'
 import { HStack } from '@/components/layout/Flex/Stack'
 import CameraSwitcherItem from './Item'
 import Flex from '@/components/layout/Flex'
@@ -17,6 +17,32 @@ export default function CameraSwitcher() {
     return data.isRecording || data.isTakingFourCut
   }, [data.isRecording, data.isTakingFourCut])
   
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    const diff = e.changedTouches[0].clientX - dragStartPoint
+    let direction: 'left' | 'right'
+    if (diff > 50) {
+      direction = 'right'
+    } else if (diff < -50) {
+      direction = 'left'
+    } else {
+      return
+    }
+    const modes = [CameraMode.PHOTO, CameraMode.VIDEO, CameraMode.FOUR_CUT]
+    const currentIndex = modes.indexOf(data.mode)
+    let nextIndex = currentIndex
+    if (direction === 'left') {
+      nextIndex = currentIndex + 1
+    } else {
+      nextIndex = currentIndex - 1
+    }
+    if (nextIndex < 0) {
+      nextIndex = modes.length - 1
+    } else if (nextIndex >= modes.length) {
+      nextIndex = 0
+    }
+    dispatch({ type: CameraActionType.SET_MODE, payload: modes[nextIndex] })
+  }, [data.mode, dragStartPoint])
+
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
     duration: 0.3,
@@ -49,31 +75,7 @@ export default function CameraSwitcher() {
         align='center' justify='center' gap={36}
         width='fit-content'
         onTouchStart={e => setDragStartPoint(e.touches[0].clientX)}
-        onTouchEnd={e => {
-          const diff = e.changedTouches[0].clientX - dragStartPoint
-          let direction: 'left' | 'right'
-          if (diff > 50) {
-            direction = 'right'
-          } else if (diff < -50) {
-            direction = 'left'
-          } else {
-            return
-          }
-          const modes = [CameraMode.PHOTO, CameraMode.VIDEO, CameraMode.FOUR_CUT]
-          const currentIndex = modes.indexOf(data.mode)
-          let nextIndex = currentIndex
-          if (direction === 'left') {
-            nextIndex = currentIndex + 1
-          } else {
-            nextIndex = currentIndex - 1
-          }
-          if (nextIndex < 0) {
-            nextIndex = modes.length - 1
-          } else if (nextIndex >= modes.length) {
-            nextIndex = 0
-          }
-          dispatch({ type: CameraActionType.SET_MODE, payload: modes[nextIndex] })
-        }}
+        onTouchEnd={onTouchEnd}
       >
         <CameraSwitcherItem
           label='PHOTO'
