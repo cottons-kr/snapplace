@@ -33,7 +33,7 @@ export default function CameraConfirmResultItem(props: CameraConfirmResultItemPr
       {
         props.file.type.startsWith('image/') ?
           <img src={sourceSrc} alt={props.file.name} /> :
-          <video src={sourceSrc} controls={false} muted autoPlay loop />
+          <video src={sourceSrc} controls={false} muted autoPlay loop playsInline />
       }
       <div className={classNames(s.overlay, { [s.selected]: isSelected })}>
         <Icon icon={IconName.CheckCircle} fill />

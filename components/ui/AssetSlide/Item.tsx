@@ -42,7 +42,7 @@ export default function AssetSlideItem(props: AssetSlideItemProps) {
       }}
     >{
       isVideo ? 
-        <video {...childrenProps} autoPlay muted controls={false} loop /> :
+        <video {...childrenProps} autoPlay muted controls={false} loop playsInline /> :
         <img {...childrenProps} />
     }</Flex>
   </>
