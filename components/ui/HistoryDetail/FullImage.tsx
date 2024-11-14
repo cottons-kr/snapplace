@@ -56,7 +56,7 @@ export default function HistoryDetailFullImage(props: HistoryDetailFullImageProp
       onClick={props.close}
     >{
       isVideo ?
-        <motion.video {...childrenProps} autoPlay muted controls={false} loop /> :
+        <motion.video {...childrenProps} autoPlay muted controls={false} loop playsInline /> :
         <motion.img {...childrenProps} />
     }</motion.div>
   </>
