@@ -74,7 +74,7 @@ export default function RegisterAccountPage() {
       data: registerAccountData,
       dispatch: setRegisterAccountData
     }}>
-      <VStack>
+      <VStack className={s.page}>
         <Goback onClick={onClickPrev} />
         <Flex className={s.content} height='100%'>{
           registerAccountData.step === 1 ? <RegisterAccountEmail /> :

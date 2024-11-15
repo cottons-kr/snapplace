@@ -1,3 +1,7 @@
+.page {
+  padding-top: calc(var(--min-top) + 26px);
+}
+
 .button {
   display: flex;
   height: 56px;
