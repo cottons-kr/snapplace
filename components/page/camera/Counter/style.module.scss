@@ -6,6 +6,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 150%; /* 21px */
+  white-space: nowrap;
   transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 10;
   &.expand {
