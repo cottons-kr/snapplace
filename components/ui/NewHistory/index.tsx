@@ -20,7 +20,7 @@ export default function NewHistory(props: NewHistoryProps) {
   const router = useRouter()
 
   const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || [])
+    const files = Array.from(e.target.files || []).slice(0, 10)
     if (files.length <= 0) return
 
     const fileStorage = new FileStorage()

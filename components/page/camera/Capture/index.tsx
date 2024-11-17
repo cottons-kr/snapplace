@@ -161,7 +161,7 @@ export default function CameraCapture() {
             <input
               type='file' accept='image/*' multiple
               onChange={e => {
-                const files = Array.from(e.target.files || []).filter(Boolean)
+                const files = Array.from(e.target.files || []).filter(Boolean).slice(0, 10)
                 const blobs = files.map(file => file.slice(0, file.size, file.type))
                 dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, ...blobs] })
               }}
