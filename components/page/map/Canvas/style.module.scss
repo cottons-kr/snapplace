@@ -4,6 +4,9 @@
   background-color: #E5E3DF;
   border-radius: 0px 0px 10px 10px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .map {
@@ -11,5 +14,22 @@
   height: 100%;
   div:focus {
     outline: none;
+  }
+}
+
+.retry {
+  color: var(--Gray-8);
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards 2s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

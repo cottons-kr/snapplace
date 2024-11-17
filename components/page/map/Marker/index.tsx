@@ -19,7 +19,7 @@ type MapMarkerProps = {
   }
 }
 export default function MapMarker(props: MapMarkerProps) {
-  const [base64, setBase64] = useState<string | null>(null)
+  const [thumbnail, setThumbnail] = useState<string | null>(null)
   const [id, setId] = useState('')
   const detailToggle = useToggle()
 
@@ -50,18 +50,18 @@ export default function MapMarker(props: MapMarkerProps) {
     if (props.data.images.length === 0) return
     if (isVideoExtension(props.data.images[0].path.split('.').pop() || '')) {
       getVideoThumbnail(props.data.images[0].path).then(thumbnail => {
-        setBase64(thumbnail)
+        setThumbnail(thumbnail)
       })
     } else {
       urlToFile(props.data.images[0].path).then(file => {
         const url = URL.createObjectURL(file)
-        setBase64(url)
+        setThumbnail(url)
         return () => URL.revokeObjectURL(url)
       })
     }
   }, [props.data.images])
 
-  return base64 && <>
+  return thumbnail && <>
     <AdvancedMarker
       position={{ lat: props.data.latitude, lng: props.data.longitude }}
       clickable={false}
@@ -88,7 +88,7 @@ export default function MapMarker(props: MapMarkerProps) {
             <use xlinkHref={`#image${id}`} transform='matrix(0.00177083 0 0 0.00138889 -0.35 0)'/>
           </pattern>
           <image
-            id={`image${id}`} width='960' height='720' xlinkHref={base64}
+            id={`image${id}`} width='960' height='720' xlinkHref={thumbnail}
             style={{ filter: calculateImageFilter(props.data.images[0]) }}
           />
         </defs>
