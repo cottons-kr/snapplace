@@ -1,10 +1,13 @@
 'use client'
 
-import { ToggleProvider } from '@/hooks/useToggle'
+import { ToggleProvider, useToggle } from '@/hooks/useToggle'
 import { DetailedHistory } from './Group'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
+import { VStack } from '@/components/layout/Flex/Stack'
 
 import s from './style.module.scss'
+import { useThumbnail } from '@/hooks/useThumbnail'
+import HistoryDetail from '@/components/ui/HistoryDetail'
 
 type MapMarkerSelectionListProps = {
   provider: ToggleProvider
@@ -16,23 +19,19 @@ export default function MapMarkerSelectionList(props: MapMarkerSelectionListProp
     duration: 0.3,
   }
   const backgroundVariants: Variants = {
-    hidden: {
-      background: 'linear-gradient(180deg, rgba(39, 39, 39, 0) 0%, rgba(39, 39, 39, 0) 100%)',
-      backdropFilter: 'blur(0px)',
-    },
-    visible: {
-      background: 'linear-gradient(180deg, rgba(39, 39, 39, 0.80) 0%, rgba(39, 39, 39, 0.10) 100%)',
-      backdropFilter: 'blur(4px)'
-    },
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
   }
   const containerVariants: Variants = {
     hidden: {
       scale: 0.95,
       opacity: 0,
+      y: 20,
     },
     visible: {
       scale: 1,
       opacity: 1,
+      y: 0,
     },
   }
 
@@ -50,9 +49,37 @@ export default function MapMarkerSelectionList(props: MapMarkerSelectionListProp
             variants={containerVariants} transition={transition}
             initial='hidden' animate='visible' exit='hidden'
             onClick={e => e.stopPropagation()}
-          ></motion.div>
+          >{
+            props.data.map(d => <Item key={d.uuid} data={d} />)
+          }</motion.div>
         </motion.div>
       )
     }</AnimatePresence>
+  </>
+}
+
+type ItemProps = {
+  data: DetailedHistory
+}
+function Item(props: ItemProps) {
+  const thumbnail = useThumbnail(props.data.images[0].path)
+  const detailToggle = useToggle()
+  
+  return <>
+    <VStack
+      className={s.item}
+      justify='flex-end' gap={4}
+      width='calc(50% - 5px)' height='200px'
+      onClick={detailToggle.open}
+    >
+      {thumbnail && <img src={thumbnail} alt={props.data.title} />}
+      <h4>{props.data.title}</h4>
+      <p>{props.data.createdAt.toLocaleDateString('ko-KR')}</p>
+    </VStack>
+
+    <HistoryDetail
+      provider={detailToggle}
+      history={props.data}
+    />
   </>
 }
