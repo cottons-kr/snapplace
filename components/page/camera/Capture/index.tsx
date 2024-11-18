@@ -61,6 +61,8 @@ export default function CameraCapture() {
     }
 
     try {
+      turnOnFlashlight()
+
       mediaRecorderRef.current = new MediaRecorder(data.mediaStream, options)
       mediaRecorderRef.current.ondataavailable = (event: BlobEvent) => {
         if (event.data.size > 0) {
@@ -69,10 +71,10 @@ export default function CameraCapture() {
       }
 
       mediaRecorderRef.current.start(1000)
-      turnOnFlashlight()
 
       dispatch({ type: CameraActionType.SET_RECORDING, payload: true })
     } catch (err) {
+      turnOffFlashlight()
       console.error(err)
       alert('녹화를 시작할 수 없습니다.')
     }
@@ -100,10 +102,10 @@ export default function CameraCapture() {
 
   const takePhoto = useCallback(async () => {
     if (!data.mediaStream) return
-    const track = data.mediaStream.getVideoTracks()[0]
-    const imageCapture = new ImageCapture(track)
 
     turnOnFlashlight()
+    const track = data.mediaStream.getVideoTracks()[0]
+    const imageCapture = new ImageCapture(track)
     const blob = await imageCapture.takePhoto()
     turnOffFlashlight()
 
