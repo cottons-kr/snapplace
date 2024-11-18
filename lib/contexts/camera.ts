@@ -19,6 +19,7 @@ export type CameraContextType = {
   savedContent: Array<Blob>
 
   MAX_COUNT: number
+  SHOW_FRONT_FLASHLIGHT: boolean
 }
 
 export const initialCameraContext: CameraContextType = {
@@ -33,6 +34,7 @@ export const initialCameraContext: CameraContextType = {
   savedContent: [],
 
   MAX_COUNT: 10,
+  SHOW_FRONT_FLASHLIGHT: false,
 }
 
 export enum CameraActionType {
@@ -46,6 +48,7 @@ export enum CameraActionType {
   SET_MEDIA_STREAM = 'mediaStream',
   SET_SAVED_CONTENT = 'savedContent',
   SET_MAX_COUNT = 'MAX_COUNT',
+  SET_SHOW_FRONT_FLASHLIGHT = 'SHOW_FRONT_FLASHLIGHT',
 }
 
 type CameraPayload = {
@@ -59,6 +62,7 @@ type CameraPayload = {
   [CameraActionType.SET_MEDIA_STREAM]: MediaStream | null
   [CameraActionType.SET_SAVED_CONTENT]: Array<Blob>
   [CameraActionType.SET_MAX_COUNT]: number
+  [CameraActionType.SET_SHOW_FRONT_FLASHLIGHT]: boolean
 }
 
 export type CameraReducerAction = ActionMap<CameraPayload>[keyof ActionMap<CameraPayload>]

@@ -24,11 +24,26 @@ export default function CameraCapture() {
   }, [data])
 
   const turnOnFlashlight = useCallback(() => {
-    if (!data.mediaStream) return
-    // data.mediaStream.
-  }, [data.mediaStream])
+    if (!data.mediaStream || !data.isFlashOn) return
+    if (data.isFrontCamera) {
+      if (data.mode !== CameraMode.VIDEO) {
+        dispatch({ type: CameraActionType.SET_SHOW_FRONT_FLASHLIGHT, payload: true })
+      }
+    } else {
+      const videoTracks = data.mediaStream.getVideoTracks()
+      videoTracks[0]?.applyConstraints({ advanced: [{ torch: true }] })
+    }
+  }, [data.mediaStream, data.isFlashOn, data.isFrontCamera])
 
-  const turnOffFlashlight = useCallback(() => {}, [data.mediaStream])
+  const turnOffFlashlight = useCallback(() => {
+    if (!data.mediaStream) return
+    if (data.isFrontCamera) {
+      dispatch({ type: CameraActionType.SET_SHOW_FRONT_FLASHLIGHT, payload: false })
+    } else {
+      const videoTracks = data.mediaStream.getVideoTracks()
+      videoTracks[0]?.applyConstraints({ advanced: [{ torch: false }] })
+    }
+  }, [data.mediaStream, data.isFlashOn, data.isFrontCamera])
 
   const startRecording = () => {
     if (!data.mediaStream) return
@@ -54,6 +69,7 @@ export default function CameraCapture() {
       }
 
       mediaRecorderRef.current.start(1000)
+      turnOnFlashlight()
 
       dispatch({ type: CameraActionType.SET_RECORDING, payload: true })
     } catch (err) {
@@ -77,6 +93,7 @@ export default function CameraCapture() {
         alert('녹화를 종료할 수 없습니다.')
       } finally {
         videoBufferRef.current.clear()
+        turnOffFlashlight()
       }
     }
   }
@@ -85,7 +102,11 @@ export default function CameraCapture() {
     if (!data.mediaStream) return
     const track = data.mediaStream.getVideoTracks()[0]
     const imageCapture = new ImageCapture(track)
+
+    turnOnFlashlight()
     const blob = await imageCapture.takePhoto()
+    turnOffFlashlight()
+
     dispatch({ type: CameraActionType.SET_SAVED_CONTENT, payload: [...data.savedContent, blob] })
   }, [data])
 

@@ -64,7 +64,10 @@ export default function CameraPage() {
         <CameraContentCounter />
         <CameraControl />
 
-        <div className={classNames(s.rotatingOverlay, { [s.show]: cameraData.isRotating })} />
+        <div className={classNames(s.rotatingOverlay, {
+          [s.show]: cameraData.isRotating,
+          [s.flash]: cameraData.SHOW_FRONT_FLASHLIGHT,
+        })} />
       </VStack>
     </CameraContext.Provider>
   </>
