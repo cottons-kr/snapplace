@@ -27,7 +27,7 @@ export default function RegisterAccountPage() {
   const submit = useCallback(async () => {
     try {
       await registerAccount(registerAccountData)
-      setRegisterAccountData({ type: ActionType.SET_STEP, payload: 5})
+      setRegisterAccountData({ type: ActionType.SET_STEP, payload: 6 })
     } catch (err) {
       console.error(err)
       alert('회원가입에 실패했습니다.')
