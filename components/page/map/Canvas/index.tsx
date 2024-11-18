@@ -1,6 +1,6 @@
 'use client'
 
-import { AdvancedMarker, Map } from '@vis.gl/react-google-maps'
+import { AdvancedMarker, ColorScheme, Map } from '@vis.gl/react-google-maps'
 import PersonPinCircle from '@/assets/person_pin_circle.svg'
 import Image from 'next/image'
 import { getMyHistories } from '@/lib/actions/history'
@@ -50,6 +50,7 @@ export default function MapCanvas(props: MapCanvasProps) {
           disableDefaultUI
           minZoom={11}
           maxZoom={18}
+          colorScheme={ColorScheme.FOLLOW_SYSTEM}
           onClick={e => e.stop()}
           onZoomChanged={e => setCurrentZoomLevel(e.detail.zoom)}
         >

@@ -28,10 +28,10 @@ export default function MapControl() {
   return <>
     <HStack className={s.container} align='center' justify='space-between'>
       <div className={s.button} onClick={onClickCenter}>
-        <Icon icon={IconName.LocationSearching} />
+        <Icon icon={IconName.LocationSearching} size={22} />
       </div>
       <div className={s.button} onClick={bottomSheetToggle.open}>
-        <Icon icon={IconName.AddPhotoAlternate} />
+        <Icon icon={IconName.AddPhotoAlternate} size={22} />
       </div>
     </HStack>
 

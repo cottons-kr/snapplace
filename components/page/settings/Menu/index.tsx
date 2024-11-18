@@ -1,6 +1,5 @@
 import { HStack, VStack } from '@/components/layout/Flex/Stack'
 import { IconName } from '@/components/ui/Icon/shared'
-import Link from 'next/link'
 import Icon from '@/components/ui/Icon'
 
 import s from './style.module.scss'
@@ -19,12 +18,10 @@ export default function AccountMenu(props: AccountMenuProps) {
       <h2>{props.title}</h2>
       <VStack>{
         props.items.map((item, i) => (
-          <Link key={i} className={s.item} href={item.href}>
-            <HStack align='center' gap={6}>
-              <Icon icon={item.icon} />
-              <p>{item.label}</p>
-            </HStack>
-          </Link>
+          <HStack key={i} className={s.item} align='center' gap={6}>
+            <Icon icon={item.icon} />
+            <p>{item.label}</p>
+          </HStack>
         ))
       }</VStack>
     </VStack>

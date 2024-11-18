@@ -23,6 +23,13 @@ export default function CameraCapture() {
     return data.isRecording || !data.isTakingFourCut
   }, [data])
 
+  const turnOnFlashlight = useCallback(() => {
+    if (!data.mediaStream) return
+    // data.mediaStream.
+  }, [data.mediaStream])
+
+  const turnOffFlashlight = useCallback(() => {}, [data.mediaStream])
+
   const startRecording = () => {
     if (!data.mediaStream) return
 

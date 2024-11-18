@@ -50,16 +50,6 @@ export default function CameraHeader() {
     visible: { opacity: 1, x: 0, scale: 1 },
   }
 
-  useEffect(() => {
-    if (!data.mediaStream) return
-    const videoTracks = data.mediaStream.getVideoTracks()
-    if (videoTracks.length > 0) {
-      videoTracks[0].applyConstraints({
-        advanced: [{ torch: data.isFlashOn }],
-      })
-    }
-  }, [data.mediaStream, data.isFlashOn])
-
   return <>
     <HStack
       className={s.camera}
