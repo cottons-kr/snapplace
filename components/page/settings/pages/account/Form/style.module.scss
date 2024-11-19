@@ -30,6 +30,9 @@
       outline: none;
     }
   }
+  input[type='file'] {
+    display: none;
+  }
   button {
     -webkit-appearance: none;
     appearance: none;
@@ -51,7 +54,7 @@
       background: var(--Gray-8);
       color: var(--Gray-5);
     }
-    &.uploading {
+    &.updating {
       pointer-events: none;
       background: var(--Gray-8);
       span {
@@ -64,6 +67,19 @@
         animation: spin 1s linear infinite;
       }
     }
+  }
+}
+
+.file {
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  p {
+    font-size: 14px;
+    color: var(--Gray-3);
   }
 }
 

@@ -11,8 +11,7 @@ type ProfileImageProps = {
 }
 export default function ProfileImage(props: ProfileImageProps) {
   const { data: session } = useSession()
-  console.log(session)
-
+  
   return <>
     <Flex 
       className={s.avatar}

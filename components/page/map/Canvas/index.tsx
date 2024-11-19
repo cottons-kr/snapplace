@@ -35,10 +35,6 @@ export default function MapCanvas(props: MapCanvasProps) {
     }, [] as Array<GroupedHistory>)
   }, [props.histories, thresholds])
 
-  useEffect(() => {
-    console.log(markers)
-  }, [markers])
-
   return <>
     <div className={s.container}>{
       isReady ?
