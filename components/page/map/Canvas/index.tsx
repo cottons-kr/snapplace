@@ -50,7 +50,7 @@ export default function MapCanvas(props: MapCanvasProps) {
           disableDefaultUI
           minZoom={11}
           maxZoom={18}
-          colorScheme={ColorScheme.FOLLOW_SYSTEM}
+          colorScheme={ColorScheme.DARK}
           onClick={e => e.stop()}
           onZoomChanged={e => setCurrentZoomLevel(e.detail.zoom)}
         >

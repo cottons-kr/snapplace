@@ -1,6 +1,7 @@
 import { HStack, VStack } from '@cottons-kr/react-foundation'
 import { IconName } from '@/components/ui/Icon/shared'
 import Icon from '@/components/ui/Icon'
+import Link from 'next/link'
 
 import s from './style.module.scss'
 
@@ -18,10 +19,12 @@ export default function AccountMenu(props: AccountMenuProps) {
       <h2>{props.title}</h2>
       <VStack>{
         props.items.map((item, i) => (
-          <HStack key={i} className={s.item} align='center' gap={6}>
-            <Icon icon={item.icon} />
-            <p>{item.label}</p>
-          </HStack>
+          <Link key={i} href={item.href}>
+            <HStack className={s.item} align='center' gap={6}>
+              <Icon icon={item.icon} />
+              <p>{item.label}</p>
+            </HStack>
+          </Link>
         ))
       }</VStack>
     </VStack>
