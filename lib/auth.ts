@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth'
+import 'next-auth/jwt'
 import Credentials from 'next-auth/providers/credentials'
 import { z } from 'zod'
 import { prisma } from './prisma'
@@ -8,7 +9,18 @@ declare module 'next-auth' {
   interface Session {
     user: {
       email: string
+      avatar: string
     }
+  }
+
+  interface User {
+    avatar: string
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    avatar?: string
   }
 }
 
@@ -43,4 +55,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    session: async ({ session, token }) => {
+      if (token) {
+        session.user = {
+          ...session.user,
+          avatar: token.avatar || '',
+        }
+      }
+      return session
+    },
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token = {
+          ...token,
+          avatar: user.avatar,
+        }
+      }
+      return token
+    }
+  },
 })

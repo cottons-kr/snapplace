@@ -1,16 +1,27 @@
-import DefaultImage from '@/assets/default.png'
-import Image from 'next/image'
+'use client'
+
+import { Flex } from '@cottons-kr/react-foundation'
+import { useSession } from 'next-auth/react'
+
+import s from './style.module.scss'
 
 type ProfileImageProps = {
   width?: number
   height?: number
 }
 export default function ProfileImage(props: ProfileImageProps) {
+  const { data: session } = useSession()
+  console.log(session)
+
   return <>
-    <Image
-      src={DefaultImage} alt='프로필 이미지'
-      width={props.width} height={props.height}
-      style={{ borderRadius: '50%' }}
-    />
+    <Flex 
+      className={s.avatar}
+      style={{
+        width: props.width || 30,
+        height: props.height || 30,
+      }}
+    >{
+      session?.user.avatar && <img src={session.user.avatar} />
+    }</Flex>
   </>
 }

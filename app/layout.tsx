@@ -1,6 +1,7 @@
 import { Viewport } from '@cottons-kr/react-foundation'
 import type { ILayoutProps } from '@/types/props'
 import { Metadata, Viewport as NextViewport } from 'next'
+import { SessionProvider } from 'next-auth/react'
 
 import '@/styles/app.scss'
 import '@/styles/color.scss'
@@ -30,12 +31,14 @@ export default async function RootLayout(props: ILayoutProps) {
         <script src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_API_JAVASCRIPT_KEY}&libraries=services,clusterer,drawing`} />
       </head>
       <body>
-        <Viewport
-          className={s.viewport}
-          direction='column'
-          fullWidth
-          style={{ height: '100dvh' }}
-        >{props.children}</Viewport>
+        <SessionProvider>
+          <Viewport
+            className={s.viewport}
+            direction='column'
+            fullWidth
+            style={{ height: '100dvh' }}
+          >{props.children}</Viewport>
+        </SessionProvider>
       </body>
     </html>
   </>
