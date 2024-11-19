@@ -56,7 +56,7 @@ export default function CameraHeader() {
       align='center' justify='between'
       style={{ height: '54px' }}
     >
-      <Icon icon={IconName.ChevronBackward} onClick={router.back} />
+      <Icon icon={IconName.ChevronBackward} onClick={() => router.replace('/')} />
       <Icon
         icon={data.isFlashOn ? IconName.FlashlightOn : IconName.FlashlightOff}
         size={20} color={data.isFlashOn ? 'yellow' : 'var(--Gray-5)'}
