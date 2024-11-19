@@ -1,4 +1,4 @@
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import AnimatedPage from '@/components/ui/AnimatedPage'
 import CompleteText from '@/assets/complete.svg'
 import CameraFlash from '@/assets/camera-flash.svg'
@@ -11,9 +11,8 @@ export default function RegisterAccountComplete() {
     <AnimatedPage>
       <VStack
         className={s.page}
-        align='center' justify='center'
-        gap={60}
-        height='100%'
+        align='center' justify='center' gap={60}
+        fullHeight
       >
         <h1>
           사용 준비가<br />

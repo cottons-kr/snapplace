@@ -1,6 +1,6 @@
 'use client'
 
-import Flex from '@/components/layout/Flex'
+import { Flex } from '@cottons-kr/react-foundation'
 import { AdjustMentData } from '@/lib/contexts/adjustment'
 import { calculateImageFilter } from '@/utils/filter'
 import classNames from 'classnames'
@@ -36,8 +36,10 @@ export default function AssetSlideItem(props: AssetSlideItemProps) {
     <Flex
       className={s.item}
       align='center' justify='center'
-      width='fit-content' height='209px'
+      fullWidth
       style={{
+        width: 'fit-content',
+        height: '209px',
         filter: calculateImageFilter(props.adjustment),
       }}
     >{

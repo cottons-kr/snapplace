@@ -4,8 +4,7 @@ import { ToggleProvider } from '@/hooks/useToggle'
 import { Account, History, Like, UserAsset } from '@prisma/client'
 import BottomSheet from '../BottomSheet'
 import HistoryDetailSlide from './Slide'
-import { VStack } from '@/components/layout/Flex/Stack'
-import Viewport from '@/components/layout/Viewport'
+import { VStack, Viewport } from '@cottons-kr/react-foundation'
 import HistoryDetailContent from './Content'
 
 type HistoryDetailProps = {
@@ -23,11 +22,13 @@ export default function HistoryDetail(props: HistoryDetailProps) {
       duration={0.42}
       provider={props.provider}
     >
-      <VStack height='calc(100dvh - 64px - 27px - (24px + var(--min-top)) * 2)'>
+      <VStack
+        style={{ height: 'calc(100dvh - 64px - 27px - (24px + var(--min-top)) * 2)' }}
+      >
         <HistoryDetailSlide
           assets={props.history.images}
         />
-        <Viewport direction='column' height='100%'>
+        <Viewport direction='column' fullHeight>
           <HistoryDetailContent data={props.history} />
         </Viewport>
       </VStack>

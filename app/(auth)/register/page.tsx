@@ -1,6 +1,6 @@
 'use client'
 
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack, Flex } from '@cottons-kr/react-foundation'
 import Goback from '@/components/ui/Goback'
 import { initialRegisterAccountContext, RegisterAccountActionType as ActionType, RegisterAccountContext, registerAccountReducer } from '@/lib/contexts/register-account'
 import { useCallback, useReducer } from 'react'
@@ -9,7 +9,6 @@ import RegisterAccountID from '@/components/page/register-account/id'
 import RegisterAccountFriend from '@/components/page/register-account/friend'
 import RegisterAccountNickname from '@/components/page/register-account/nickname'
 import RegisterAccountPassword from '@/components/page/register-account/password'
-import Flex from '@/components/layout/Flex'
 import RegisterAccountComplete from '@/components/page/register-account/complete/page'
 import { isRegisteredEmail, registerAccount } from '@/lib/actions/account'
 import { useRouter } from 'next/navigation'
@@ -76,7 +75,7 @@ export default function RegisterAccountPage() {
     }}>
       <VStack className={s.page}>
         <Goback onClick={onClickPrev} />
-        <Flex className={s.content} height='100%'>{
+        <Flex className={s.content} fullWidth fullHeight>{
           registerAccountData.step === 1 ? <RegisterAccountEmail /> :
           registerAccountData.step === 2 ? <RegisterAccountID /> :
           registerAccountData.step === 3 ? <RegisterAccountNickname /> :

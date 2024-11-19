@@ -1,4 +1,4 @@
-import { HStack } from '@/components/layout/Flex/Stack'
+import { HStack } from '@cottons-kr/react-foundation'
 import NavigationItem from './Item'
 import { IconName } from '../Icon/shared'
 

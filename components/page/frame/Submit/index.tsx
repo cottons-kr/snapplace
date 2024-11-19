@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import Flex from '@/components/layout/Flex'
+import { Flex } from '@cottons-kr/react-foundation'
 import previewStyle from '../Preview/style.module.scss'
 import { nanoid } from 'nanoid'
 import { useRouter } from 'next/navigation'
@@ -41,7 +41,7 @@ export default function FrameSubmit() {
   }, [])
 
   return <>
-    <Flex className={s.submit}>
+    <Flex className={s.submit} fullWidth>
       <button className={isProcessing ? s.loading : ''} onClick={onClick}>{
         isProcessing ? <span /> : '완료'
       }</button>

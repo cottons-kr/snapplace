@@ -1,11 +1,11 @@
 'use client'
 
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import { useContext } from 'react'
 import { RegisterAccountActionType as ActionType, RegisterAccountContext } from '@/lib/contexts/register-account'
+import AnimatedPage from '@/components/ui/AnimatedPage'
 
 import s from './style.module.scss'
-import AnimatedPage from '@/components/ui/AnimatedPage'
 
 export default function RegisterAccountEmail() {
   const { data, dispatch } = useContext(RegisterAccountContext)

@@ -2,9 +2,8 @@
 
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
 import { useCallback, useContext, useMemo, useState } from 'react'
-import { HStack } from '@/components/layout/Flex/Stack'
+import { Flex, HStack } from '@cottons-kr/react-foundation'
 import CameraSwitcherItem from './Item'
-import Flex from '@/components/layout/Flex'
 import cn from 'classnames'
 import { motion, Transition, Variants } from 'framer-motion'
 
@@ -71,8 +70,9 @@ export default function CameraSwitcher() {
 
   return <>
     <Flex
-      className={s.viewport} align='flex-end' justify='center'
-      width='100%' height={shouldHide ? '0' : '65px'}
+      className={s.viewport} align='end' justify='center'
+      fullWidth
+      style={{ height: shouldHide ? '0' : '65px' }}
     />
     <motion.div
       className={s.container}
@@ -82,7 +82,7 @@ export default function CameraSwitcher() {
       <HStack
         className={cn(s.switcher, s[data.mode])}
         align='center' justify='center' gap={36}
-        width='fit-content'
+        style={{ width: 'fit-content' }}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
       >

@@ -1,7 +1,6 @@
 'use client'
 
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
-import Viewport from '@/components/layout/Viewport'
+import { HStack, VStack, Viewport } from '@cottons-kr/react-foundation'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { useContext } from 'react'
@@ -19,7 +18,7 @@ export default function UploadForm() {
   const addFriendsToggle = useToggle()
 
   return <>
-    <Viewport direction='column' height='100%'>
+    <Viewport direction='column' fullHeight>
       <VStack gap={20}>
         <label className={s.label}>
           <span>제목</span>
@@ -42,10 +41,14 @@ export default function UploadForm() {
 
         <label className={s.label} onClick={addFriendsToggle.open}>
           <span>같이 찍은 친구</span>
-          <HStack className={s['friends-list']} wrap='wrap' align='center' gap={8}>
+          <HStack className={s['friends-list']} wrap align='center' gap={8}>
             {
               data.friends.map(f => (
-                <HStack key={f.uuid} className={s.item} align='center' gap={6} width='fit-content'>
+                <HStack
+                  key={f.uuid} className={s.item}
+                  align='center' gap={6}
+                  style={{ width: 'fit-content' }}
+                >
                   <Image src={DefaultImage} alt='프사' width={28} height={28} />
                   <p>{f.nickname}({f.id})</p>
                 </HStack>

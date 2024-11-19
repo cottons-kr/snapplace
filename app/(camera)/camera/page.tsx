@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useReducer, useRef, useState } from 'react'
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import CameraHeader from '@/components/ui/Header/Camera'
 import CameraControl from '@/components/page/camera/Control'
 import CameraContentCounter from '@/components/page/camera/Counter'

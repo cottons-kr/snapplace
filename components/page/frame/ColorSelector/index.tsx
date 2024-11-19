@@ -1,6 +1,6 @@
 'use client'
 
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack } from '@cottons-kr/react-foundation'
 import { SetStateAction } from 'jotai'
 import { Dispatch, useMemo } from 'react'
 import { FrameBackground } from '../shared'
@@ -55,7 +55,8 @@ function Item(props: ItemProps) {
   return <>
     <VStack
       className={classNames(s.item, props.selected && s.selected)}
-      align='center' gap={4} width='fit-content'
+      align='center' gap={4}
+      style={{ width: 'fit-content' }}
       onClick={props.onClick}
     >
       <div

@@ -1,6 +1,6 @@
 'use client'
 
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack } from '@cottons-kr/react-foundation'
 import Link from 'next/link'
 import { login } from '@/lib/actions/account'
 import { useRouter } from 'next/navigation'
@@ -30,7 +30,10 @@ export default function LoginPage() {
   }
 
   return <>
-    <VStack className={s.page} justify='space-between' height='100dvh'>
+    <VStack
+      className={s.page} justify='between'
+      style={{ height: '100dvh' }}
+    >
       <h1 className={s.title}>로그인</h1>
 
       <form className={s.form} action={submit}>
@@ -47,7 +50,10 @@ export default function LoginPage() {
 
       <VStack className={s.bottom} align='center' gap={12}>
         <span>아이디 혹은 비밀번호 찾기</span>
-        <HStack align='center' gap={6} width='fit-content'>
+        <HStack
+          align='center' gap={6}
+          style={{ width: 'fit-content' }}
+        >
           <span>계정이 없으신가요?</span>
           <Link href='/register'>
             <span>회원가입</span>

@@ -1,5 +1,4 @@
-import { VStack } from '@/components/layout/Flex/Stack'
-import Viewport from '@/components/layout/Viewport'
+import { VStack, Viewport } from '@cottons-kr/react-foundation'
 import HomeNewHistory from '@/components/page/home/New'
 import LocationHeader from '@/components/ui/Header/Location'
 

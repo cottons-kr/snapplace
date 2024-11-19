@@ -3,11 +3,11 @@
 import { ToggleProvider, useToggle } from '@/hooks/useToggle'
 import { DetailedHistory } from './Group'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
-import { VStack } from '@/components/layout/Flex/Stack'
-
-import s from './style.module.scss'
+import { VStack } from '@cottons-kr/react-foundation'
 import { useThumbnail } from '@/hooks/useThumbnail'
 import HistoryDetail from '@/components/ui/HistoryDetail'
+
+import s from './style.module.scss'
 
 type MapMarkerSelectionListProps = {
   provider: ToggleProvider
@@ -68,8 +68,8 @@ function Item(props: ItemProps) {
   return <>
     <VStack
       className={s.item}
-      justify='flex-end' gap={4}
-      width='calc(50% - 5px)' height='200px'
+      justify='end' gap={4}
+      style={{ width: 'calc(50% - 5px)', height: '200px' }}
       onClick={detailToggle.open}
     >
       {thumbnail && <img src={thumbnail} alt={props.data.title} />}

@@ -1,6 +1,6 @@
 'use client'
 
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack } from '@cottons-kr/react-foundation'
 import AssetSlide from '@/components/ui/AssetSlide'
 import classNames from 'classnames'
 import { UploadContext } from '@/lib/contexts/upload'

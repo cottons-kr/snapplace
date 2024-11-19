@@ -1,4 +1,4 @@
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import CardFileBox from '@/assets/card-file-box.svg'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,8 +7,8 @@ import s from './page.module.scss'
 
 export default function UploadCompletePage() {
   return <>
-    <VStack align='center' height='100%'>
-      <VStack className={s.container} align='center' justify='space-between' height='100%'>
+    <VStack align='center' fullHeight>
+      <VStack className={s.container} align='center' justify='between' fullHeight>
         <h1 className={s.title}>
           기록이<br />
           완료되었어요!

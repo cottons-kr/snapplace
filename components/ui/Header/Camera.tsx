@@ -1,10 +1,10 @@
 'use client'
 
-import { HStack } from '@/components/layout/Flex/Stack'
+import { HStack } from '@cottons-kr/react-foundation'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import { CameraActionType as ActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
-import { useCallback, useContext, useEffect, useMemo } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import { AnimatePresence, Transition, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { FileStorage } from '@/lib/storage'
@@ -53,8 +53,8 @@ export default function CameraHeader() {
   return <>
     <HStack
       className={s.camera}
-      align='center' justify='space-between'
-      height='54px'
+      align='center' justify='between'
+      style={{ height: '54px' }}
     >
       <Icon icon={IconName.ChevronBackward} onClick={router.back} />
       <Icon

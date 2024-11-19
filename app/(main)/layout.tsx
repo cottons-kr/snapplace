@@ -1,6 +1,6 @@
 import Navigation from '@/components/ui/Navigation'
 import { ILayoutProps } from '@/types/props'
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import { redirect } from 'next/navigation'
 import { auth } from '@/lib/auth'
 

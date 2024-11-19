@@ -1,13 +1,12 @@
 'use client'
 
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack, Viewport } from '@cottons-kr/react-foundation'
 import BottomSheet from '@/components/ui/BottomSheet'
 import { ToggleProvider } from '@/hooks/useToggle'
 import { useFetcher } from '@/hooks/useFetcher/Client'
 import { getFriends } from '@/lib/actions/friends'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
-import Viewport from '@/components/layout/Viewport'
 import { useCallback, useContext } from 'react'
 import { UploadActionType, UploadContext } from '@/lib/contexts/upload'
 import { Account } from '@prisma/client'
@@ -36,12 +35,20 @@ export default function UploadFormAddFriends(props: UploadFormAddFriendsProps) {
       duration={0.4}
       provider={props.provider}
     >
-      <VStack className={s['friends-add']} gap={14} height='50dvh'>
-        <HStack className={s.search} align='center' gap={4} height='44px'>
+      <VStack
+        className={s['friends-add']}
+        gap={14}
+        style={{ height: '50dvh' }}
+      >
+        <HStack
+          className={s.search}
+          align='center' gap={4}
+          style={{ height: '44px' }}
+        >
           <input type='text' placeholder='친구 이름을 입력해주세요' />
           <Icon icon={IconName.Search} />
         </HStack>
-        <Viewport direction='column' height='100%'>{
+        <Viewport direction='column' fullHeight>{
           (friends || []).map(f => <Item key={f.uuid} data={f} />)
         }</Viewport>
         <button onClick={onClickAdd}>추가하기</button>

@@ -1,11 +1,9 @@
 'use client'
 
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
-import Viewport from '@/components/layout/Viewport'
+import { Flex, HStack, VStack, Viewport } from '@cottons-kr/react-foundation'
 import ResultItem from '@/components/page/camera/ResultItem'
 import { FileStorage } from '@/lib/storage'
 import { useCallback, useEffect, useState } from 'react'
-import Flex from '@/components/layout/Flex'
 import { useRouter } from 'next/navigation'
 import { CameraMode } from '@/lib/contexts/camera'
 
@@ -64,8 +62,8 @@ export default function CameraConfirmPage() {
   }, [])
 
   return <>
-    <VStack className={s.page} align='center' gap={24} height='100%'>
-      <Viewport direction='column' height='100%'>
+    <VStack className={s.page} align='center' gap={24} fullHeight>
+      <Viewport direction='column' fullHeight>
         <HStack wrap='wrap' gap={8}>{
           results.map(f => (
             <ResultItem
@@ -79,7 +77,7 @@ export default function CameraConfirmPage() {
       <Flex
         className={s.counter}
         align='center' justify='center'
-        width='60px'
+        style={{ width: '60px' }}
       >{selected.length} / {isFourCut ? '4' : results.length}</Flex>
 
       <HStack className={s.buttons} gap={8}>

@@ -1,9 +1,8 @@
 'use client'
 
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack, Viewport } from '@cottons-kr/react-foundation'
 import AdjustmentControl from '@/components/page/adjustment/Slider'
 import AdjustmentPreview from '@/components/page/adjustment/Preview'
-import Viewport from '@/components/layout/Viewport'
 import AdjustmentSubmit from '@/components/page/adjustment/Submit'
 import { useEffect, useReducer } from 'react'
 import { AdjustmentActionType, AdjustmentContext, AdjustmentContextType, adjustmentReducer, initialAdjustmentContext } from '@/lib/contexts/adjustment'
@@ -59,9 +58,12 @@ export default function AdjustmentPage() {
       data: adjustmentData,
       dispatch: setAdjustmentData,
     }}>
-      <VStack className={s.page} gap={36} height='100dvh'>
+      <VStack 
+        className={s.page} gap={36}
+        style={{ height: '100dvh' }}
+      >
         <AdjustmentPreview />
-        <Viewport direction='column' height='100%'>
+        <Viewport fullHeight direction='column'>
           <AdjustmentControl />
         </Viewport>
         <AdjustmentSubmit />

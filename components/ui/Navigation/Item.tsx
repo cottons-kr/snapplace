@@ -1,6 +1,6 @@
 'use client'
 
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import { IconName } from '../Icon/shared'
 import Icon from '../Icon'
 import { usePathname } from 'next/navigation'

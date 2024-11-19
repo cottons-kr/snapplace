@@ -1,4 +1,4 @@
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack } from '@cottons-kr/react-foundation'
 import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import DefaultImage from '@/assets/default.png'

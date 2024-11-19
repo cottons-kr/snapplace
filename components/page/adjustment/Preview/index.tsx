@@ -3,7 +3,7 @@
 import { AdjustmentActionType as ActionType, AdjustmentContext } from '@/lib/contexts/adjustment'
 import { useContext, useState } from 'react'
 import { Swiper as SwiperType } from 'swiper'
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import AdjustmentPreviewControl from './Control'
 import AssetSlide from '@/components/ui/AssetSlide'
 

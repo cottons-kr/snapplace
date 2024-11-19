@@ -4,9 +4,9 @@ import { ToggleProvider } from '@/hooks/useToggle'
 import { ReactNode } from 'react'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 import classNames from 'classnames'
+import { Flex } from '@cottons-kr/react-foundation'
 
 import s from './style.module.scss'
-import Flex from '@/components/layout/Flex'
 
 type BottomSheetProps = {
   provider: ToggleProvider
@@ -69,7 +69,11 @@ export default function BottomSheet(props: BottomSheetProps) {
           >
             <span className={classNames(s.line, props.lineClassName)} />
             {props.children}
-            <Flex className={s.spare} height='100dvh' />
+            <Flex
+              className={s.spare}
+              fullWidth
+              style={{ height: '100dvh' }}
+            />
           </motion.div>
         </motion.div>
       )

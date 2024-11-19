@@ -1,8 +1,6 @@
 'use client'
 
-import Flex from '@/components/layout/Flex'
-import { VStack } from '@/components/layout/Flex/Stack'
-import Viewport from '@/components/layout/Viewport'
+import { VStack, Viewport, Flex } from '@cottons-kr/react-foundation'
 import { FileStorage } from '@/lib/storage'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -46,13 +44,13 @@ export default function FramePreview(props: FramePreviewProps) {
   }, [])
 
   return <>
-    <Viewport direction='column' height='100%'>
-      <Flex align='center' justify='center' width='100%' height='100%'>
+    <Viewport direction='column' fullHeight>
+      <Flex align='center' justify='center' fullWidth fullHeight>
         <VStack
           className={classNames(s.frame, s[props.frameType])}
-          align='center' justify='center'
-          width='172px' height='588px'
-          gap={12}
+          align='center' justify='center' gap={12}
+          fullWidth
+          style={{ width: '172px', height: '588px' }}
         >
           {images.map((image, index) => (
             <div key={image.name} className={s.image}>

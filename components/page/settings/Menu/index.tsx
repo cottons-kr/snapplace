@@ -1,4 +1,4 @@
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack } from '@cottons-kr/react-foundation'
 import { IconName } from '@/components/ui/Icon/shared'
 import Icon from '@/components/ui/Icon'
 

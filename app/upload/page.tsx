@@ -1,6 +1,6 @@
 'use client'
 
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import UploadForm from '@/components/page/upload/Form'
 import UploadPreview from '@/components/page/upload/Preview'
 import UploadSubmit from '@/components/page/upload/Submit'
@@ -42,7 +42,7 @@ export default function UploadPage() {
       data: uploadData,
       dispatch: setUploadData,
     }}>
-      <VStack className={s.page} gap={12} height='100%'>
+      <VStack className={s.page} gap={12} fullHeight>
         <UploadPreview />
         <UploadForm />
         <UploadSubmit />

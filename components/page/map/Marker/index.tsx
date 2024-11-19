@@ -7,7 +7,7 @@ import { motion, Transition, Variants } from 'framer-motion'
 import HistoryDetail from '@/components/ui/HistoryDetail'
 import { Account, History, Like, UserAsset } from '@prisma/client'
 import { useToggle } from '@/hooks/useToggle'
-import { getVideoThumbnail, isVideoExtension, isVideoFile } from '@/utils/file'
+import { getVideoThumbnail, isVideoExtension } from '@/utils/file'
 import { calculateImageFilter } from '@/utils/filter'
 import { nanoid } from 'nanoid'
 

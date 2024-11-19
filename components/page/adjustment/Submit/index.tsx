@@ -1,6 +1,6 @@
 'use client'
 
-import Flex from '@/components/layout/Flex'
+import { Flex } from '@cottons-kr/react-foundation'
 import { useCallback, useContext } from 'react'
 import { AdjustmentContext } from '@/lib/contexts/adjustment'
 import { useRouter } from 'next/navigation'
@@ -23,7 +23,7 @@ export default function AdjustmentSubmit() {
   }, [data])
 
   return <>
-    <Flex className={s.submit}>
+    <Flex className={s.submit} fullWidth>
       <button onClick={onClickNext}>다음</button>
     </Flex>
   </>

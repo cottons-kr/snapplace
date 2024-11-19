@@ -1,6 +1,6 @@
 'use client'
 
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import { AdjustmentActionType, AdjustmentContext, AdjustMentData } from '@/lib/contexts/adjustment'
 import { useContext } from 'react'
 import AdjustmentControlSlider from './Slider'

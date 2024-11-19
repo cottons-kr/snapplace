@@ -2,7 +2,7 @@
 
 import { ToggleProvider } from '@/hooks/useToggle'
 import BottomSheet from '../BottomSheet'
-import { HStack, VStack } from '@/components/layout/Flex/Stack'
+import { HStack, VStack } from '@cottons-kr/react-foundation'
 import Link from 'next/link'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'

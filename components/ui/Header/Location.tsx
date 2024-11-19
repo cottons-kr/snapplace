@@ -1,6 +1,6 @@
 'use client'
 
-import { HStack } from '@/components/layout/Flex/Stack'
+import { HStack } from '@cottons-kr/react-foundation'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import ProfileImage from '../Profile/Image'
@@ -12,7 +12,7 @@ export default function LocationHeader() {
   const { locationName } = useLocation()
 
   return <>
-    <HStack className={s.container} align='center' justify='space-between'>
+    <HStack className={s.container} align='center' justify='between'>
       <HStack align='center' gap={10}>
         <Icon icon={IconName.LocationOn} fill size={20} />
         <p>{locationName}</p>

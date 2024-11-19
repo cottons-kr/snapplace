@@ -1,6 +1,6 @@
 'use client'
 
-import { HStack } from '@/components/layout/Flex/Stack'
+import { HStack } from '@cottons-kr/react-foundation'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { useToggle } from '@/hooks/useToggle'
@@ -26,7 +26,7 @@ export default function MapControl() {
   }, [map, isReady])
 
   return <>
-    <HStack className={s.container} align='center' justify='space-between'>
+    <HStack className={s.container} align='center' justify='between'>
       <div className={s.button} onClick={onClickCenter}>
         <Icon icon={IconName.LocationSearching} size={22} />
       </div>

@@ -1,4 +1,4 @@
-import Viewport from '@/components/layout/Viewport'
+import { Viewport } from '@cottons-kr/react-foundation'
 import type { ILayoutProps } from '@/types/props'
 import { Metadata, Viewport as NextViewport } from 'next'
 
@@ -7,6 +7,7 @@ import '@/styles/color.scss'
 import '@/styles/component.scss'
 import '@/styles/icon.scss'
 import 'swiper/css'
+import '@cottons-kr/react-foundation/dist/styles.css'
 import s from './layout.module.scss'
 
 export const metadata: Metadata = {
@@ -32,7 +33,8 @@ export default async function RootLayout(props: ILayoutProps) {
         <Viewport
           className={s.viewport}
           direction='column'
-          width='100%' height='100dvh'
+          fullWidth
+          style={{ height: '100dvh' }}
         >{props.children}</Viewport>
       </body>
     </html>

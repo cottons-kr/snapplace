@@ -1,4 +1,4 @@
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack } from '@cottons-kr/react-foundation'
 import AnimatedPage from '@/components/ui/AnimatedPage'
 import { useContext } from 'react'
 import { RegisterAccountActionType as ActionType, RegisterAccountContext } from '@/lib/contexts/register-account'

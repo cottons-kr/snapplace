@@ -1,7 +1,6 @@
 'use client'
 
-import Flex from '@/components/layout/Flex'
-import { VStack } from '@/components/layout/Flex/Stack'
+import { VStack, Flex } from '@cottons-kr/react-foundation'
 import { CameraContext } from '@/lib/contexts/camera'
 import { useContext, useMemo } from 'react'
 import cn from 'classnames'
@@ -38,7 +37,7 @@ export default function CameraContentCounter() {
             <Flex
               className={s.block}
               align='center' justify='center'
-              width='70px'
+              style={{ width: '70px' }}
             >{data.savedContent.length} / {data.MAX_COUNT}</Flex>
             {isMax && (
               <motion.div

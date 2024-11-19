@@ -1,9 +1,8 @@
 'use client'
 
-import { HStack } from '@/components/layout/Flex/Stack'
+import { HStack, Flex } from '@cottons-kr/react-foundation'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
-import Flex from '@/components/layout/Flex'
 import { AdjustmentContext } from '@/lib/contexts/adjustment'
 import { useContext } from 'react'
 import { Swiper } from 'swiper'
@@ -25,13 +24,13 @@ export default function AdjustmentPreviewControl(props: AdjustmentPreviewControl
   }
 
   return <>
-    <HStack className={s.control} align='center' justify='space-between'>
+    <HStack className={s.control} align='center' justify='between'>
       <Icon icon={IconName.ArrowBackIosNew} onClick={onClickBack} />
 
       <Flex
         className={s.counter}
-        width='60px' height='24px'
         align='center' justify='center'
+        style={{ width: '60px', height: '24px' }}
       >{data.currentIndex + 1} / {data.assets.length}</Flex>
 
       <Icon icon={IconName.ArrowForwardIos} onClick={onClickForward} />

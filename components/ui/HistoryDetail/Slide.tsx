@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Swiper as SwiperType } from 'swiper'
 import { Controller } from 'swiper/modules'
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react'
-import { HStack } from '@/components/layout/Flex/Stack'
+import { HStack } from '@cottons-kr/react-foundation'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import classNames from 'classnames'
@@ -48,7 +48,7 @@ export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
         ))
       }</Swiper>
 
-      <HStack className={s.control} justify='space-between'>
+      <HStack className={s.control} justify='between'>
         <div onClick={() => controlledSwiper?.slidePrev()}>
           <Icon icon={IconName.ArrowBackIosNew} size={16} />
         </div>
@@ -57,7 +57,11 @@ export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
         </div>
       </HStack>
 
-      <HStack className={s.pagination} gap={4} width='fit-content'>{
+      <HStack
+        className={s.pagination}
+        gap={4}
+        style={{ width: 'fit-content' }}
+      >{
         props.assets.map((_, i) => (
           <div key={i} className={classNames(s.dot, activeIndex === i && s.active)} />
         ))

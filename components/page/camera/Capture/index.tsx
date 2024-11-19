@@ -1,6 +1,6 @@
 'use client'
 
-import { HStack } from '@/components/layout/Flex/Stack'
+import { HStack } from '@cottons-kr/react-foundation'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { CameraActionType, CameraContext, CameraMode } from '@/lib/contexts/camera'
@@ -179,7 +179,10 @@ export default function CameraCapture() {
   }
 
   return <>
-    <HStack align='center' justify={shouldAlignCenter ? 'center' : 'flex-end'} gap={60} width='272px'>
+    <HStack
+      align='center' justify={shouldAlignCenter ? 'center' : 'end'} gap={60}
+      style={{ width: '272px' }}
+    >
       <AnimatePresence>{
         !shouldHideGalleryButton && (
           <motion.label

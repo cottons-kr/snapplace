@@ -1,6 +1,6 @@
 'use client'
 
-import { HStack } from '@/components/layout/Flex/Stack'
+import { HStack } from '@cottons-kr/react-foundation'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import ProfileImage from '../Profile/Image'
@@ -12,7 +12,11 @@ export default function MapHeader() {
   const { locationName } = useLocation()
 
   return <>
-    <HStack className={s.map} align='center' height='120px'>
+    <HStack
+      className={s.map}
+      align='center'
+      style={{ height: '120px' }}
+    >
       <HStack align='center' gap={10}>
         <Icon icon={IconName.LocationOn} fill />
         <p>{locationName}</p>
