@@ -1,0 +1,89 @@
+.profile {
+  flex-shrink: 0;
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.48px;
+  }
+  p {
+    color: var(--Gray-3);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.32px;
+  }
+}
+
+.form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  span {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 150%; /* 27px */
+  }
+  input {
+    padding: 5px 0;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--Gray-7);
+    color: var(--Gray-1);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%; /* 21px */
+    &::placeholder {
+      color: var(--Gray-5);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 56px;
+    padding: 15px auto;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 2px solid var(--Gray-9);
+    background: var(--Gray-1);
+    color: var(--Gray-9);
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 22px; /* 110% */
+    letter-spacing: -0.8px;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+    &:disabled {
+      background: var(--Gray-8);
+      color: var(--Gray-5);
+    }
+    &.uploading {
+      pointer-events: none;
+      background: var(--Gray-8);
+      span {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--Gray-5);
+        border-top-color: var(--Gray-9);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

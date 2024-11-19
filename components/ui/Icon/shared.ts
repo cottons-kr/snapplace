@@ -1,7 +1,6 @@
 export enum IconName {
   Close = 'close',
   ArrowBack = 'arrow_back',
-
   Home = 'home',
   Map = 'map',
   GalleryThumbnail = 'gallery_thumbnail',
@@ -28,6 +27,8 @@ export enum IconName {
   DataInfoAlert = 'data_info_alert',
   Article = 'article',
   SupportAgent = 'support_agent',
-  Check = 'check',}
+  Check = 'check',
+  Edit = 'edit',
+}
 
 export type IconType = keyof typeof IconName

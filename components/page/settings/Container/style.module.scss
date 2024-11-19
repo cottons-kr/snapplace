@@ -5,8 +5,8 @@
 
 .top {
   height: 54px;
-  padding: 0 20px;
-  h1 {
+  padding: 0 var(--min-right) 0 var(--min-left);
+  h4 {
     font-size: 18px;
     font-weight: 600;
     line-height: 22px; /* 122.222% */
@@ -15,4 +15,8 @@
 
 .back {
   width: fit-content;
+}
+
+.content {
+  padding: 40px var(--min-right) 0 var(--min-left);
 }
