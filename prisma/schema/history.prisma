@@ -21,7 +21,7 @@ model History {
 
 model Like {
   uuid        String @id @default(uuid())
-  historyUUID String @unique
+  historyUUID String
   accountUUID String
 
   history History @relation(fields: [historyUUID], references: [uuid])

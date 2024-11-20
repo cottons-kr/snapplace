@@ -6,6 +6,7 @@ import BottomSheet from '../BottomSheet'
 import HistoryDetailSlide from './Slide'
 import { VStack, Viewport } from '@cottons-kr/react-foundation'
 import HistoryDetailContent from './Content'
+import { useSession } from 'next-auth/react'
 
 type HistoryDetailProps = {
   history: History & {
@@ -17,7 +18,9 @@ type HistoryDetailProps = {
   provider: ToggleProvider
 }
 export default function HistoryDetail(props: HistoryDetailProps) {
-  return <>
+  const { data: session } = useSession()
+
+  return session && <>
     <BottomSheet
       darker fullSize noBackground noBlur
       duration={0.42}
@@ -30,7 +33,10 @@ export default function HistoryDetail(props: HistoryDetailProps) {
           assets={props.history.images}
         />
         <Viewport direction='column' fullHeight>
-          <HistoryDetailContent data={props.history} />
+          <HistoryDetailContent
+            data={props.history}
+            session={session}
+          />
         </Viewport>
       </VStack>
     </BottomSheet>
