@@ -5,10 +5,12 @@ import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
 import ProfileImage from '../Profile/Image'
 import { useLocation } from '@/hooks/useLocation'
+import { useSession } from 'next-auth/react'
 
 import s from './style.module.scss'
 
 export default function LocationHeader() {
+  const { data: session } = useSession()
   const { locationName } = useLocation()
 
   return <>
@@ -17,7 +19,10 @@ export default function LocationHeader() {
         <Icon icon={IconName.LocationOn} fill size={20} />
         <p>{locationName}</p>
       </HStack>
-      <ProfileImage width={30} height={30} />
+      <ProfileImage
+        path={session?.user.avatar}
+        width={30} height={30}
+      />
     </HStack>
   </>
 }
