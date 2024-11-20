@@ -48,14 +48,14 @@ export default function HistoryDetailSlide(props: HistoryDetailSlideProps) {
         ))
       }</Swiper>
 
-      <HStack className={s.control} justify='between'>
-        <div onClick={() => controlledSwiper?.slidePrev()}>
+      {props.assets.length > 1 && <>
+        <div className={classNames(s.control, s.prev)} onClick={() => controlledSwiper?.slidePrev()}>
           <Icon icon={IconName.ArrowBackIosNew} size={16} />
         </div>
-        <div onClick={() => controlledSwiper?.slideNext()}>
+        <div className={classNames(s.control, s.next)} onClick={() => controlledSwiper?.slideNext()}>
           <Icon icon={IconName.ArrowForwardIos} size={16} />
         </div>
-      </HStack>
+      </>}
 
       <HStack
         className={s.pagination}

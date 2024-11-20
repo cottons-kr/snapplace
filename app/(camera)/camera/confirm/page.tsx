@@ -41,8 +41,15 @@ export default function CameraConfirmPage() {
     const fileStorage = new FileStorage()
     fileStorage.init().then(async () => {
       const savedKeys = (await fileStorage.listFiles()).map(({ key }) => key)
-      const files = await Promise.all(savedKeys.map(key => fileStorage.getFile(key)))
       const savedSelected: Array<string> = localStorage.getItem('selected') ? JSON.parse(localStorage.getItem('selected') || '') : []
+
+      const files: Array<File> = []
+      for (const key of savedKeys) {
+        const file = await fileStorage.getFile(key)
+        if (file) {
+          files.push(file)
+        }
+      }
 
       if (files.length <= 0) {
         alert('촬영된 사진이 없습니다. 카메라로 이동합니다.')
@@ -57,7 +64,7 @@ export default function CameraConfirmPage() {
       }
 
       console.log('Saved Files:', files)
-      setResults(files.filter(Boolean) as Array<File>)
+      setResults(files.filter(Boolean))
     })
   }, [])
 

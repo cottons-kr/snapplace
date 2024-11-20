@@ -20,19 +20,17 @@
   }
   .control {
     position: absolute;
-    padding: 0 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(34, 34, 34, 0.21);
+    backdrop-filter: blur(10px);
+    display: grid;
+    place-items: center;
     top: 50%;
-    transform: translateY(-50%);
     z-index: 10;
-    div {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: rgba(34, 34, 34, 0.21);
-      backdrop-filter: blur(10px);
-      display: grid;
-      place-items: center;
-    }
+    &.prev { left: 15px; }
+    &.next { right: 15px; }
   } 
   .pagination {
     position: absolute;
