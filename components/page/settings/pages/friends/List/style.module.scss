@@ -1,0 +1,24 @@
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px; /* 122.222% */
+  letter-spacing: -0.72px;
+}
+
+.item {
+  padding: 12px 0;
+  .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px; /* 122.222% */
+  }
+  .id {
+    color: var(--Gray-3);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px; /* 137.5% */
+  }
+}

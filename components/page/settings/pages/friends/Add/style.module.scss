@@ -1,0 +1,14 @@
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px; /* 122.222% */
+  letter-spacing: -0.72px;
+}
+
+.input {
+  padding: 4px 0px 7px 0px;
+  border-bottom: 1px solid var(--Gray-1, #F9F9F9);
+  input {
+    width: 100%;
+  }
+}

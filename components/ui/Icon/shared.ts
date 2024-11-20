@@ -29,6 +29,7 @@ export enum IconName {
   SupportAgent = 'support_agent',
   Check = 'check',
   Edit = 'edit',
-}
+
+  ArrowForward = 'arrow_forward',}
 
 export type IconType = keyof typeof IconName
