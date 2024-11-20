@@ -8,11 +8,14 @@ import s from './style.module.scss'
 
 type HistoryDetailContentProps = {
   data: History & {
+    owner: Account
     friends: Array<Account>
     likes: Array<Like>
   }
 }
 export default function HistoryDetailContent(props: HistoryDetailContentProps) {
+  const people = [props.data.owner, ...props.data.friends]
+
   return <>
     <VStack className={s.content} gap={12}>
       <HStack gap={30}>
@@ -31,7 +34,7 @@ export default function HistoryDetailContent(props: HistoryDetailContentProps) {
       <p className={s.date}>{props.data.createdAt.toLocaleDateString('ko-KR')}</p>
 
       <HStack wrap='wrap' gap={8}>{
-        props.data.friends.map(f => (
+        people.map(f => (
           <HStack
             key={f.uuid} className={s.friend}
             align='center' gap={6}
@@ -42,6 +45,9 @@ export default function HistoryDetailContent(props: HistoryDetailContentProps) {
               width={28} height={28}
             />
             <p>{f.nickname}({f.id})</p>
+            {f.uuid === props.data.owner.uuid && (
+              <Icon icon={IconName.Star} fill size={16} />
+            )}
           </HStack>
         ))
       }</HStack>

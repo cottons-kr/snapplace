@@ -5,18 +5,14 @@ import { AdvancedMarker } from '@vis.gl/react-google-maps'
 import { useEffect, useState } from 'react'
 import { motion, Transition, Variants } from 'framer-motion'
 import HistoryDetail from '@/components/ui/HistoryDetail'
-import { Account, History, Like, UserAsset } from '@prisma/client'
 import { useToggle } from '@/hooks/useToggle'
 import { getVideoThumbnail, isVideoExtension } from '@/utils/file'
 import { calculateImageFilter } from '@/utils/filter'
 import { nanoid } from 'nanoid'
+import { getNearbyHistories } from '@/lib/actions/history'
 
 type MapMarkerProps = {
-  data: History & {
-    images: Array<UserAsset>
-    likes: Array<Like>
-    friends: Array<Account>
-  }
+  data: Awaited<ReturnType<typeof getNearbyHistories>>[0]
 }
 export default function MapMarker(props: MapMarkerProps) {
   const [thumbnail, setThumbnail] = useState<string | null>(null)

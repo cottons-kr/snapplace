@@ -12,6 +12,7 @@ type HistoryDetailProps = {
     images: Array<UserAsset>
     likes: Array<Like>
     friends: Array<Account>
+    owner: Account
   }
   provider: ToggleProvider
 }

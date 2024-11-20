@@ -7,10 +7,18 @@ import { uploadFile } from '@/utils/minio'
 import { prisma } from '../prisma'
 
 export async function getNearbyHistories(latitude: number, longitude: number) {
+  const isProd = process.env.NODE_ENV === 'production'
+  const allowedDistance = isProd ? 0.01 : 0.1
   const histories = await prisma.history.findMany({
     where: {
-      latitude: { gte: latitude - 0.01, lte: latitude + 0.01 },
-      longitude: { gte: longitude - 0.01, lte: longitude + 0.01 },
+      latitude: {
+        gte: latitude - allowedDistance,
+        lte: latitude + allowedDistance,
+      },
+      longitude: {
+        gte: longitude - allowedDistance,
+        lte: longitude + allowedDistance,
+      },
       completed: true,
     },
     include: {

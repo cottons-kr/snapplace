@@ -30,6 +30,7 @@ export enum IconName {
   Check = 'check',
   Edit = 'edit',
 
-  ArrowForward = 'arrow_forward',}
+  ArrowForward = 'arrow_forward',
+  Star = 'star',}
 
 export type IconType = keyof typeof IconName

@@ -9,9 +9,9 @@ import { useLocation } from '@/hooks/useLocation'
 import { useMemo, useState } from 'react'
 import { getThresholdsByZoomLevel, isWithinThreshold, getAveragePosition } from '@/lib/location'
 import { GroupedHistory } from '../shared'
+import MapGroupMarker from '../Marker/Group'
 
 import s from './style.module.scss'
-import MapGroupMarker from '../Marker/Group'
 
 type MapCanvasProps = {
   histories: Awaited<ReturnType<typeof getNearbyHistories>>
