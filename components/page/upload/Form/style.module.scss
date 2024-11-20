@@ -38,10 +38,6 @@
     padding: 8px 10px;
     border-radius: 22px;
     border: 1px solid var(--Gray-1);
-    img {
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
     p {
       font-size: 14px;
       font-weight: 500;
@@ -76,12 +72,6 @@
   }
   .item {
     padding: 12px 20px;
-    img:first-child {
-      width: 46px;
-      height: 46px;
-      flex-shrink: 0;
-      border-radius: 50%;
-    }
     h4 {
       font-size: 16px;
       font-weight: 600;

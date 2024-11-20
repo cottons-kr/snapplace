@@ -8,8 +8,7 @@ import { UploadActionType as ActionType, UploadContext } from '@/lib/contexts/up
 import classNames from 'classnames'
 import { useToggle } from '@/hooks/useToggle'
 import UploadFormAddFriends from './AddFriends'
-import DefaultImage from '@/assets/default.png'
-import Image from 'next/image'
+import ProfileImage from '@/components/ui/Profile/Image'
 
 import s from './style.module.scss'
 
@@ -49,7 +48,10 @@ export default function UploadForm() {
                   align='center' gap={6}
                   style={{ width: 'fit-content' }}
                 >
-                  <Image src={DefaultImage} alt='프사' width={28} height={28} />
+                  <ProfileImage
+                    path={f.avatar}
+                    width={28} height={28}
+                  />
                   <p>{f.nickname}({f.id})</p>
                 </HStack>
               ))

@@ -10,12 +10,12 @@ import { IconName } from '@/components/ui/Icon/shared'
 import { useCallback, useContext } from 'react'
 import { UploadActionType, UploadContext } from '@/lib/contexts/upload'
 import { Account } from '@prisma/client'
-import DefaultImage from '@/assets/default.png'
 import Image from 'next/image'
 import CheckOn from '@/assets/check_on.svg'
 import CheckOff from '@/assets/check_off.svg'
 
 import s from './style.module.scss'
+import ProfileImage from '@/components/ui/Profile/Image'
 
 type UploadFormAddFriendsProps = {
   provider: ToggleProvider
@@ -75,7 +75,10 @@ function Item(props: ItemProps) {
 
   return <>
     <HStack className={s.item} align='center' gap={12} onClick={onClick}>
-      <Image src={DefaultImage} alt='프사' />
+      <ProfileImage
+        path={props.data.avatar}
+        width={40} height={40}
+      />
       <VStack>
         <h4>{props.data.nickname}</h4>
         <p>{props.data.id}</p>

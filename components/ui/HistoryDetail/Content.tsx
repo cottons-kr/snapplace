@@ -2,8 +2,7 @@ import { Account, History, Like } from '@prisma/client'
 import { HStack, VStack } from '@cottons-kr/react-foundation'
 import Icon from '../Icon'
 import { IconName } from '../Icon/shared'
-import DefaultImage from '@/assets/default.png'
-import Image from 'next/image'
+import ProfileImage from '../Profile/Image'
 
 import s from './style.module.scss'
 
@@ -38,7 +37,10 @@ export default function HistoryDetailContent(props: HistoryDetailContentProps) {
             align='center' gap={6}
             style={{ width: 'fit-content' }}
           >
-            <Image src={DefaultImage} alt='프시' width={28} height={28} />
+            <ProfileImage
+              path={f.avatar}
+              width={28} height={28}
+            />
             <p>{f.nickname}({f.id})</p>
           </HStack>
         ))
