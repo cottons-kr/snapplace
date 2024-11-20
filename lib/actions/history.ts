@@ -6,6 +6,24 @@ import { auth } from '../auth'
 import { uploadFile } from '@/utils/minio'
 import { prisma } from '../prisma'
 
+export async function getNearbyHistories(latitude: number, longitude: number) {
+  const histories = await prisma.history.findMany({
+    where: {
+      latitude: { gte: latitude - 0.01, lte: latitude + 0.01 },
+      longitude: { gte: longitude - 0.01, lte: longitude + 0.01 },
+      completed: true,
+    },
+    include: {
+      images: true,
+      likes: true,
+      friends: true,
+      owner: true,
+    },
+  })
+
+  return histories || []
+}
+
 export async function getMyHistories() {
   const session = await auth()
   if (!session || !session.user) {
@@ -22,20 +40,6 @@ export async function getMyHistories() {
       likes: true,
       friends: true
     },
-  })
-
-  return histories || []
-}
-
-export async function getVisibleHistories() {
-  const session = await auth()
-  if (!session || !session.user) {
-    throw new Error('Unauthorized')
-  }
-
-  const histories = await prisma.history.findMany({
-    where: {},
-    include: { images: true },
   })
 
   return histories || []

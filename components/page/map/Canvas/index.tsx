@@ -3,10 +3,10 @@
 import { AdvancedMarker, ColorScheme, Map } from '@vis.gl/react-google-maps'
 import PersonPinCircle from '@/assets/person_pin_circle.svg'
 import Image from 'next/image'
-import { getMyHistories } from '@/lib/actions/history'
+import { getNearbyHistories } from '@/lib/actions/history'
 import MapMarker from '../Marker'
 import { useLocation } from '@/hooks/useLocation'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { getThresholdsByZoomLevel, isWithinThreshold, getAveragePosition } from '@/lib/location'
 import { GroupedHistory } from '../shared'
 
@@ -14,7 +14,7 @@ import s from './style.module.scss'
 import MapGroupMarker from '../Marker/Group'
 
 type MapCanvasProps = {
-  histories: Awaited<ReturnType<typeof getMyHistories>>
+  histories: Awaited<ReturnType<typeof getNearbyHistories>>
 }
 export default function MapCanvas(props: MapCanvasProps) {
   const { latitude, longitude, isReady } = useLocation()
