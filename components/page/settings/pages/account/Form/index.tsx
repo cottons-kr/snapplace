@@ -2,7 +2,7 @@
 
 import { HStack, VStack } from '@cottons-kr/react-foundation'
 import { Session } from 'next-auth'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Prefix, typedName } from '@/utils/validator'
 import { UpdateAccount } from '@/lib/schemas/account/UpdateAccount.dto'
 import { updateAccount } from '@/lib/actions/account'

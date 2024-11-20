@@ -30,7 +30,7 @@ export default function SettingsContainer(props: SettingsContainerProps) {
         </HStack>
       </VStack>
 
-      <Viewport fullHeight>
+      <Viewport fullHeight direction='column'>
         <VStack
           className={s.content} gap={props.gap}
           fullHeight

@@ -12,8 +12,8 @@ export default function WelcomePage() {
         <Image src={WelcomeTitle} alt='스냅플' />
       </VStack>
       <VStack className={s.bottom} align='center' gap={12}>
-        <HStack fullWidth align='center' gap={6}>
-          <p>이미 계정이 있다면면</p>
+        <HStack fullWidth align='center' justify='center' gap={6}>
+          <p>이미 계정이 있다면</p>
           <Link href='/login'>로그인하기</Link>
         </HStack>
       </VStack>
