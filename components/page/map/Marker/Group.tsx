@@ -16,6 +16,7 @@ export type DetailedHistory = History & {
   images: Array<UserAsset>
   likes: Array<Like>
   friends: Array<Account>
+  owner: Account
 }
 
 type MapGroupMarkerProps = {
@@ -73,6 +74,8 @@ export default function MapGroupMarker(props: MapGroupMarkerProps) {
     >
       <motion.div
         className={s.group}
+        variants={variants} transition={transition}
+        initial='hidden' animate='visible' exit='hidden'
         style={{
           backgroundImage: `url(${thumbnail})`
         }}

@@ -46,11 +46,26 @@ export async function getMyHistories() {
     include: {
       images: true,
       likes: true,
-      friends: true
+      friends: true,
+      owner: true,
     },
   })
 
   return histories || []
+}
+
+export async function getHistory(uuid: string) {
+  const history = await prisma.history.findUnique({
+    where: { uuid },
+    include: {
+      images: true,
+      likes: true,
+      friends: true,
+      owner: true,
+    },
+  })
+
+  return history || null
 }
 
 export async function createHistory(formData: FormData) {

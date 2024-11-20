@@ -7,6 +7,8 @@ import HistoryDetailSlide from './Slide'
 import { VStack, Viewport } from '@cottons-kr/react-foundation'
 import HistoryDetailContent from './Content'
 import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
+import { getHistory } from '@/lib/actions/history'
 
 type HistoryDetailProps = {
   history: History & {
@@ -19,6 +21,11 @@ type HistoryDetailProps = {
 }
 export default function HistoryDetail(props: HistoryDetailProps) {
   const { data: session } = useSession()
+  const [data, setData] = useState<HistoryDetailProps['history']>(props.history)
+
+  useEffect(() => {
+    getHistory(props.history.uuid).then(result => setData(result ?? props.history))
+  }, [props.history, props.provider.isOpen])
 
   return session && <>
     <BottomSheet
@@ -30,11 +37,11 @@ export default function HistoryDetail(props: HistoryDetailProps) {
         style={{ height: 'calc(100dvh - 64px - 27px - (24px + var(--min-top)) * 2)' }}
       >
         <HistoryDetailSlide
-          assets={props.history.images}
+          assets={data.images}
         />
         <Viewport direction='column' fullHeight>
           <HistoryDetailContent
-            data={props.history}
+            data={data}
             session={session}
           />
         </Viewport>
