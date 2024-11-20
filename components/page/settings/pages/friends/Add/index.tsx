@@ -4,15 +4,23 @@ import { HStack, VStack } from '@cottons-kr/react-foundation'
 import Icon from '@/components/ui/Icon'
 import { IconName } from '@/components/ui/Icon/shared'
 import { useCallback, useState } from 'react'
+import { sendFriendRequest } from '@/lib/actions/friends'
 
 import s from './style.module.scss'
 
 export default function SettingsFriendsAdd() {
   const [friendId, setFriendId] = useState('')
 
-  const onClickAdd = useCallback(() => {
+  const onClickAdd = useCallback(async () => {
     if (!friendId) return
-    alert(`친구 추가: ${friendId}`)
+    try {
+      await sendFriendRequest(friendId)
+      alert('친구 요청을 보냈습니다.')
+      setFriendId('')
+    } catch (err) {
+      console.error(err)
+      alert('친구 추가에 실패했습니다.')
+    }
   }, [friendId])
 
   return <>

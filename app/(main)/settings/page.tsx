@@ -1,13 +1,12 @@
 import { HStack, VStack } from '@cottons-kr/react-foundation'
 import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
-import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
 import AccountMenu from '@/components/page/settings/Menu'
 import { IconName } from '@/components/ui/Icon/shared'
+import ProfileImage from '@/components/ui/Profile/Image'
 
 import s from './page.module.scss'
-import ProfileImage from '@/components/ui/Profile/Image'
 
 export default async function SettingsPage() {
   const session = await auth()
@@ -25,7 +24,10 @@ export default async function SettingsPage() {
   return <>
     <VStack className={s.page} gap={50}>
       <HStack className={s.profile} align='center' gap={16}>
-        <ProfileImage width={80} height={80} />
+        <ProfileImage
+          path={user.avatar}
+          width={80} height={80}
+        />
         <VStack gap={2}>
           <h1>{user.nickname}</h1>
           <p>{user.id}</p>

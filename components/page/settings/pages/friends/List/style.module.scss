@@ -5,6 +5,12 @@
   letter-spacing: -0.72px;
 }
 
+.empty {
+  font-size: 14px;
+  line-height: 22px; /* 137.5% */
+  color: var(--Gray-5);
+}
+
 .item {
   padding: 12px 0;
   .name {

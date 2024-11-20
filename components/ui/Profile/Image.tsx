@@ -1,17 +1,13 @@
-'use client'
-
 import { Flex } from '@cottons-kr/react-foundation'
-import { useSession } from 'next-auth/react'
 
 import s from './style.module.scss'
 
 type ProfileImageProps = {
   width?: number
   height?: number
+  path?: string
 }
-export default function ProfileImage(props: ProfileImageProps) {
-  const { data: session } = useSession()
-  
+export default function ProfileImage(props: ProfileImageProps) {  
   return <>
     <Flex 
       className={s.avatar}
@@ -20,7 +16,7 @@ export default function ProfileImage(props: ProfileImageProps) {
         height: props.height || 30,
       }}
     >{
-      session?.user.avatar && <img src={session.user.avatar} />
+      props.path && <img src={props.path} alt='프로필 이미지' />
     }</Flex>
   </>
 }

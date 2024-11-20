@@ -7,12 +7,34 @@ model Account {
   email    String @unique
   avatar   String @default("https://minio-mgowcsocwso4g0wo0o0wg0sk.apne2a.algorix.cloud/snapplace/default-avatar.png")
 
-  friends            Account[]   @relation("Friendship")
-  symmetricalFriends Account[]   @relation("Friendship")
-  histories          History[]
-  ownedHistories     History[]   @relation("Owner")
-  likes              Like[]
-  uploads            UserAsset[]
+  friends                Account[]       @relation("Friendship")
+  symmetricalFriends     Account[]       @relation("Friendship")
+  receivedFriendRequests FriendRequest[] @relation("FriendRequestTo")
+  sentFriendRequests     FriendRequest[] @relation("FriendRequestFrom")
+
+  histories      History[]
+  ownedHistories History[]   @relation("Owner")
+  likes          Like[]
+  uploads        UserAsset[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum FriendRequestStatus {
+  READY
+  ACCEPTED
+  REJECTED
+}
+
+model FriendRequest {
+  uuid        String @id @default(uuid())
+  requestFrom String
+  requestTo   String
+
+  from   Account             @relation(name: "FriendRequestFrom", fields: [requestFrom], references: [uuid])
+  to     Account             @relation(name: "FriendRequestTo", fields: [requestTo], references: [uuid])
+  status FriendRequestStatus @default(READY)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

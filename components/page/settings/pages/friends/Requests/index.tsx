@@ -1,38 +1,20 @@
-'use client'
-
-import { HStack, VStack } from '@cottons-kr/react-foundation'
-import ProfileImage from '@/components/ui/Profile/Image'
+import { VStack } from '@cottons-kr/react-foundation'
+import { getFriendRequests } from '@/lib/actions/friends'
+import Item from './Item'
 
 import s from './style.module.scss'
 
-export default function SettingsFriendsRequests() {
+export default async function SettingsFriendsRequests() {
+  const requests = await getFriendRequests()
+
   return <>
     <VStack gap={12}>
       <h2 className={s.title}>친구 요청</h2>
-      <VStack>
-        <Item />
-        <Item />
-      </VStack>
+      <VStack>{
+        requests.length <= 0 ?
+          <p className={s.empty}>친구 요청이 없습니다.</p> :
+          requests.map(request => <Item key={request.uuid} data={request} />)
+      }</VStack>
     </VStack>
-  </>
-}
-
-function Item() {
-  return <>
-    <HStack className={s.item} gap={14}>
-      <ProfileImage width={46} height={46} />
-      <VStack>
-        <h3 className={s.name}>홍길동</h3>
-        <p className={s.id}>asd</p>
-      </VStack>
-      <HStack
-        className={s.buttons}
-        align='center' gap={6}
-        style={{ width: 'fit-content' }}
-      >
-        <button className={s.accept}>수락</button>
-        <button className={s.reject}>거절</button>
-      </HStack>
-    </HStack>
   </>
 }
