@@ -1,31 +1,35 @@
 'use client'
 
 import { ToggleProvider } from '@/hooks/useToggle'
-import { Account, History, Like, UserAsset } from '@prisma/client'
 import BottomSheet from '../BottomSheet'
 import HistoryDetailSlide from './Slide'
 import { VStack, Viewport } from '@cottons-kr/react-foundation'
-import HistoryDetailContent from './Content'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { getHistory } from '@/lib/actions/history'
+import { DetailedHistory } from '@/components/page/map/Marker/Group'
+import HistoryDetailContent from './Content'
+import HistoryDetailSkeleton from './Skeleton'
 
 type HistoryDetailProps = {
-  history: History & {
-    images: Array<UserAsset>
-    likes: Array<Like>
-    friends: Array<Account>
-    owner: Account
-  }
+  uuid: string
   provider: ToggleProvider
 }
 export default function HistoryDetail(props: HistoryDetailProps) {
   const { data: session } = useSession()
-  const [data, setData] = useState<HistoryDetailProps['history']>(props.history)
+  const [data, setData] = useState<DetailedHistory | null>(null)
 
   useEffect(() => {
-    getHistory(props.history.uuid).then(result => setData(result ?? props.history))
-  }, [props.history, props.provider.isOpen])
+    if (props.provider.isOpen) {
+      getHistory(props.uuid)
+        .then(result => {
+          if (result) {
+            setData(result)
+          }
+        })
+        .catch(console.error)
+    }
+  }, [props.uuid, props.provider.isOpen])
 
   return session && <>
     <BottomSheet
@@ -35,17 +39,21 @@ export default function HistoryDetail(props: HistoryDetailProps) {
     >
       <VStack
         style={{ height: 'calc(100dvh - 64px - 27px - (24px + var(--min-top)) * 2)' }}
-      >
-        <HistoryDetailSlide
-          assets={data.images}
-        />
-        <Viewport direction='column' fullHeight>
-          <HistoryDetailContent
-            data={data}
-            session={session}
-          />
-        </Viewport>
-      </VStack>
+      >{
+        data ?
+          <>
+            <HistoryDetailSlide
+              assets={data.images}
+            />
+            <Viewport direction='column' fullHeight>
+              <HistoryDetailContent
+                data={data}
+                session={session}
+              />
+            </Viewport>
+          </> :
+          <HistoryDetailSkeleton />
+      }</VStack>
     </BottomSheet>
   </>
 }

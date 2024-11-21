@@ -92,7 +92,7 @@ export default function MapMarker(props: MapMarkerProps) {
     </AdvancedMarker>
 
     <HistoryDetail
-      history={props.data}
+      uuid={props.data.uuid}
       provider={detailToggle}
     />
   </>

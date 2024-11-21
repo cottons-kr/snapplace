@@ -70,7 +70,7 @@ function Item(props: ItemProps) {
     </VStack>
 
     <HistoryDetail
-      history={props.data}
+      uuid={props.data.uuid}
       provider={detailToggle}
     />
   </>

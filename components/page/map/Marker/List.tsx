@@ -78,8 +78,8 @@ function Item(props: ItemProps) {
     </VStack>
 
     <HistoryDetail
+      uuid={props.data.uuid}
       provider={detailToggle}
-      history={props.data}
     />
   </>
 }
