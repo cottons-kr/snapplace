@@ -47,6 +47,7 @@ export default function Tab(props: TabProps) {
             style={{ width, left }}
           />
         </HStack>
+        
         {props.children}
       </VStack>
     </TabContext.Provider>

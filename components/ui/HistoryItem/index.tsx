@@ -23,13 +23,13 @@ export default function HistoryItem(props: HistoryItemProps) {
 
   const transition: Transition = {
     ease: [0.4, 0, 0.2, 1],
-    duration: 0.3,
-    delay: props.index * 0.03,
+    duration: 0.4,
+    delay: props.index * 0.035 + 0.1,
   }
   const variants: Variants = {
     hidden: {
       opacity: 0,
-      y: 20,
+      y: 30,
     },
     visible: {
       opacity: 1,

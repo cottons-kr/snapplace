@@ -34,7 +34,6 @@ export default async function RootLayout(props: ILayoutProps) {
         <SessionProvider>
           <Viewport
             className={s.viewport}
-            direction='column'
             fullWidth
             style={{ height: '100dvh' }}
           >{props.children}</Viewport>

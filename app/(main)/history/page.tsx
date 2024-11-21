@@ -1,7 +1,7 @@
 'use client'
 
 import LocationHeader from '@/components/ui/Header/Location'
-import { VStack, Viewport, HStack } from '@cottons-kr/react-foundation'
+import { VStack, Viewport, HStack, Spacer } from '@cottons-kr/react-foundation'
 import Tab from '@/components/ui/Tab'
 import { getJoinedHistories, getMyHistories } from '@/lib/actions/history'
 import TabContent from '@/components/ui/Tab/Content'
@@ -26,7 +26,10 @@ export default function HistoryPage() {
         { label: '내 기록', value: 'my' },
         { label: '단체 기록', value: 'group' }
       ]}>
-        <Viewport fullHeight direction='column'>
+        <Viewport
+          direction='column'
+          style={{ height: 'calc(100% - 66px)' }}
+        >
           <TabContent value='my'>
             <HStack wrap gap={15}>{
               myHistories ?
@@ -47,7 +50,7 @@ export default function HistoryPage() {
           </TabContent>
 
           <TabContent value='group'>
-          <HStack wrap gap={15}>{
+            <HStack wrap gap={15}>{
               joinedHistories ?
                 (
                   joinedHistories.length > 0 ?
@@ -64,6 +67,8 @@ export default function HistoryPage() {
                 </>
             }</HStack>
           </TabContent>
+
+          <Spacer height='500px' />
         </Viewport>
       </Tab>
     </VStack>
