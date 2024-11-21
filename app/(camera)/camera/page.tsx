@@ -29,7 +29,7 @@ export default function CameraPage() {
       })
       .catch(error => {
         console.error(error)
-        alert('카메라를 사용할 수 없습니다.')
+        alert(`카메라를 사용할 수 없습니다.\n${error.message || '알 수 없는 오류'}`)
       })
     
       localStorage.removeItem('selected')
