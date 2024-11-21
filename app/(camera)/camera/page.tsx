@@ -21,7 +21,7 @@ export default function CameraPage() {
         facingMode: cameraData.isFrontCamera ? 'user' : 'environment',
         advanced: [{ torch: false }],
       },
-      audio: true,
+      audio: false,
     })
       .then(stream => {
         console.log('Media stream:', stream, cameraData.isFrontCamera)
