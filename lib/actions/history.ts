@@ -56,6 +56,29 @@ export async function getMyHistories() {
   return histories || []
 }
 
+export async function getJoinedHistories() {
+  const session = await auth()
+  if (!session || !session.user) {
+    throw new Error('Unauthorized')
+  }
+
+  const histories = await prisma.history.findMany({
+    where: {
+      friends: { some: { email: session.user.email } },
+      completed: true,
+    },
+    include: {
+      images: true,
+      likes: true,
+      friends: true,
+      owner: true,
+    },
+    orderBy: { createdAt: 'desc' },
+  })
+
+  return histories || []
+}
+
 export async function getHistory(uuid: string) {
   const history = await prisma.history.findUnique({
     where: { uuid },

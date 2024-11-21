@@ -30,7 +30,7 @@ export default function Tab(props: TabProps) {
 
   return <>
     <TabContext.Provider value={{ current, setCurrent }}>
-      <VStack gap={12}>
+      <VStack fullHeight gap={20}>
         <HStack className={s.tab} align='center' justify='around'>
           {
             props.items.map(item => (
@@ -47,7 +47,7 @@ export default function Tab(props: TabProps) {
             style={{ width, left }}
           />
         </HStack>
-
+        {props.children}
       </VStack>
     </TabContext.Provider>
   </>

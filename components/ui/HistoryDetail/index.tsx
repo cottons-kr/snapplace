@@ -31,7 +31,7 @@ export default function HistoryDetail(props: HistoryDetailProps) {
     }
   }, [props.uuid, props.provider.isOpen])
 
-  return session && <>
+  return <>
     <BottomSheet
       darker fullSize noBackground noBlur
       duration={0.42}
@@ -40,7 +40,7 @@ export default function HistoryDetail(props: HistoryDetailProps) {
       <VStack
         style={{ height: 'calc(100dvh - 64px - 27px - (24px + var(--min-top)) * 2)' }}
       >{
-        data ?
+        data && session ?
           <>
             <HistoryDetailSlide
               assets={data.images}

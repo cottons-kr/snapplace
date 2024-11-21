@@ -6,11 +6,13 @@ import { isVideoExtension } from '@/utils/file'
 import { calculateImageFilter } from '@/utils/filter'
 import { VStack } from '@cottons-kr/react-foundation'
 import HistoryDetail from '../HistoryDetail'
+import { Transition, Variants, motion } from 'framer-motion'
 
 import s from './style.module.scss'
 
 type HistoryItemProps = {
   data: DetailedHistory
+  index: number
 }
 export default function HistoryItem(props: HistoryItemProps) {
   const isVideo = isVideoExtension(props.data.images[0].path)
@@ -19,26 +21,46 @@ export default function HistoryItem(props: HistoryItemProps) {
   }
   const detailToggle = useToggle()
 
+  const transition: Transition = {
+    ease: [0.4, 0, 0.2, 1],
+    duration: 0.3,
+    delay: props.index * 0.03,
+  }
+  const variants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+    }
+  }
+
   return <>
-    <VStack
+    <motion.div
       className={s.item}
-      gap={8}
-      style={{ width: 'calc(100% / 3 - 10px)', height: 198 }}
-      onClick={detailToggle.open}
+      transition={transition} variants={variants}
+      initial='hidden' animate='visible'
     >
-      {
-        isVideo ?
-          <video
-            src={props.data.images[0].path} autoPlay playsInline muted loop
-            style={filteredStyle}
-          /> :
-          <img src={props.data.images[0].path} style={filteredStyle} />
-      }
-      <VStack gap={4}>
-        <h4>{props.data.title}</h4>
-        <p>{props.data.createdAt.toLocaleDateString('ko-KR')}</p>
+      <VStack
+        fullHeight gap={8}
+        onClick={detailToggle.open}
+      >
+        {
+          isVideo ?
+            <video
+              src={props.data.images[0].path} autoPlay playsInline muted loop
+              style={filteredStyle}
+            /> :
+            <img src={props.data.images[0].path} style={filteredStyle} />
+        }
+        <VStack gap={4}>
+          <h4>{props.data.title}</h4>
+          <p>{props.data.createdAt.toLocaleDateString('ko-KR')}</p>
+        </VStack>
       </VStack>
-    </VStack>
+    </motion.div>
 
     <HistoryDetail
       uuid={props.data.uuid}

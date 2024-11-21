@@ -19,7 +19,7 @@ export default function HomeList(props: HomeListProps) {
         Array.isArray(props.data) ?
           (
             props.data.length > 0 ?
-              props.data.map(h => <HistoryItem key={h.uuid} data={h} />) :
+              props.data.map((h, i) => <HistoryItem key={h.uuid} index={i} data={h} />) :
               <p className={s.empty}>기록이 없습니다</p>
           ) :
           <>
