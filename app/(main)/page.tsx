@@ -5,11 +5,11 @@ import HomeNewHistory from '@/components/page/home/New'
 import LocationHeader from '@/components/ui/Header/Location'
 import HomeList from '@/components/page/home/List'
 import { useLocation } from '@/hooks/useLocation'
-
-import s from './page.module.scss'
 import { useEffect, useState } from 'react'
 import { getNearbyHistories } from '@/lib/actions/history'
 import { DetailedHistory } from '@/components/page/map/Marker/Group'
+
+import s from './page.module.scss'
 
 export default function IndexPage() {
   const location = useLocation()

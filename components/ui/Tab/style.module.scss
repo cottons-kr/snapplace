@@ -1,0 +1,22 @@
+.tab {
+  position: relative;
+  height: 46px;
+}
+
+.item {
+  color: var(--Gray-3);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s;
+  &.current {
+    color: var(--Gray-1);
+  }
+}
+
+.line {
+  position: absolute;
+  height: 2px;
+  background-color: var(--Gray-3);
+  bottom: 0;
+  transition: width 0.3s, left 0.3s;
+}
