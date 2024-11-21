@@ -28,8 +28,6 @@ export default async function RootLayout(props: ILayoutProps) {
         <meta name='apple-mobile-web-app-capable' content='yes' />
         <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
         <link rel='icon' href='/favicon.ico' />
-        <link ref='preload' as='font' type='font/woff2' crossOrigin='anonymous' href='https://fonts.gstatic.com/s/materialsymbolsoutlined/v213/kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOej.woff2' />
-        <link ref='preload' as='font' type='font/woff2' crossOrigin='anonymous' href='https://fonts.gstatic.com/s/materialsymbolsoutlined/v213/kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzazHD_dY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOej.woff2' />
         <script src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_API_JAVASCRIPT_KEY}&libraries=services,clusterer,drawing`} />
       </head>
       <body>

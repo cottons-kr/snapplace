@@ -2,6 +2,16 @@
 
 import classNames from 'classnames'
 import { IconName } from './shared'
+import localFont from 'next/font/local'
+
+const materialSymbolsOutlined = localFont({
+  src: '../../../public/fonts/material-symbols-outlined.woff2',
+  display: 'swap',
+})
+const materialSymbolsFilled = localFont({
+  src: '../../../public/fonts/material-symbols-filled.woff2',
+  display: 'swap',
+})
 
 type IconProps = {
   icon: IconName
@@ -18,7 +28,7 @@ export default function Icon(props: IconProps) {
         className={classNames(
           props.className,
           'material-symbols-base',
-          props.fill ? 'material-symbols-filled' : 'material-symbols-outlined',
+          props.fill ? materialSymbolsFilled.className : materialSymbolsOutlined.className,
         )}
         style={{
           fontSize: props.size,
