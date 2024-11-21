@@ -27,6 +27,7 @@ export async function getNearbyHistories(latitude: number, longitude: number) {
       friends: true,
       owner: true,
     },
+    orderBy: { createdAt: 'desc' },
   })
 
   return histories || []
@@ -49,6 +50,7 @@ export async function getMyHistories() {
       friends: true,
       owner: true,
     },
+    orderBy: { createdAt: 'desc' },
   })
 
   return histories || []
