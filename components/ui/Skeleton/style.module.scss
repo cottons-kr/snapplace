@@ -1,0 +1,17 @@
+.skeleton {
+  background-color: var(--Gray-7);
+  border-radius: 4px;
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-color: var(--Gray-7);
+  }
+  50% {
+    background-color: var(--Gray-8);
+  }
+  100% {
+    background-color: var(--Gray-7);
+  }
+}

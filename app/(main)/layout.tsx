@@ -11,7 +11,7 @@ export default async function AppLayout(props: ILayoutProps) {
   }
 
   return <>
-    <VStack>
+    <VStack fullHeight>
       <Navigation />
       {props.children}
     </VStack>
